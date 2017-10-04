@@ -1,0 +1,27 @@
+  body {
+      color: black;
+      background: #5B5B5B;
+  }
+
+  .GLOBALdesign {
+      margin-bottom: -2px;
+      padding:20px;
+      padding-top:2px;
+      border-radius: 0px 0px 0px 0px;
+      background: #bbb1a9;
+      
+  }
+  .navbar {
+      margin-bottom: 0;
+      z-index: 9997;
+      border: 0;
+      font-size: 12px !important;
+      line-height: 1.42857143 !important;
+      letter-spacing: 4px;
+      border-radius: 0;
+      font-family: Montserrat, sans-serif;
+  }
+
+.navbar-toggle {
+  z-index: 9998;
+}
