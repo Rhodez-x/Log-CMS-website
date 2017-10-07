@@ -14,11 +14,11 @@ $datomedtid = date('Y-m-d H:i:s');
 $datoudentid = date('Y-m-d');
 $minusentime = strtotime("-1 Hour");
 $numinusentime = date('Y-m-d H:i:s', $minusentime);
-$global_contact_email = "Mysampel@guld-berg.dk";
+$global_contact_email = "sampel@guld-berg.dk";
 $global_firm_name = "SampelFirm";
 $activate_master_control = true;
 //siden titel
-$sidenstitel = "SiteName - " . $sidenavn;
+$sidenstitel = "SiteNameSampel - " . $sidenavn;
 
 //language is set and loaded
 if (!$_SESSION['session_language']) {       // if language is not set yet, the deafult language danish is chosen.
