@@ -17,7 +17,7 @@ if (!$_SESSION['session_language']) {
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $get_page_name = htmlspecialchars($_GET["id"]);
     try {
-        include($_SERVER['DOCUMENT_ROOT']."/REPLACE_ME_PATH/571204m/m530199c.php");
+        include($_SERVER['DOCUMENT_ROOT']."/571204m/m530199c.php");
         $stmt = $conn->prepare("SELECT * FROM ReplaceDBtext WHERE page_name = ? AND language = ? AND required = 0");
         $stmt->execute(array($get_page_name, $_SESSION['session_language']));
         if ($stmt->rowCount() == 1) {
@@ -28,12 +28,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         }
         else {
             $date_from_db_page_text = "Page not found";
-            header('Location: /REPLACE_ME_PATH/index');
+            header('Location: /');
         }
     }
     catch(PDOException $e) {
         $date_from_db_page_text = "Error";
-        header('Location: /REPLACE_ME_PATH/index');
+        header('Location: /');
     }
     $stmt = null;
     $conn = null;
@@ -44,5 +44,5 @@ $overmodul = "/overmodul.php"; // Dette er overmodulet, det jeg kalder for behan
 $indhold = "/indhold.php"; // Her er filnavnet på indholdet af den pågældene side. 
 //$sidenspecialescript = "/forsidescript.php";
 // Her hentes skarbelonen til hele siden, og siden bliver printet til skærmen. 
-require_once $_SERVER['DOCUMENT_ROOT']. "/REPLACE_ME_PATH/570304x/skabelon.php"; //
+require_once $_SERVER['DOCUMENT_ROOT']. "/570304x/skabelon.php"; //
 ?>

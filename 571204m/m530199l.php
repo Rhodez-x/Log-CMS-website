@@ -2,7 +2,7 @@
 /* Copy-right Jørn Guldberg
 Dette er filen der tjekker login
 */
-include $_SERVER['DOCUMENT_ROOT']."/REPLACE_ME_PATH/570304x/x530199.php";
+include $_SERVER['DOCUMENT_ROOT']."/570304x/x530199.php";
 
 // Her laves deb variabel der sendes tilbage. Enten med sucses eller med en fejl medelelse
 $dataDerSendesTilbage = "";
@@ -18,7 +18,7 @@ if (!empty($tjekBrugernavn) && !empty($tjekPassword)) {
     $tjekPassword = password_crypt($tjekPassword, $tjekBrugernavn);
     // Her tjekkes det om oplysningerne findes i systemet.
     try {
-        include($_SERVER['DOCUMENT_ROOT']."/REPLACE_ME_PATH/571204m/m530199c.php");
+        include($_SERVER['DOCUMENT_ROOT']."/571204m/m530199c.php");
         $stmt = $conn->prepare("SELECT * FROM ReplaceDBusers WHERE username_clean = ? AND password = ? ");
         $stmt->execute(array($tjekBrugernavn, $tjekPassword));
                 // set the resulting array to associative

@@ -29,7 +29,7 @@ if (!$_SESSION['session_language']) {       // if language is not set yet, the d
 if (isset($_GET["lang"])) {
     $_SESSION['session_language'] = "";
     try {
-        include($_SERVER['DOCUMENT_ROOT']."/REPLACE_ME_PATH/571204m/m530199c.php");
+        include($_SERVER['DOCUMENT_ROOT']."/571204m/m530199c.php");
         $stmt = $conn->prepare("SELECT code FROM ReplaceDBcountry WHERE code = ? AND active = 1 ");
         $stmt->execute(array(rensteksten($_GET["lang"])));
                 // set the resulting array to associative
@@ -44,17 +44,17 @@ if (isset($_GET["lang"])) {
         }
     }
     catch(PDOException $e) {
-            header('Location: /REPLACE_ME_PATH/index');
+            header('Location: /index');
     }
     $stmt = null;
     $conn = null;
 }
 
 if ($_SESSION['session_language'] == "DK") {
-    require_once $_SERVER['DOCUMENT_ROOT']."/REPLACE_ME_PATH/570304x/lang/DK.php";
+    require_once $_SERVER['DOCUMENT_ROOT']."/570304x/lang/DK.php";
 }
 else {
-    require_once $_SERVER['DOCUMENT_ROOT']."/REPLACE_ME_PATH/570304x/lang/GB.php";
+    require_once $_SERVER['DOCUMENT_ROOT']."/570304x/lang/GB.php";
 }
 
 // Her laves en funktion der renser teksten. 
@@ -109,7 +109,7 @@ if (isset($_SESSION['login_user'])) {
     $login_tjek = tjek_brugernavn($_SESSION['login_user']);
     // Hvis der findes en bruger i systemet med login navnet findes de forskellige oplysninger om brugeren.
     try {
-        include($_SERVER['DOCUMENT_ROOT']."/REPLACE_ME_PATH/571204m/m530199c.php");
+        include($_SERVER['DOCUMENT_ROOT']."/571204m/m530199c.php");
         $stmt = $conn->prepare('SELECT * FROM ReplaceDBusers WHERE username_clean = ? ');
         $stmt->execute(array($login_tjek));
                 // set the resulting array to associative
@@ -123,19 +123,19 @@ if (isset($_SESSION['login_user'])) {
             }
         }
         else {
-            header('Location: /REPLACE_ME_PATH/logout');
+            header('Location: /logout');
         }
     }
     catch(PDOException $e) {
-            header('Location: /REPLACE_ME_PATH/error');
+            header('Location: /error');
     }
     $stmt = null;
     $conn = null;   
 }
 if ($loginsidelevel != 0 && !isset($_SESSION['login_user'])) {
-    header('Location: /REPLACE_ME_PATH/');
+    header('Location: /');
 }
 else if ($loginsidelevel > 1 && isset($_SESSION['login_user']) && $login_level < 49) {
-    header('Location: /REPLACE_ME_PATH/');
+    header('Location: /');
 }
 ?>

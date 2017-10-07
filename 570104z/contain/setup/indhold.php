@@ -18,7 +18,7 @@
             try {
                 $page_edit_text = '';
                 $edit_page_navi_order_temp = "1";
-                include($_SERVER['DOCUMENT_ROOT']."/REPLACE_ME_PATH/571204m/m530199c.php");
+                include($_SERVER['DOCUMENT_ROOT']."/571204m/m530199c.php");
                 $stmt = $conn->prepare("SELECT * FROM ReplaceDBnavi ORDER BY navi_order, language;");
                 $stmt->execute();
                 if ($stmt->rowCount() > 0) {
@@ -39,7 +39,7 @@
                             $edit_page_required_disable = 'disabled';
                         }
                         
-                        $page_edit_text = $page_edit_text . '<form class="form-inline" onsubmit="return confirmDelete()" action="/REPLACE_ME_PATH/570104z/contain/setup/page_handler" method="post">
+                        $page_edit_text = $page_edit_text . '<form class="form-inline" onsubmit="return confirmDelete()" action="/570104z/contain/setup/page_handler" method="post">
                         <div class="form-group">
                         <label for="page_name">'.$edit_page_lang.'</label>
                             <input type="text" class="form-control" name="page_name" id="page_name" value="'.$edit_page_name.'">
@@ -71,7 +71,7 @@
             $stmt = null;
             $conn = null;
             
-            echo $page_edit_text . '<br><form class="form-inline" action="/REPLACE_ME_PATH/570104z/contain/setup/page_handler" method="post">
+            echo $page_edit_text . '<br><form class="form-inline" action="/570104z/contain/setup/page_handler" method="post">
                         <div class="form-group">
                         <label for="max_weight">Dansk titel </label>
                             <input type="text" class="form-control" name="page_name_dk" id="page_name" value="">

@@ -7,5 +7,5 @@ $overmodul = "/overmodul.php"; // Dette er overmodulet, det jeg kalder for behan
 $indhold = "/indhold.php"; // Her er filnavnet på indholdet af den pågældene side. 
 $sidenspecialescript = "/script.php";
 // Her hentes skarbelonen til hele siden, og siden bliver printet til skærmen. 
-require_once $_SERVER['DOCUMENT_ROOT']. "/REPLACE_ME_PATH/570304x/skabelon.php"; //
+require_once $_SERVER['DOCUMENT_ROOT']. "/570304x/skabelon.php"; //
 ?>

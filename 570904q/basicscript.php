@@ -12,7 +12,7 @@ $(document).ready(function(){
         var brugernavn = document.getElementById("brugernavn").value;
         var password = document.getElementById("password").value;
         var feedback = "";
-        $.post("/REPLACE_ME_PATH/571204m/m530199l",
+        $.post("/571204m/m530199l",
             {
             sendtBrugernavn: brugernavn,
             sendtPassword: password,
@@ -20,7 +20,7 @@ $(document).ready(function(){
             function(data,status){
             feedback = data;
             if (feedback == "succes") {
-                document.location.href="/REPLACE_ME_PATH/";
+                document.location.href="/";
             }
             else if (feedback == "forkert") {
                 $("#loginfeedback").html("<strong>Brugernavn og password passer ikke!</strong>");

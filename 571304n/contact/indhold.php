@@ -4,7 +4,7 @@
                 <?php
                 echo $_SESSION["contact_send"];
                 unset($_SESSION["contact_send"]);
-                    include($_SERVER['DOCUMENT_ROOT']."/REPLACE_ME_PATH/571204m/m530199c.php");
+                    include($_SERVER['DOCUMENT_ROOT']."/571204m/m530199c.php");
                     $stmt = $conn->prepare("SELECT text FROM ReplaceDBtext WHERE page_name = 'contact' AND language = ?;");
                     $stmt->execute(array($_SESSION['session_language']));
                             // set the resulting array to associative
@@ -15,7 +15,7 @@
                         }
                     } 
                 ?>
-  <form action="/REPLACE_ME_PATH/571304n/contact/process" id="contactForm" onsubmit="return validateContactForm()" method="post">
+  <form action="/571304n/contact/process" id="contactForm" onsubmit="return validateContactForm()" method="post">
 <div class="form-group">
   	<label for="mail"><?php echo $lang_data_mail . ":" ?></label>
   	<input type="text" class="form-control" name="mail" id="mail" value="<?php echo $_SESSION["contact_mail"]; unset($_SESSION["contact_mail"]); ?>">

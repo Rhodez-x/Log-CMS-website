@@ -5,7 +5,7 @@ Copy-right Jørn Guldberg
 */
 function loggetind($login_level) {
     if ($login_level > 49) {
-        $admin_menu = '<li><a href="/REPLACE_ME_PATH/570104z/index">Kontrolpanel</a></li>';
+        $admin_menu = '<li><a href="/570104z/index">Kontrolpanel</a></li>';
     }
     $navnbar = '
           <li class="dropdown">
@@ -14,7 +14,7 @@ function loggetind($login_level) {
         <ul class="dropdown-menu" style="background-color:black;">
         <li style="color: white;"></li>
           '.$admin_menu.'
-        <li><a href="/REPLACE_ME_PATH/logout">Log ud</a></li>
+        <li><a href="/logout">Log ud</a></li>
         </ul>
       </li>';
     return $navnbar;
@@ -78,19 +78,19 @@ Add flags to nav bar to select lang
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/REPLACE_ME_PATH/index"><?php echo $global_firm_name; ?></a>
+            <a class="navbar-brand" href="/index"><?php echo $global_firm_name; ?></a>
         </div>
         
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav navbar-right small">
                     <?php
                         try {
-                            include($_SERVER['DOCUMENT_ROOT']."/REPLACE_ME_PATH/571204m/m530199c.php");
+                            include($_SERVER['DOCUMENT_ROOT']."/571204m/m530199c.php");
                             $stmt = $conn->prepare("SELECT * FROM ReplaceDBnavi WHERE Language = ? ORDER BY navi_order;");
                             $stmt->execute(array($_SESSION['session_language']));
                             if ($stmt->rowCount() > 0) {
                                 foreach($stmt->fetchAll() as $row) {
-                                    echo '<li><a href="/REPLACE_ME_PATH/'.$row['link'].'">'.$row['name'].'</a></li>';
+                                    echo '<li><a href="/'.$row['link'].'">'.$row['name'].'</a></li>';
                                 }
                             }
                         }

@@ -1,5 +1,5 @@
 <?php
-include $_SERVER['DOCUMENT_ROOT']."/REPLACE_ME_PATH/570304x/x530199.php";
+include $_SERVER['DOCUMENT_ROOT']."/570304x/x530199.php";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (strtotime("+ 1 sec") > $_SESSION["contact_send-time"]) {
         $ok = true;
@@ -84,9 +84,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
         </div>';
     }
-    header("location: /REPLACE_ME_PATH/kontakt");
+    header("location: /kontakt");
 } 
 else {
-    header("location: /REPLACE_ME_PATH/index");
+    header("location: /index");
 }
 ?>

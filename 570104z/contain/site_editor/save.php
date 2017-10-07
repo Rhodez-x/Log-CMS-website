@@ -1,12 +1,12 @@
 <?php
 $loginsidelevel = 2;
-require_once $_SERVER['DOCUMENT_ROOT']."/REPLACE_ME_PATH/570304x/x530199.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/570304x/x530199.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     $edited_text = $_POST["editor1"];
         try {
-        include($_SERVER['DOCUMENT_ROOT']."/REPLACE_ME_PATH/571204m/m530199c.php");
+        include($_SERVER['DOCUMENT_ROOT']."/571204m/m530199c.php");
         $stmt = $conn->prepare("UPDATE ReplaceDBtext SET text = ? WHERE page_name = ? AND language = ?");
             $stmt->execute(array($edited_text, $_SESSION['page_name_text_edit'], $_SESSION['page_name_lang']));
             $stmt = null;
@@ -29,5 +29,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>';
         }
     }
-header("location: /REPLACE_ME_PATH/570104z/site_editor");
+header("location: /570104z/site_editor");
 ?>

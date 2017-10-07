@@ -1,8 +1,8 @@
 <?php 
 // copyright Jørn Guldberg - guld-berg.dk
 
-require_once $_SERVER['DOCUMENT_ROOT']."/REPLACE_ME_PATH/570304x/x530199.php"; // kernefilen
-include $_SERVER['DOCUMENT_ROOT']."/REPLACE_ME_PATH/".$sidenssti.$overmodul;
+require_once $_SERVER['DOCUMENT_ROOT']."/570304x/x530199.php"; // kernefilen
+include $_SERVER['DOCUMENT_ROOT']."/".$sidenssti.$overmodul;
 // Her tjekkes der om der skal laves  login felter, eller om brugeren er logget ind.
 if(isset($_SESSION['login_user'])) {
     $loginFelt = '<form class="navbar-form navbar-right">
@@ -10,8 +10,8 @@ if(isset($_SESSION['login_user'])) {
             <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">Min Menu<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="/REPLACE_ME_PATH/570104z/index">Kontrolpanel</a></li>
-            <li><a href="/REPLACE_ME_PATH/logud.php">Log ud</a></li>
+            <li><a href="/570104z/index">Kontrolpanel</a></li>
+            <li><a href="/logud.php">Log ud</a></li>
           </ul>
         </li></form>';
     }
@@ -56,9 +56,9 @@ else {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="/REPLACE_ME_PATH/570404v/style.css">
+<link rel="stylesheet" href="/570404v/style.css">
 </head>
 <body>
       <?php 
-  require_once $_SERVER['DOCUMENT_ROOT']."/REPLACE_ME_PATH/570904q/basicscript.php";
+  require_once $_SERVER['DOCUMENT_ROOT']."/570904q/basicscript.php";
   ?>
