@@ -78,7 +78,7 @@ Add flags to nav bar to select lang
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/REPLACE_ME_PATH/index">vinylmusix.com</a>
+            <a class="navbar-brand" href="/REPLACE_ME_PATH/index"><?php echo $global_firm_name; ?></a>
         </div>
         
         <div class="collapse navbar-collapse" id="myNavbar">
@@ -90,7 +90,7 @@ Add flags to nav bar to select lang
                             $stmt->execute(array($_SESSION['session_language']));
                             if ($stmt->rowCount() > 0) {
                                 foreach($stmt->fetchAll() as $row) {
-                                    echo '<li><a href="/ReplaceDB/'.$row['link'].'">'.$row['name'].'</a></li>';
+                                    echo '<li><a href="/REPLACE_ME_PATH/'.$row['link'].'">'.$row['name'].'</a></li>';
                                 }
                             }
                         }
@@ -114,22 +114,6 @@ Add flags to nav bar to select lang
                     $_SESSION["loggetud"] = 0;
                     }
                     ?>
-                <li>
-                    <a href="/kurv" id="cart" style="margin-right:30px;" >
-                            <?php
-                            echo '<span class="glyphicon glyphicon-shopping-cart" style="font-size:20px;">';
-                            $session_cart_count = count( $_SESSION['session_carts']);
-                            if ($session_cart_count != 0) {
-                            echo '<span style="font-size:16px;">'.$session_cart_count.'</span>';
-                            }
-                            else {
-                                echo '<span>&nbsp;</span>';
-                            }
-                            echo '</span>';
-                            ?>
-                        
-                    </a>
-                </li>
                 
             </ul>
         </div>

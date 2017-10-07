@@ -4,11 +4,12 @@
   }
 
   .GLOBALdesign {
-      margin-bottom: -2px;
-      padding:20px;
-      padding-top:2px;
-      border-radius: 0px 0px 0px 0px;
-      background: #bbb1a9;
+    margin-top: 60px;
+    margin-bottom: -2px;
+    padding:20px;
+    padding-top:2px;
+    border-radius: 0px 0px 0px 0px;
+    background: #bbb1a9;
       
   }
   .navbar {

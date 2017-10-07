@@ -20,7 +20,7 @@ $(document).ready(function(){
             function(data,status){
             feedback = data;
             if (feedback == "succes") {
-                document.location.href="/REPLACE_ME_PATH/index";
+                document.location.href="/REPLACE_ME_PATH/";
             }
             else if (feedback == "forkert") {
                 $("#loginfeedback").html("<strong>Brugernavn og password passer ikke!</strong>");
@@ -35,4 +35,7 @@ $(document).ready(function(){
         
     });
 });
+<?php
+    }
+?>
 </script>

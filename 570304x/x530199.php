@@ -4,6 +4,7 @@ Copy-right Jørn Guldberg
 This is version 3.0 opdateret d. 04-10-2017
 Core CMS now added to github
 */
+
 if (!$session_is_started) {
     session_start();
 }
@@ -108,8 +109,8 @@ if (isset($_SESSION['login_user'])) {
     $login_tjek = tjek_brugernavn($_SESSION['login_user']);
     // Hvis der findes en bruger i systemet med login navnet findes de forskellige oplysninger om brugeren.
     try {
-        include($_SERVER['DOCUMENT_ROOT']."/571204m/m530199c.php");
-        $stmt = $conn->prepare("SELECT * FROM ReplaceDBusers WHERE username_clean = ? ");
+        include($_SERVER['DOCUMENT_ROOT']."/REPLACE_ME_PATH/571204m/m530199c.php");
+        $stmt = $conn->prepare('SELECT * FROM ReplaceDBusers WHERE username_clean = ? ');
         $stmt->execute(array($login_tjek));
                 // set the resulting array to associative
         if ($stmt->rowCount() == 1) {
@@ -129,13 +130,12 @@ if (isset($_SESSION['login_user'])) {
             header('Location: /REPLACE_ME_PATH/error');
     }
     $stmt = null;
-    $conn = null;
+    $conn = null;   
 }
 if ($loginsidelevel != 0 && !isset($_SESSION['login_user'])) {
-    header('Location: /REPLACE_ME_PATH/index');
+    header('Location: /REPLACE_ME_PATH/');
 }
 else if ($loginsidelevel > 1 && isset($_SESSION['login_user']) && $login_level < 49) {
-    header('Location: /REPLACE_ME_PATH/index');
+    header('Location: /REPLACE_ME_PATH/');
 }
-
 ?>

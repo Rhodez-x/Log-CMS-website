@@ -39,7 +39,7 @@
                             $edit_page_required_disable = 'disabled';
                         }
                         
-                        $page_edit_text = $page_edit_text . '<form class="form-inline" onsubmit="return confirmDelete()" action="REPLACE_ME_PATH/570104z/contain/setup/page_handler" method="post">
+                        $page_edit_text = $page_edit_text . '<form class="form-inline" onsubmit="return confirmDelete()" action="/REPLACE_ME_PATH/570104z/contain/setup/page_handler" method="post">
                         <div class="form-group">
                         <label for="page_name">'.$edit_page_lang.'</label>
                             <input type="text" class="form-control" name="page_name" id="page_name" value="'.$edit_page_name.'">
@@ -71,7 +71,7 @@
             $stmt = null;
             $conn = null;
             
-            echo $page_edit_text . '<br><form class="form-inline" action="REPLACE_ME_PATH/570104z/contain/setup/page_handler" method="post">
+            echo $page_edit_text . '<br><form class="form-inline" action="/REPLACE_ME_PATH/570104z/contain/setup/page_handler" method="post">
                         <div class="form-group">
                         <label for="max_weight">Dansk titel </label>
                             <input type="text" class="form-control" name="page_name_dk" id="page_name" value="">
