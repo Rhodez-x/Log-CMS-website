@@ -14,7 +14,7 @@ $datomedtid = date('Y-m-d H:i:s');
 $datoudentid = date('Y-m-d');
 $minusentime = strtotime("-1 Hour");
 $numinusentime = date('Y-m-d H:i:s', $minusentime);
-$global_contact_email = "sampel@guld-berg.dk";
+$global_contact_email = "Mysampel@guld-berg.dk";
 $global_firm_name = "SampelFirm";
 $activate_master_control = true;
 //siden titel
