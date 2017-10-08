@@ -14,8 +14,8 @@ $datomedtid = date('Y-m-d H:i:s');
 $datoudentid = date('Y-m-d');
 $minusentime = strtotime("-1 Hour");
 $numinusentime = date('Y-m-d H:i:s', $minusentime);
-$global_contact_email = "sampel@guld-berg.dk";
-$global_firm_name = "SampelFirm";
+$global_contact_email = "new@guld-berg.dk";
+$global_firm_name = "newSampelFirm";
 $activate_master_control = true;
 //siden titel
 $sidenstitel = "SiteNameSampel - " . $sidenavn;
@@ -57,6 +57,10 @@ else {
     require_once $_SERVER['DOCUMENT_ROOT']."/570304x/lang/GB.php";
 }
 
+function thisIsAnewfunc($arg) {
+    $reallynicecode = $arg + 5;
+    return $reallynicecode;
+}
 // Her laves en funktion der renser teksten. 
 function rensteksten($data) {
    $data = trim($data);
