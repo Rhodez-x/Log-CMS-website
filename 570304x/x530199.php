@@ -57,10 +57,6 @@ else {
     require_once $_SERVER['DOCUMENT_ROOT']."/570304x/lang/GB.php";
 }
 
-function thisIsAnewfunc($arg) {
-    $reallynicecode = $arg + 5;
-    return $reallynicecode;
-}
 // Her laves en funktion der renser teksten. 
 function rensteksten($data) {
    $data = trim($data);
@@ -68,20 +64,6 @@ function rensteksten($data) {
    $data = htmlspecialchars($data);
    $data = addslashes($data);
    return $data;
-}
-// Denne funktion bliver brugt når jeg trækker data ud af mysql hvor den senere skal sættes ind igen. 
-function renstekstenud($data) {
-   $data = trim($data);
-   $data = stripslashes($data);
-   $data = addslashes($data);
-   return $data;
-}
-
-function clean_values($input_value) {
-    $not_legal_char = array("<", ">", "\\");
-    $feedback = str_replace($not_legal_char, "", $input_value);
-    $feedback = addslashes($feedback);
-    return $feedback;
 }
 
 function tjek_brugernavn($tjekBrugernavn) {
