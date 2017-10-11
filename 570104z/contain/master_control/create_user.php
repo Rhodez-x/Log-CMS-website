@@ -3,12 +3,12 @@ $loginsidelevel = 2;
 require_once $_SERVER['DOCUMENT_ROOT']."/570304x/x530199.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $POST_username = rensteksten($_POST["username"]);
-    $POST_password = rensteksten($_POST["password"]);
+    $POST_username = clean_input_text($_POST["username"]);
+    $POST_password = clean_input_text($_POST["password"]);
     
     if (!empty($POST_username) && !empty($POST_password)) {
     
-    $POST_username_clean = tjek_brugernavn($POST_username);
+    $POST_username_clean = username_check($POST_username);
     $POST_password = password_crypt($POST_password, $POST_username_clean);
     
     try {

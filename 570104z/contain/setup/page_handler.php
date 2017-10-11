@@ -3,14 +3,14 @@ $loginsidelevel = 2;
 require_once $_SERVER['DOCUMENT_ROOT']."/570304x/x530199.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $post_id = rensteksten($_POST["id"]);
-    $post_page_name = rensteksten($_POST["page_name"]);
-    $post_page_name_dk = rensteksten($_POST["page_name_dk"]);
-    $post_page_name_en = rensteksten($_POST["page_name_en"]);    
-    $post_handel = rensteksten($_POST["handel"]); // The value of the button preesed
-    $post_navi_order = rensteksten($_POST["navi_order"]);
-    $post_link = rensteksten($_POST["link"]);
-    $post_add = rensteksten($_POST["add"]);
+    $post_id = clean_input_text($_POST["id"]);
+    $post_page_name = clean_input_text($_POST["page_name"]);
+    $post_page_name_dk = clean_input_text($_POST["page_name_dk"]);
+    $post_page_name_en = clean_input_text($_POST["page_name_en"]);    
+    $post_handel = clean_input_text($_POST["handel"]); // The value of the button preesed
+    $post_navi_order = clean_input_text($_POST["navi_order"]);
+    $post_link = clean_input_text($_POST["link"]);
+    $post_add = clean_input_text($_POST["add"]);
     
     try {
         if ($post_add == '1') {

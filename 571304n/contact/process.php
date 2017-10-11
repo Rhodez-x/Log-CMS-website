@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['contact_mail_Err'] = "<b>$lang_data_must_be_filled</b>";
         }
         else {
-            $_SESSION['contact_mail'] = $data_customer_email = rensteksten($_POST["mail"]);
+            $_SESSION['contact_mail'] = $data_customer_email = clean_input_text($_POST["mail"]);
             if (strlen($data_customer_email)<64){
                 // check if e-mail address is well-formed
                 if (!filter_var($data_customer_email, FILTER_VALIDATE_EMAIL)) {
@@ -23,19 +23,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['contact_mail_Err'] = "<b>$lang_data_input_to_long 64 </b>";
             }
        }
-        if (empty(rensteksten($_POST["name"]))) {
+        if (empty(clean_input_text($_POST["name"]))) {
                 $_SESSION["contact_name_Err"] = "<b>$lang_data_must_be_filled</b>";
                 $ok = false;
             } 
             else {
-                $contact_name = $_SESSION["contact_name"] = rensteksten($_POST["name"]);
+                $contact_name = $_SESSION["contact_name"] = clean_input_text($_POST["name"]);
            }
-        if (empty(rensteksten($_POST["comment"]))) {
+        if (empty(clean_input_text($_POST["comment"]))) {
                 $_SESSION["contact_comment_Err"] = "<b>$lang_data_must_be_filled</b>";
                 $ok = false;
             } 
             else {
-                $contact_comment = $_SESSION["contact_comment"] = rensteksten($_POST["comment"]);
+                $contact_comment = $_SESSION["contact_comment"] = clean_input_text($_POST["comment"]);
            }
         if($ok) {
             //Email is sent to info@vinylmusix.com
@@ -76,9 +76,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
     else {
-        $_SESSION["contact_mail"] = rensteksten($_POST["mail"]);
-        $_SESSION["contact_name"] = rensteksten($_POST["name"]);
-        $_SESSION["contact_comment"] = rensteksten($_POST["comment"]);
+        $_SESSION["contact_mail"] = clean_input_text($_POST["mail"]);
+        $_SESSION["contact_name"] = clean_input_text($_POST["name"]);
+        $_SESSION["contact_comment"] = clean_input_text($_POST["comment"]);
         $_SESSION["contact_send"] = '<div class="row">
         <div class="col-sm-12 alert alert-danger">'.$lang_data_msg_not_sent.'
         </div>

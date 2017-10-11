@@ -8,13 +8,13 @@ include $_SERVER['DOCUMENT_ROOT']."/570304x/x530199.php";
 $dataDerSendesTilbage = "";
 
 // Her modtages brugernavn og adgangskode.
-$tjekBrugernavn = rensteksten($_POST["sendtBrugernavn"]);
-$tjekPassword = rensteksten($_POST["sendtPassword"]);
+$tjekBrugernavn = clean_input_text($_POST["sendtBrugernavn"]);
+$tjekPassword = clean_input_text($_POST["sendtPassword"]);
 
 // Her tjekkes det om der er skrevet noget i brugernavnet og passwordet
 if (!empty($tjekBrugernavn) && !empty($tjekPassword)) {
     // Hvis der findes en bruger i systemet med login navnet findes de forskellige oplysninger om brugeren.
-    $tjekBrugernavn = tjek_brugernavn($tjekBrugernavn);
+    $tjekBrugernavn = username_check($tjekBrugernavn);
     $tjekPassword = password_crypt($tjekPassword, $tjekBrugernavn);
     // Her tjekkes det om oplysningerne findes i systemet.
     try {
