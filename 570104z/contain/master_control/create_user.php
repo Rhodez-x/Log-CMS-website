@@ -1,6 +1,6 @@
 <?php
 $loginsidelevel = 2; 
-require_once $_SERVER['DOCUMENT_ROOT']."REPLACE_ME_PATH/570304x/x530199.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/570304x/x530199.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $POST_username = rensteksten($_POST["username"]);
@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $POST_password = password_crypt($POST_password, $POST_username_clean);
     
     try {
-    include($_SERVER['DOCUMENT_ROOT']."REPLACE_ME_PATH/571204m/m530199c.php");
+    include($_SERVER['DOCUMENT_ROOT']."/571204m/m530199c.php");
     $stmt = $conn->prepare("INSERT INTO ReplaceDBusers (username, username_clean, loginlevel, password)
                             VALUES(?, ?, 50, ?);");
     $stmt->execute(array($POST_username, $POST_username_clean, $POST_password));
@@ -42,8 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="col-sm-4"></div>
             </div>';        
     }
-    header('Location: REPLACE_ME_PATH/570104z/master_control');
+    header('Location: /570104z/master_control');
 } else {
-    header('Location: REPLACE_ME_PATH/index');
+    header('Location: /');
 }
 ?>
