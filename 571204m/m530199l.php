@@ -18,7 +18,7 @@ if (!empty($tjekBrugernavn) && !empty($tjekPassword)) {
     $tjekPassword = password_crypt($tjekPassword, $tjekBrugernavn);
     // Her tjekkes det om oplysningerne findes i systemet.
     try {
-        include($_SERVER['DOCUMENT_ROOT']."/571204m/m530199c.php");
+        $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
         $stmt = $conn->prepare("SELECT * FROM ReplaceDBusers WHERE username_clean = ? AND password = ? ");
         $stmt->execute(array($tjekBrugernavn, $tjekPassword));
                 // set the resulting array to associative

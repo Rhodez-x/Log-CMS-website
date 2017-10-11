@@ -14,31 +14,7 @@ if (!$_SESSION['session_language']) {
     $_SESSION['session_language'] = "DK";
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    $get_page_name = htmlspecialchars($_GET["id"]);
-    try {
-        include($_SERVER['DOCUMENT_ROOT']."/571204m/m530199c.php");
-        $stmt = $conn->prepare("SELECT * FROM ReplaceDBtext WHERE page_name = ? AND language = ? AND required = 0");
-        $stmt->execute(array($get_page_name, $_SESSION['session_language']));
-        if ($stmt->rowCount() == 1) {
-            foreach($stmt->fetchAll() as $row) {
-                $date_from_db_page_name = $row['page_name'];
-                $date_from_db_page_text = $row['text'];
-            }
-        }
-        else {
-            $date_from_db_page_text = "Page not found";
-            header('Location: /');
-        }
-    }
-    catch(PDOException $e) {
-        $date_from_db_page_text = "Error";
-        header('Location: /');
-    }
-    $stmt = null;
-    $conn = null;
-}
-$sidenavn = $date_from_db_page_name; // Sidens navn, dette navn afgører hvilken fane i menuen der er aktiv. (Skal være identisk med det i Mysql)
+$web_page_name = $date_from_db_page_name; // Sidens navn, dette navn afgører hvilken fane i menuen der er aktiv. (Skal være identisk med det i Mysql)
 $sidenssti = "571304n/page"; // Dette er stien til hvor filerne ligger
 $overmodul = "/overmodul.php"; // Dette er overmodulet, det jeg kalder for behandlingsfiler
 $indhold = "/indhold.php"; // Her er filnavnet på indholdet af den pågældene side. 

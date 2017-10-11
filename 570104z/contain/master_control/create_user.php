@@ -1,5 +1,5 @@
 <?php
-$loginsidelevel = 2; 
+$loginsidelevel = 5; 
 require_once $_SERVER['DOCUMENT_ROOT']."/570304x/x530199.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $POST_password = password_crypt($POST_password, $POST_username_clean);
     
     try {
-    include($_SERVER['DOCUMENT_ROOT']."/571204m/m530199c.php");
+    $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
     $stmt = $conn->prepare("INSERT INTO ReplaceDBusers (username, username_clean, loginlevel, password)
                             VALUES(?, ?, 50, ?);");
     $stmt->execute(array($POST_username, $POST_username_clean, $POST_password));

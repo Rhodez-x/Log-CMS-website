@@ -34,7 +34,7 @@ else {
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title><?php echo $sidenstitel;?></title>
+<title><?php echo $web_page_title;?></title>
 <meta name="description" content="sample"/>
 <meta name="robots" content="noodp"/>
 <link rel="canonical" href="https://www.guld-berg.dk" />

@@ -1,5 +1,5 @@
 <?php
-$loginsidelevel = 2; 
+$loginsidelevel = 5; 
 require_once $_SERVER['DOCUMENT_ROOT']."/570304x/x530199.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($post_add == '1') {
             
             $heighst_navi_order = "";
-            include($_SERVER['DOCUMENT_ROOT']."/571204m/m530199c.php");
+            $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
             $stmt = $conn->prepare("SELECT navi_order FROM ReplaceDBnavi ORDER BY navi_order DESC LIMIT 1;");
             $stmt->execute();
             if ($stmt->rowCount() > 0) {
@@ -28,25 +28,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $conn = null;
             $heighst_navi_order++;             
             $new_post_page_name_link = 'page?id='.$post_page_name_dk;
-            include($_SERVER['DOCUMENT_ROOT']."/571204m/m530199c.php");
+            $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
             $stmt = $conn->prepare("INSERT INTO ReplaceDBnavi (name, link, language, navi_order) VALUES (?, ?, 'DK', ?);");
             $stmt->execute(array($post_page_name_dk, $new_post_page_name_link, $heighst_navi_order));
             $stmt = null;
             $conn = null;
             
-            include($_SERVER['DOCUMENT_ROOT']."/571204m/m530199c.php");
+            $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
             $stmt = $conn->prepare("INSERT INTO ReplaceDBnavi (name, link, language, navi_order) VALUES (?, ?, 'GB', ?);");
             $stmt->execute(array($post_page_name_en, $new_post_page_name_link, $heighst_navi_order));
             $stmt = null;
             $conn = null;
             
-            include($_SERVER['DOCUMENT_ROOT']."/571204m/m530199c.php");
+            $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
             $stmt = $conn->prepare("INSERT INTO ReplaceDBtext (language, page_name, text) VALUES ('DK', ?, ?);");
             $stmt->execute(array($post_page_name_dk, $post_page_name_dk));
             $stmt = null;
             $conn = null;
             
-            include($_SERVER['DOCUMENT_ROOT']."/571204m/m530199c.php");
+            $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
             $stmt = $conn->prepare("INSERT INTO ReplaceDBtext (language, page_name, text) VALUES ('GB', ?, ?);");
             $stmt->execute(array($post_page_name_dk, $post_page_name_en));
             $stmt = null;
@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         else {
             if ($post_handel == "mv_up") {
-                include($_SERVER['DOCUMENT_ROOT']."/571204m/m530199c.php");
+                $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
                 $stmt = $conn->prepare("UPDATE ReplaceDBnavi SET navi_order = navi_order + 1 WHERE navi_order = ?;
                                         UPDATE ReplaceDBnavi SET navi_order = navi_order - 1 WHERE link = ?;");
                 $stmt->execute(array(($post_navi_order - 1), $post_link));
@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $conn = null;
             }
             else if ($post_handel == "mv_dw") {
-                include($_SERVER['DOCUMENT_ROOT']."/571204m/m530199c.php");
+                $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
                 $stmt = $conn->prepare("UPDATE ReplaceDBnavi SET navi_order = navi_order - 1  WHERE navi_order = ?;
                                         UPDATE ReplaceDBnavi SET navi_order = navi_order + 1 WHERE link = ?;");
                 $stmt->execute(array(($post_navi_order + 1), $post_link));
@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $conn = null;
             }
             else if ($post_handel == "rm") {
-                include($_SERVER['DOCUMENT_ROOT']."/571204m/m530199c.php");
+                $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
                 $stmt = $conn->prepare("DELETE FROM ReplaceDBnavi WHERE link = ? AND required = 0;
                                         DELETE FROM ReplaceDBtext WHERE page_name = ?;");
                 $stmt->execute(array($post_link, $post_page_name));
@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $conn = null;
             }
             else if ($post_handel == "edit") {
-                include($_SERVER['DOCUMENT_ROOT']."/571204m/m530199c.php");
+                $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
                 $stmt = $conn->prepare("UPDATE ReplaceDBnavi SET name = ? WHERE id = ?;");
                 $stmt->execute(array($post_page_name, $post_id));
                 $stmt = null;

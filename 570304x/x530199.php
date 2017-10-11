@@ -1,58 +1,23 @@
 <?php
-/*
-Copy-right Jørn Guldberg
-This is version 3.0 opdateret d. 04-10-2017
-Core CMS now added to github
+/* Sandsized CMS - By Guld-berg.dk software technologies
+*  Developed by Jørn Guldberg
+*  Copyright (C) Jørn Guldberg - Guld-berg.dk All Rights Reserved. 
 */
-
-if (!$session_is_started) {
-    session_start();
-}
+session_start();
 // Her indstilles tidindstillingerne på siden
 date_default_timezone_set("Europe/Copenhagen");
 $date_and_time = date('Y-m-d H:i:s');
 $date_without_time = date('Y-m-d');
-$global_contact_email = "new@guld-berg.dk";
-$global_firm_name = "newSampelFirm";
-$activate_master_control = true;
+
+include $_SERVER['DOCUMENT_ROOT']."/570304x/site_settings.php";
+
 //siden titel
-$sidenstitel = "$global_firm_name - " . $sidenavn;
+$web_page_title = GLOBAL_FIRM_NAME . " - " . $web_page_name;
 
-//language is set and loaded
-if (!$_SESSION['session_language']) {       // if language is not set yet, the deafult language danish is chosen.
-    $_SESSION['session_language'] = "DK";
-}
-
-// choose language code: 
-if (isset($_GET["lang"])) {
-    $_SESSION['session_language'] = "";
-    try {
-        include($_SERVER['DOCUMENT_ROOT']."/571204m/m530199c.php");
-        $stmt = $conn->prepare("SELECT code FROM ReplaceDBcountry WHERE code = ? AND active = 1 ");
-        $stmt->execute(array(clean_input_text($_GET["lang"])));
-                // set the resulting array to associative
-        if ($stmt->rowCount() == 1) {
-            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-            foreach($stmt->fetchAll() as $row) {
-                $_SESSION['session_language'] = $row['code'];
-            }
-        }
-        else {
-            $_SESSION['session_language'] = 'GB';
-        }
-    }
-    catch(PDOException $e) {
-            header('Location: /');
-    }
-    $stmt = null;
-    $conn = null;
-}
-
-if ($_SESSION['session_language'] == "DK") {
-    require_once $_SERVER['DOCUMENT_ROOT']."/570304x/lang/DK.php";
-}
-else {
-    require_once $_SERVER['DOCUMENT_ROOT']."/570304x/lang/GB.php";
+function get_db_connection($host, $dbname, $user, $pass) {
+    $conn = new PDO('mysql: host='.$host.';dbname='.$dbname.';charset=utf8', $user, $pass);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    return $conn;
 }
 
 // Her laves en funktion der renser teksten. 
@@ -64,28 +29,64 @@ function clean_input_text($data) {
    return $data;
 }
 
-function username_check($tjekBrugernavn) {
-    $tjekBrugernavn = rtrim($tjekBrugernavn, ' ');
-    $tjekBrugernavn = stripslashes($tjekBrugernavn);
-    $tjekBrugernavn = htmlspecialchars($tjekBrugernavn);
-    $tjekBrugernavn = strtolower($tjekBrugernavn);
-    $tjekBrugernavn = addslashes($tjekBrugernavn);
+function username_check($username_check) {
+    $username_check = rtrim($username_check, ' ');
+    $username_check = stripslashes($username_check);
+    $username_check = htmlspecialchars($username_check);
+    $username_check = strtolower($username_check);
+    $username_check = addslashes($username_check);
 
-    return $tjekBrugernavn;
+    return $username_check;
     
 }
 
-function password_crypt($tjekPassword, $tjekBrugernavn) {
+function password_crypt($password_crypt, $username_check) {
     // Denne tager passwordet ind og cryptere det, så det kan tjekkes i DB.
     $b1 = "03q2d4qwd%?1234Ejoe324>";
     $b2 = "233244?][qwrqwqeqwew";
     $b3 = "¤SDFWwdfsdgdf.,wrsdv{}2";
-    $tjekPassword = stripslashes($tjekPassword);
-    $tjekPassword = htmlspecialchars($tjekPassword);
-    $feedback = hash('sha256', $b2.$tjekBrugernavn.$b3.$tjekPassword.$b1);
+    $password_crypt = stripslashes($password_crypt);
+    $password_crypt = htmlspecialchars($password_crypt);
+    $feedback = hash('sha256', $b2.$username_check.$b3.$password_crypt.$b1);
     
     return $feedback;
 }
+
+//language is set and loaded
+if (!$_SESSION['session_language']) {       // if language is not set yet, the deafult language danish is chosen.
+    $_SESSION['session_language'] = DEFAULT_LANG;
+}
+
+// choose language code: 
+if (isset($_GET["lang"])) {
+    try {
+        $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
+        $stmt = $conn->prepare("SELECT code FROM ReplaceDBcountry WHERE code = ? AND active = 1 ");
+        $stmt->execute(array(clean_input_text($_GET["lang"])));
+                // set the resulting array to associative
+        if ($stmt->rowCount() == 1) {
+            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            foreach($stmt->fetchAll() as $row) {
+                $_SESSION['session_language'] = $row['code'];
+            }
+        }
+        else {
+            $_SESSION['session_language'] = DEFAULT_LANG;
+        }
+    }
+    catch(PDOException $e) {
+        $_SESSION['session_language'] = DEFAULT_LANG;
+        header('Location: /');
+    }
+    $stmt = null;
+    $conn = null;
+}
+/* IMPORTANT..!
+*  The lang files is loaded here given the coosen lang. 
+*  This is very importent that a activ lang has a lang file in the direktory with the exact 
+*  Lang code as in the DB
+*/
+require_once $_SERVER['DOCUMENT_ROOT']."/570304x/lang/".$_SESSION['session_language'].".php";
 
 // Her tjekkes det om man er logget ind
 if (isset($_SESSION['login_user'])) {
@@ -93,17 +94,17 @@ if (isset($_SESSION['login_user'])) {
     $login_tjek = username_check($_SESSION['login_user']);
     // Hvis der findes en bruger i systemet med login navnet findes de forskellige oplysninger om brugeren.
     try {
-        include($_SERVER['DOCUMENT_ROOT']."/571204m/m530199c.php");
-        $stmt = $conn->prepare('SELECT * FROM ReplaceDBusers WHERE username_clean = ? ');
+        $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
+        $stmt = $conn->prepare('SELECT * FROM ReplaceDBusers WHERE username_clean = ?;');
         $stmt->execute(array($login_tjek));
                 // set the resulting array to associative
         if ($stmt->rowCount() == 1) {
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
             foreach($stmt->fetchAll() as $row) {
-                $login_id =$row['id'];
-                $login_session =$row['username'];
+                $login_id = $row['id'];
+                $login_session = $row['username'];
                 $login_sessionclean = $row['username_clean'];
-                $login_level =$row['loginlevel'];
+                $login_level = $row['loginlevel'];
             }
         }
         else {
@@ -116,10 +117,14 @@ if (isset($_SESSION['login_user'])) {
     $stmt = null;
     $conn = null;   
 }
+
 if ($loginsidelevel != 0 && !isset($_SESSION['login_user'])) {
     header('Location: /');
 }
-else if ($loginsidelevel > 1 && isset($_SESSION['login_user']) && $login_level < 49) {
+else if ($loginsidelevel > 4 && isset($_SESSION['login_user']) && $login_level < 49) {
     header('Location: /');
 }
+
+include $_SERVER['DOCUMENT_ROOT']."/570304x/site_special_func.php"; // The special functionality of the specific site
+
 ?>

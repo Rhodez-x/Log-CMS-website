@@ -4,7 +4,7 @@
                 <?php
                 echo $_SESSION["contact_send"];
                 unset($_SESSION["contact_send"]);
-                    include($_SERVER['DOCUMENT_ROOT']."/571204m/m530199c.php");
+                    $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
                     $stmt = $conn->prepare("SELECT text FROM ReplaceDBtext WHERE page_name = 'contact' AND language = ?;");
                     $stmt->execute(array($_SESSION['session_language']));
                             // set the resulting array to associative

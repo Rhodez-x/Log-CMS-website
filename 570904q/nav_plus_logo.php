@@ -78,14 +78,14 @@ Add flags to nav bar to select lang
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/index"><?php echo $global_firm_name; ?></a>
+            <a class="navbar-brand" href="/index"><?php echo GLOBAL_FIRM_NAME; ?></a>
         </div>
         
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav navbar-right small">
                     <?php
                         try {
-                            include($_SERVER['DOCUMENT_ROOT']."/571204m/m530199c.php");
+                            $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
                             $stmt = $conn->prepare("SELECT * FROM ReplaceDBnavi WHERE Language = ? ORDER BY navi_order;");
                             $stmt->execute(array($_SESSION['session_language']));
                             if ($stmt->rowCount() > 0) {
@@ -107,11 +107,11 @@ Add flags to nav bar to select lang
                     }
                     // Her kommer der en besked om at man er logget ud.
                     if($_SESSION["loggetud"] == 1) {
-                    echo '<div class="alert alert-success">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <strong>Du er nu logget ud</strong>
-                    </div>';
-                    $_SESSION["loggetud"] = 0;
+                        echo '<div class="alert alert-success">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>Du er nu logget ud</strong>
+                        </div>';
+                        $_SESSION["loggetud"] = 0;
                     }
                     ?>
                 

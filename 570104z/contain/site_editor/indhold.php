@@ -3,7 +3,7 @@
 <div class="row">
     <div class="col-sm-12">
  <h2>Controlpanel</h2>
-    <?php echo menu_line($sidenavn); ?>
+    <?php echo menu_line($web_page_name); ?>
           <h3>Site editor:</h3>
         <?php echo $_SESSION["uploade_feedback"];
             unset($_SESSION["uploade_feedback"]); ?>
@@ -12,7 +12,7 @@
             <select class="form-control" name="edit_page_name" id="edit_page_name">
                 <option disabled selected>Choose text for a site</option>
                 <?php
-                    include($_SERVER['DOCUMENT_ROOT']."/571204m/m530199c.php");
+                    $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
                     $stmt = $conn->prepare("SELECT * FROM ReplaceDBtext GROUP BY page_name;");
                     $stmt->execute();
                             // set the resulting array to associative
@@ -29,7 +29,7 @@
             <select class="form-control" name="edit_page_lang" id="edit_page_lang">
                 <option disabled selected>Choose language:</option>
                 <?php
-                    include($_SERVER['DOCUMENT_ROOT']."/571204m/m530199c.php");
+                    $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
                     $stmt = $conn->prepare("SELECT * FROM ReplaceDBcountry WHERE active = 1;");
                     $stmt->execute();
                             // set the resulting array to associative
@@ -50,7 +50,7 @@
             <button class="btn btn-success" type="submit">Save</button>
             <textarea name="editor1" id="editor1" rows="10" cols="80">
                 <?php
-                    include($_SERVER['DOCUMENT_ROOT']."/571204m/m530199c.php");
+                    $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
                     $stmt = $conn->prepare("SELECT text FROM ReplaceDBtext WHERE page_name = ? AND language = ?");
                     $stmt->execute(array($_SESSION['page_name_text_edit'], $_SESSION['page_name_lang']));
                             // set the resulting array to associative

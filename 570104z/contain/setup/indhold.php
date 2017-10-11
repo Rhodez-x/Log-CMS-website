@@ -1,6 +1,6 @@
 <div class="container GLOBALdesign">
      <h2>Controlpanel</h2>
-    <?php echo menu_line($sidenavn);
+    <?php echo menu_line($web_page_name);
           echo $_SESSION["uploade_feedback"];
           unset($_SESSION["uploade_feedback"]);?>
     
@@ -18,7 +18,7 @@
             try {
                 $page_edit_text = '';
                 $edit_page_navi_order_temp = "1";
-                include($_SERVER['DOCUMENT_ROOT']."/571204m/m530199c.php");
+                $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
                 $stmt = $conn->prepare("SELECT * FROM ReplaceDBnavi ORDER BY navi_order, language;");
                 $stmt->execute();
                 if ($stmt->rowCount() > 0) {

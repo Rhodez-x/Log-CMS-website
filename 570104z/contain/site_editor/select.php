@@ -1,5 +1,5 @@
 <?php
-$loginsidelevel = 2;
+$loginsidelevel = 5;
 require_once $_SERVER['DOCUMENT_ROOT']."/570304x/x530199.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
