@@ -3,16 +3,13 @@
 *  Developed by Jørn Guldberg
 *  Copyright (C) Jørn Guldberg - Guld-berg.dk All Rights Reserved. 
 */
+
 session_start();
 // Her indstilles tidindstillingerne på siden
 date_default_timezone_set("Europe/Copenhagen");
-$date_and_time = date('Y-m-d H:i:s');
-$date_without_time = date('Y-m-d');
+define(DATE_AND_TIME, date('Y-m-d H:i:s'));
+define(DATE_WITHOUT_TIME, date('Y-m-d'));
 
-include $_SERVER['DOCUMENT_ROOT']."/570304x/site_settings.php";
-
-//siden titel
-$web_page_title = GLOBAL_FIRM_NAME . " - " . $web_page_name;
 
 function get_db_connection($host, $dbname, $user, $pass) {
     $conn = new PDO('mysql: host='.$host.';dbname='.$dbname.';charset=utf8', $user, $pass);
@@ -51,6 +48,11 @@ function password_crypt($password_crypt, $username_check) {
     
     return $feedback;
 }
+
+include $_SERVER['DOCUMENT_ROOT']."/570304x/site_settings.php";
+
+//siden titel
+$web_page_title = GLOBAL_FIRM_NAME . " - " . $web_page_name;
 
 //language is set and loaded
 if (!$_SESSION['session_language']) {       // if language is not set yet, the deafult language danish is chosen.
@@ -101,10 +103,10 @@ if (isset($_SESSION['login_user'])) {
         if ($stmt->rowCount() == 1) {
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
             foreach($stmt->fetchAll() as $row) {
-                $login_id = $row['id'];
-                $login_session = $row['username'];
-                $login_sessionclean = $row['username_clean'];
-                $login_level = $row['loginlevel'];
+                define('LOGIN_ID', $row['id']);
+                define('LOGIN_SESSION', $row['username']);
+                define('LOGIN_SESSIONCLEAN', $row['username_clean']);
+                define('LOGIN_LEVEL', $row['loginlevel']);
             }
         }
         else {
@@ -121,9 +123,10 @@ if (isset($_SESSION['login_user'])) {
 if ($loginsidelevel != 0 && !isset($_SESSION['login_user'])) {
     header('Location: /');
 }
-else if ($loginsidelevel > 4 && isset($_SESSION['login_user']) && $login_level < 49) {
+else if ($loginsidelevel > LOGIN_LEVEL && isset($_SESSION['login_user'])) {
     header('Location: /');
 }
+
 
 include $_SERVER['DOCUMENT_ROOT']."/570304x/site_special_func.php"; // The special functionality of the specific site
 

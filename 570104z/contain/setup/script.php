@@ -7,7 +7,5 @@
         //}
         return true;
     }
-function confirmDelete() {
-    return confirm("Bekræft ved at klikke ok");
-}
+
 </script>

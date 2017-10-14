@@ -3,16 +3,17 @@
 /*
 Copy-right Jørn Guldberg
 */
-function loggetind($login_level) {
-    if ($login_level > 49) {
-        $admin_menu = '<li><a href="/570104z/index">Kontrolpanel</a></li>';
-    }
+function loggetind() {
+    //if (LOGIN_LEVEL > 49) {
+    //    $admin_menu = '<li><a href="/570104z/index">Kontrolpanel</a></li>';
+    //}
     $navnbar = '
           <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Hi ' . $_SESSION['login_user'] . '
         <span class="caret"></span></a>
         <ul class="dropdown-menu" style="background-color:black;">
         <li style="color: white;"></li>
+        <li><a href="/570104z/index">Kontrolpanel</a></li>
           '.$admin_menu.'
         <li><a href="/logout">Log ud</a></li>
         </ul>
@@ -103,7 +104,7 @@ Add flags to nav bar to select lang
                     <?php
                     if(isset($_SESSION['login_user'])) {
                     // Hvis man er logget ind
-                    echo loggetind($login_level);
+                    echo loggetind(LOGIN_LEVEL);
                     }
                     // Her kommer der en besked om at man er logget ud.
                     if($_SESSION["loggetud"] == 1) {

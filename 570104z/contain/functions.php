@@ -1,13 +1,27 @@
 <?php
-
+/* Sandsized CMS - By Guld-berg.dk software technologies
+*  Developed by Jørn Guldberg
+*  Copyright (C) Jørn Guldberg - Guld-berg.dk All Rights Reserved. 
+*/
 function menu_line($active){
-    $tabs=array("Admin side"=> '/570104z/index', "Indstillinger" => '/570104z/setup', "Rediger side" => '/570104z/site_editor', "Master control" => '/570104z/master_control');
+    $tabs=array(
+        /* Menu list for controlpanel
+        *  name, path, and loginlevel,
+        * If the user is not an admin, the tabs will not be avible.
+        */ 
+        array("Min side", '/570104z/index', 9),
+        array("Indstillinger", '/570104z/setup', 9), 
+        array("Rediger side", '/570104z/site_editor', 49),
+        array("Master control", '/570104z/master_control', 49)
+        );
     $return_string = '<ul class="nav nav-tabs">';
-    foreach($tabs as $x=>$x_value) {
-        if ($x == $active) {
-            $return_string = $return_string . '<li class="active"><a href="'.$x_value.'">'.$x.'</a></li>' ;
-        } else {
-            $return_string = $return_string . '<li><a href="'.$x_value.'">'.$x.'</a></li>' ;
+    foreach($tabs as $tab) {
+        if ($tab[2] < LOGIN_LEVEL) {
+            if ($tab[0] == $active) {
+                $return_string = $return_string . '<li class="active"><a href="'.$tab[1].'">'.$tab[0].'</a></li>' ;
+            } else {
+                $return_string = $return_string . '<li><a href="'.$tab[1].'">'.$tab[0].'</a></li>' ;
+            }
         }
     }
 

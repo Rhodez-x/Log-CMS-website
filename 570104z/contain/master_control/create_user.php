@@ -1,5 +1,5 @@
 <?php
-$loginsidelevel = 5; 
+$loginsidelevel = 49; 
 require_once $_SERVER['DOCUMENT_ROOT']."/570304x/x530199.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     try {
     $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
     $stmt = $conn->prepare("INSERT INTO ReplaceDBusers (username, username_clean, loginlevel, password)
-                            VALUES(?, ?, 50, ?);");
+                            VALUES(?, ?, 10, ?);");
     $stmt->execute(array($POST_username, $POST_username_clean, $POST_password));
     $_SESSION["uploade_feedback"] = '<div class="row">
             <div class="col-sm-8 alert alert-success">
