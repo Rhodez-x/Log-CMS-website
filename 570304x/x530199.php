@@ -17,7 +17,6 @@ function get_db_connection($host, $dbname, $user, $pass) {
     return $conn;
 }
 
-// Her laves en funktion der renser teksten. 
 function clean_input_text($data) {
    $data = trim($data);
    $data = stripslashes($data);
