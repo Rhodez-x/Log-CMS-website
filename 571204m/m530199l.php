@@ -4,7 +4,7 @@
 *  Copyright (C) Jørn Guldberg - Guld-berg.dk All Rights Reserved. 
 */
 
-include $_SERVER['DOCUMENT_ROOT']."/570304x/x530199.php";
+include SITE_ROOT_PATH."/570304x/x530199.php";
 
 // Her laves deb variabel der sendes tilbage. Enten med sucses eller med en fejl medelelse
 $dataDerSendesTilbage = "";

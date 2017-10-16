@@ -4,8 +4,8 @@
 *  Copyright (C) Jørn Guldberg - Guld-berg.dk All Rights Reserved. 
 */
 
-require_once $_SERVER['DOCUMENT_ROOT']."/570304x/x530199.php"; // kernefilen
-include $_SERVER['DOCUMENT_ROOT']."/".$sidenssti.$overmodul;
+require_once SITE_ROOT_PATH."/570304x/x530199.php"; // kernefilen
+include SITE_ROOT_PATH."/".$sidenssti.$overmodul;
 // Her tjekkes der om der skal laves  login felter, eller om brugeren er logget ind.
 if(isset($_SESSION['login_user'])) {
     $loginFelt = '<form class="navbar-form navbar-right">
@@ -59,6 +59,6 @@ echo '<!DOCTYPE html>
 </head>
 <body>';
 
-require_once $_SERVER['DOCUMENT_ROOT']."/570904q/basicscript.php";
+require_once SITE_ROOT_PATH."/570904q/basicscript.php";
 
 ?>

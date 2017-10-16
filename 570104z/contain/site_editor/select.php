@@ -1,6 +1,6 @@
 <?php
 $loginsidelevel = 5;
-require_once $_SERVER['DOCUMENT_ROOT']."/570304x/x530199.php";
+require_once SITE_ROOT_PATH."/570304x/x530199.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $_SESSION['page_name_text_edit'] = $_POST["edit_page_name"];

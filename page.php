@@ -1,5 +1,6 @@
 <?php 
 // copyright Jørn Jespersen - guld-berg.dk
+define('SITE_ROOT_PATH', $_SERVER['DOCUMENT_ROOT']); // Root path for the site, add /path if the site is in another directory. NO ENDING "/ "
 $loginsidelevel = 0; // sidens login level 0 for ikke at skulle være logget ind og 1 for at skulle være logget ind. 
 /*
 Special page which loads ALL content from the db. 
@@ -20,5 +21,5 @@ $overmodul = "/overmodul.php"; // Dette er overmodulet, det jeg kalder for behan
 $indhold = "/indhold.php"; // Her er filnavnet på indholdet af den pågældene side. 
 //$sidenspecialescript = "/forsidescript.php";
 // Her hentes skarbelonen til hele siden, og siden bliver printet til skærmen. 
-require_once $_SERVER['DOCUMENT_ROOT']. "/570304x/skabelon.php"; //
+require_once SITE_ROOT_PATH. "/570304x/skabelon.php"; //
 ?>
