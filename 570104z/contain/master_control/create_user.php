@@ -13,8 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     try {
     $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-    $stmt = $conn->prepare("INSERT INTO ReplaceDBusers (username, username_clean, loginlevel, password)
-                            VALUES(?, ?, 10, ?);");
+    $stmt = $conn->prepare("INSERT INTO ReplaceDBusers (username, username_clean, loginlevel, password, active)
+                            VALUES(?, ?, 10, ?, 1);"); // 10 for a regular user, 1 for that the user is immediately active
     $stmt->execute(array($POST_username, $POST_username_clean, $POST_password));
     $_SESSION["uploade_feedback"] = '<div class="row">
             <div class="col-sm-8 alert alert-success">

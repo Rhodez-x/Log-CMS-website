@@ -99,13 +99,19 @@ if (isset($_SESSION['login_user'])) {
         $stmt = $conn->prepare('SELECT * FROM ReplaceDBusers WHERE username_clean = ?;');
         $stmt->execute(array($login_tjek));
                 // set the resulting array to associative
-        if ($stmt->rowCount() == 1) {
+        if (($stmt->rowCount() == 1) && ($_SESSION['LOGIN_LAST_ACTIVITY'] > time())) {
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
             foreach($stmt->fetchAll() as $row) {
-                define('LOGIN_ID', $row['id']);
-                define('LOGIN_SESSION', $row['username']);
-                define('LOGIN_SESSIONCLEAN', $row['username_clean']);
-                define('LOGIN_LEVEL', $row['loginlevel']);
+                if ($row['active'] == 1) {
+                    define('LOGIN_ID', $row['id']);
+                    define('LOGIN_SESSION', $row['username']);
+                    define('LOGIN_SESSIONCLEAN', $row['username_clean']);
+                    define('LOGIN_LEVEL', $row['loginlevel']);
+                    $_SESSION['LOGIN_LAST_ACTIVITY'] = (time() + 900); // 900 sec = 15 minutes - Set a timer for the user, if the user is inactive, the user is logout
+                }
+                else {
+                    header('Location: /logout');
+                }
             }
         }
         else {

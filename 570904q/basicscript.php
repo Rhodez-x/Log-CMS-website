@@ -22,14 +22,17 @@ $(document).ready(function(){
             if (feedback == "succes") {
                 document.location.href="/";
             }
-            else if (feedback == "forkert") {
+            else if (feedback == "wrong") {
                 $("#loginfeedback").html("<strong>Brugernavn og password passer ikke!</strong>");
             }
-            else if (feedback == "udfyld") {
-                 $("#loginfeedback").html("<strong>Begge felter skal udfyldes!</strong>");
+            else if (feedback == "empty") {
+                $("#loginfeedback").html("<strong>Begge felter skal udfyldes!</strong>");
+            }
+            else if (deactive == "deactive") {
+                $("#loginfeedback").html("<strong>Din bruger er deaktiveret, kontakt en adminstrator af siden</strong>");
             }
             else {
-                 $("#loginfeedback").html("<strong>Der er sket en fejl!</strong>");
+                $("#loginfeedback").html("<strong>Der er sket en fejl!</strong>");
             }
         });
         
