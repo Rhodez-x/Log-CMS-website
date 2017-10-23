@@ -48,7 +48,7 @@ function password_crypt($password_crypt, $username_check) {
     return $feedback;
 }
 
-include SITE_ROOT_PATH."/570304x/site_settings.php";
+include $_SERVER['DOCUMENT_ROOT']."/570304x/site_settings.php";
 
 //siden titel
 $web_page_title = GLOBAL_FIRM_NAME . " - " . $web_page_name;
@@ -87,7 +87,7 @@ if (isset($_GET["lang"])) {
 *  This is very importent that a activ lang has a lang file in the direktory with the exact 
 *  Lang code as in the DB
 */
-require_once SITE_ROOT_PATH."/570304x/lang/".$_SESSION['session_language'].".php";
+require_once $_SERVER['DOCUMENT_ROOT']."/570304x/lang/".$_SESSION['session_language'].".php";
 
 // Her tjekkes det om man er logget ind
 if (isset($_SESSION['login_user'])) {
@@ -127,6 +127,6 @@ else if ($loginsidelevel > LOGIN_LEVEL && isset($_SESSION['login_user'])) {
 }
 
 
-include SITE_ROOT_PATH."/570304x/site_special_func.php"; // The special functionality of the specific site
+include $_SERVER['DOCUMENT_ROOT']."/570304x/site_special_func.php"; // The special functionality of the specific site
 
 ?>

@@ -10,6 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 $date_from_db_page_name = $row['page_name'];
                 $date_from_db_page_text = $row['text'];
             }
+
+            $web_page_name = $date_from_db_page_name; // Sidens navn, dette navn afgører hvilken fane i menuen der er aktiv. (Skal være identisk med det i Mysql)
         }
         else {
             $date_from_db_page_text = "Page not found";
@@ -17,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         }
     }
     catch(PDOException $e) {
-        $date_from_db_page_text = "Error $MAIN_DB_HOST";
+        $date_from_db_page_text = "Error";
         //header('Location: /');
     }
     $stmt = null;

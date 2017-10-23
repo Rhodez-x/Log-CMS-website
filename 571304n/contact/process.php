@@ -1,5 +1,5 @@
 <?php
-include SITE_ROOT_PATH."/570304x/x530199.php";
+include $_SERVER['DOCUMENT_ROOT']."/570304x/x530199.php";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (strtotime("+ 1 sec") > $_SESSION["contact_send-time"]) {
         $ok = true;
