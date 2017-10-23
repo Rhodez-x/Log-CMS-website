@@ -45,11 +45,11 @@
                 <button type="submit" class="btn btn-defult">select</button>
     </form>
       <div class="well well-sm" style="color:black; margin-top:20px;">
-          <?php echo "<h3>Du er ved at redigere: ".$_SESSION['page_name_text_edit']." Sprog: ".$_SESSION['page_name_lang']."</h3>";?>
-        <form action="/570104z/contain/site_editor/save" method="post">
-            <button class="btn btn-success" type="submit">Save</button>
-            <textarea name="editor1" id="editor1" rows="10" cols="80">
                 <?php
+                    /* NOTE FOR THE SCRIPT
+                    *  Replace the <textarea id="editor1"> with a CKEditor
+                    *  instance, using default configuration.
+                    */
                     $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
                     $stmt = $conn->prepare("SELECT text FROM ReplaceDBtext WHERE page_name = ? AND language = ?");
                     $stmt->execute(array($_SESSION['page_name_text_edit'], $_SESSION['page_name_lang']));
@@ -57,18 +57,24 @@
                     if ($stmt->rowCount() == 1) {
                         $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
                         foreach($stmt->fetchAll() as $row) {
-                            echo $row['text'];
+                            echo "<h3>Du er ved at redigere: ".$_SESSION['page_name_text_edit']." Sprog: ".$_SESSION['page_name_lang']."</h3>
+                                <form action='/570104z/contain/site_editor/save' method='post'>
+                                    <button class='btn btn-success' type='submit'>Save</button>
+                                    <textarea name='editor1' id='editor1' rows='10' cols='80'>"
+                                        . $row['text'] . 
+
+                                    "</textarea>
+                                    <script>
+                                        CKEDITOR.replace( 'editor1' );
+                                    </script>
+                                    <button class='btn btn-success' type='submit'>Save</button>
+                                </form>";
                         }
+                    }
+                    else {
+                        echo "<h3>Vælg hvilken side du vil redigere</h3>"; 
                     } 
                 ?>
-            </textarea>
-            <script>
-                // Replace the <textarea id="editor1"> with a CKEditor
-                // instance, using default configuration.
-                CKEDITOR.replace( 'editor1' );
-            </script>
-            <button class="btn btn-success" type="submit">Save</button>
-        </form>
     </div>
     </div>
     <?php 
