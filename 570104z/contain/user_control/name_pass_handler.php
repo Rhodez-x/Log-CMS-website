@@ -16,29 +16,47 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         switch ($post_handel) {
             case 'name':
                 $_SESSION["new_username"] = clean_input_text($_POST["username"]); // The username 
-                $post_old_pass = clean_input_text($_POST["password"]); // The users old password, to confirm the right user
+                $post_pass_confirm = clean_input_text($_POST["password"]); // The users old password, to confirm the right user
                         // Her tjekkes det om der er skrevet noget i brugernavnet og passwordet
-                if (!empty($_SESSION["new_username"]) && !empty($post_old_pass)) {
+                if (!empty($_SESSION["new_username"]) && !empty($post_pass_confirm)) {
                     // Hvis der findes en bruger i systemet med login navnet findes de forskellige oplysninger om brugeren.
-                    $tjekBrugernavn = username_check($tjekBrugernavn);
-                    $tjekPassword = password_crypt($tjekPassword, $tjekBrugernavn);
+                    $check_username_confirm = username_check($_SESSION['login_user']);
+                    $check_password_confirm = password_crypt($post_pass_confirm, $check_username_confirm);
+
+                    $check_username_new = username_check($_SESSION["new_username"]);
+                    $check_password_new = password_crypt($post_pass_confirm, $check_username_new);
+
                     $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                    $stmt = $conn->prepare("UPDATE ReplaceDBusers SET username = 'test', username_clean = 'clean', password = 'new_pass' 
-                                            WHERE id = (SELECT id FROM ReplaceDBusers WHERE username_clean = 'clean' AND password = 'old_pass');");
-                    $stmt->execute(array($post_id));
-                    
-                    if ($stmt->rowCount() == 0) {
-                        throw new Exception('Du har indtastet forkert password');
-                    }
-                    else if ($stmt->rowCount() > 1) {
+
+                    $stmt_check = $conn->prepare("SELECT id, active FROM ReplaceDBusers WHERE username_clean = ? AND password = ?;");
+                    $stmt_check->execute(array($check_username_confirm, $check_password_confirm ));
+                    if ($stmt_check->rowCount() == 1) {
+                        foreach($stmt_check->fetchAll() as $row) {
+                            if ($row['active'] == 1) {
+                                // if the user exist and the password is right
+                                $stmt = $conn->prepare("UPDATE ReplaceDBusers SET username = ?, username_clean = ?, password = ? WHERE id = ?;");
+                                $stmt->execute(array($_SESSION["new_username"], $check_username_new, $check_password_new, $row['id']));
+                                $_SESSION['login_user'] = $_SESSION["new_username"];
+                            }
+                            else {
+                                $_SESSION["change_username_feedback"] = '<span style="color:red;"><b>Din bruger er deaktiveret </b></span>';
+                                $ok = false;
+                            }
+                        }
+                    } 
+                    else if ($stmt_check->rowCount() > 1) {
                         throw new Exception('Der er sket en fejl, kontakt straks personen der har sat siden op');
+                    }
+                    else {
+                        $_SESSION["change_username_feedback"] = '<span style="color:red;"><b>Du har skrevet forkert password </b></span>';
+                        $ok = false;
                     }
 
                     $stmt = null;
                     $conn = null;
                 }
                 else {
-                    $_SESSION["change_username_feedback"] = "<span style="color:red;"><b>Du skal udfylde begge felter</b></span>";
+                    $_SESSION["change_username_feedback"] = '<span style="color:red;"><b>Du skal udfylde begge felter</b></span>';
                     $ok = false;
                 }
                 
@@ -82,4 +100,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 else {
     header("location: /");
 }
+
 ?>

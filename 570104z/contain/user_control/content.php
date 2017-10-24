@@ -33,7 +33,7 @@
         <div class="col-sm-6">
             <div id="username"> 
                 <h2>Ændre brugernavn:</h2>
-                <form name="createForm" action="/570104z/contain/master_control/create_user" onsubmit="return confirmAction()" method="post">
+                <form name="createForm" action="/570104z/contain/user_control/name_pass_handler" onsubmit="return confirmAction()" method="post">
                     <div class="form-group">
                     <label for="titel">Nyt brugernavn:</label>
                     <input type="text" class="form-control" name="username" id="username" value="<?php echo $username_form_value; ?>">
@@ -44,8 +44,8 @@
                     <input type="password" class="form-control" name="password" id="password">
                     <span id="errPass"></span>
                     </div>
-                    <?php echo $_SESSION["change_username_feedback"]; ?>
-                    <button type="submit" class="btn btn-default">Create user</button>
+                    <?php echo $_SESSION["change_username_feedback"] . "<br>"; ?>
+                    <button type="submit" class="btn btn-default" name="handel" value="name">Opdater</button>
                 </form>
             </div>
             <Hr / > 
