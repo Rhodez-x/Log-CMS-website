@@ -62,13 +62,57 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 
                 break;
             case 'pass':
-                /*
-                $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                $stmt = $conn->prepare("UPDATE ReplaceDBusers SET name = 'test' WHERE id = ? ;");
-                $stmt->execute(array($post_id));
-                $stmt = null;
-                $conn = null;
-                */
+                $post_pass_confirm = clean_input_text($_POST["password"]); 
+                $post_pass_new = clean_input_text($_POST["new_pass"]); 
+                $post_pass_new_repeated = clean_input_text($_POST["rep_pass"]);
+                        // Her tjekkes det om der er skrevet noget i brugernavnet og passwordet
+                if (!empty($post_pass_new) && !empty($post_pass_confirm) && !empty($post_pass_new_repeated)) {
+                    if ($post_pass_new == $post_pass_new_repeated) {
+                        // Hvis der findes en bruger i systemet med login navnet findes de forskellige oplysninger om brugeren.
+                        $check_username_confirm = username_check($_SESSION['login_user']);
+                        $check_password_confirm = password_crypt($post_pass_confirm, $check_username_confirm);
+
+                        $check_password_new = password_crypt($post_pass_confirm, $check_username_new);
+
+                        $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
+
+                        $stmt_check = $conn->prepare("SELECT id, active FROM ReplaceDBusers WHERE username_clean = ? AND password = ?;");
+                        $stmt_check->execute(array($check_username_confirm, $check_password_confirm ));
+                        if ($stmt_check->rowCount() == 1) {
+                            foreach($stmt_check->fetchAll() as $row) {
+                                if ($row['active'] == 1) {
+                                    // if the user exist and the password is right
+                                    $stmt = $conn->prepare("UPDATE ReplaceDBusers SET username = ?, username_clean = ?, password = ? WHERE id = ?;");
+                                    $stmt->execute(array($_SESSION["new_username"], $check_username_new, $check_password_new, $row['id']));
+                                    $_SESSION['login_user'] = $_SESSION["new_username"];
+                                }
+                                else {
+                                    $_SESSION["change_password_feedback"] = '<span style="color:red;"><b>Din bruger er deaktiveret </b></span>';
+                                    $ok = false;
+                                }
+                            }
+                        } 
+                        else if ($stmt_check->rowCount() > 1) {
+                            throw new Exception('Der er sket en fejl, kontakt straks personen der har sat siden op');
+                        }
+                        else {
+                            $_SESSION["change_password_feedback"] = '<span style="color:red;"><b>Du har skrevet forkert password </b></span>';
+                            $ok = false;
+                        }
+
+                        $stmt = null;
+                        $conn = null;
+                    }
+                    else {
+                        $_SESSION["change_password_feedback"] = '<span style="color:red;"><b>Passwords er ikke ens</b></span>';
+                        $ok = false;
+                    }
+                }
+                else {
+                    $_SESSION["change_password_feedback"] = '<span style="color:red;"><b>Du skal udfylde alle felter</b></span>';
+                    $ok = false;
+                }
+                
                 break;
 
             default:

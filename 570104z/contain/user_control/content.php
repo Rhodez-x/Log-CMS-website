@@ -12,8 +12,8 @@
     unset($_SESSION["uploade_feedback"]); 
 
     if (!empty($_SESSION["new_user_name"])) {
-        $username_form_value = $_SESSION["new_username"];
-        unset($_SESSION["new_username"]);
+        $username_form_value = $_SESSION["new_user_name"];
+        unset($_SESSION["new_user_name"]);
     } 
     else {
         $username_form_value = $_SESSION["login_user"];
@@ -54,20 +54,20 @@
                 <form name="createForm" action="/570104z/contain/master_control/create_user" onsubmit="return confirmAction()" method="post">
                     <div class="form-group">
                     <label for="titel">Indtast nyt password:</label>
-                    <input type="text" class="form-control" name="username" id="username">
+                    <input type="text" class="form-control" name="new_pass" id="new_pass">
                     <span id="errUser"></span>
                     </div>
                     <div class="form-group">
                     <label for="titel">Gentag nyt password:</label>
-                    <input type="text" class="form-control" name="username" id="username">
+                    <input type="text" class="form-control" name="rep_pass" id="rep_pass">
                     <span id="errUser"></span>
                     </div>
                     <div class="form-group">
                     <label for="titel">Indtast nuværende password:</label>
                     <input type="password" class="form-control" name="password" id="password">
-                    <span id="errPass"></span>
+                    <?php echo $_SESSION["change_password_feedback"] . "<br>"; ?>
                     </div>
-                    <button type="submit" class="btn btn-default">Create user</button>
+                    <button type="submit" class="btn btn-default" name="handel" value="pass">Opdater</button>
                 </form>
             </div>
             <Hr / >
