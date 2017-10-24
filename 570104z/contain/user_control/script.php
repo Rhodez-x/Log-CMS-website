@@ -8,4 +8,8 @@
         return true;
     }
 
+    function confirmAction() {
+        return confirm("Bekræft ved at klikke ok");
+    }
+
 </script>

@@ -10,7 +10,7 @@ function menu_line($active){
         * If the user is not an admin, the tabs will not be avible.
         */ 
         array("Min side", '/570104z/index', 9),
-        array("Indstillinger", '/570104z/setup', 9), 
+        array("Mine indstillinger", '/570104z/user_control', 9), 
         array("Rediger side", '/570104z/site_editor', 49),
         array("Master control", '/570104z/master_control', 49)
         );

@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
         <div class="col-sm-4"></div>
         </div>';
-        header("location: /570104z/setup");
+        header("location: /570104z/master_control");
 
     }
     catch(PDOException $e) {
@@ -102,10 +102,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
         <div class="col-sm-4"></div>
         </div>';
-        header("location: /570104z/setup");
+        header("location: /570104z/master_control");
     }
 }
 else {
-    header("location: /index");
+    header("location: /");
 }
 ?>
