@@ -43,6 +43,7 @@ echo '<div class="modal fade" id="myModal" role="dialog" style="z-index: 9999;">
         <button type="submit" id="loginbutton" class="btn btn-default">Login</button>
         <span class="text-danger" id="loginfeedback"></span>
         </form>
+        <a href="/user-recovery">Glemt password?</a>
         
         </div>
       </div>

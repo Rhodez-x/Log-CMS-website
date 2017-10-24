@@ -51,15 +51,15 @@
             <Hr / > 
             <div id="password">
                 <h2>Ændre password:</h2>
-                <form name="createForm" action="/570104z/contain/master_control/create_user" onsubmit="return confirmAction()" method="post">
+                <form name="createForm" action="/570104z/contain/user_control/name_pass_handler" onsubmit="return confirmAction()" method="post">
                     <div class="form-group">
                     <label for="titel">Indtast nyt password:</label>
-                    <input type="text" class="form-control" name="new_pass" id="new_pass">
+                    <input type="password" class="form-control" name="new_pass" id="new_pass">
                     <span id="errUser"></span>
                     </div>
                     <div class="form-group">
                     <label for="titel">Gentag nyt password:</label>
-                    <input type="text" class="form-control" name="rep_pass" id="rep_pass">
+                    <input type="password" class="form-control" name="rep_pass" id="rep_pass">
                     <span id="errUser"></span>
                     </div>
                     <div class="form-group">

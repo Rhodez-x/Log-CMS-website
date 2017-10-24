@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         $check_username_confirm = username_check($_SESSION['login_user']);
                         $check_password_confirm = password_crypt($post_pass_confirm, $check_username_confirm);
 
-                        $check_password_new = password_crypt($post_pass_confirm, $check_username_new);
+                        $check_password_new = password_crypt($post_pass_new, $check_username_confirm);
 
                         $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
 
@@ -82,9 +82,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             foreach($stmt_check->fetchAll() as $row) {
                                 if ($row['active'] == 1) {
                                     // if the user exist and the password is right
-                                    $stmt = $conn->prepare("UPDATE ReplaceDBusers SET username = ?, username_clean = ?, password = ? WHERE id = ?;");
-                                    $stmt->execute(array($_SESSION["new_username"], $check_username_new, $check_password_new, $row['id']));
-                                    $_SESSION['login_user'] = $_SESSION["new_username"];
+                                    $stmt = $conn->prepare("UPDATE ReplaceDBusers SET password = ? WHERE id = ?;");
+                                    $stmt->execute(array($check_password_new, $row['id']));
                                 }
                                 else {
                                     $_SESSION["change_password_feedback"] = '<span style="color:red;"><b>Din bruger er deaktiveret </b></span>';
