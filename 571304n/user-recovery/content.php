@@ -22,8 +22,8 @@
                 <form action="/571304n/user-recovery/process" id="forgotForm" onsubmit="return validateContactForm()" method="post">
                     <div class="form-group">
                     <label for="mail">Recovery-kode:</label>
-                    <input type="text" class="form-control" name="mail" id="mail" value="'.stripslashes($_SESSION["recover_mail"]).'">
-                    <span id="errMail" style="color:red;">'.$_SESSION["recover_mail_Err"].'</span>
+                    <input type="text" class="form-control" name="recover_code" id="recover_code">
+                    <span id="errMail" style="color:red;">'.$_SESSION["recover_code_Err"].'</span>
                     </div>
                     <button type="submit" class="btn btn-success">Fortsæt</button>
                 </form>';
@@ -35,7 +35,7 @@
                     og du vil modtage en recovery-kode på mail. 
                     Den skal du indtaste bagefter. 
                 </p>
-                <form action="/571304n/user-recovery/process" id="forgotForm" onsubmit="return validateContactForm()" method="post">
+                <form action="/571304n/user-recovery/get_code" id="forgotForm" onsubmit="return validateContactForm()" method="post">
                     <div class="form-group">
                     <label for="mail">'.$lang_data_mail.':</label>
                     <input type="text" class="form-control" name="mail" id="mail" value="'.stripslashes($_SESSION["recover_mail"]).'">
@@ -47,6 +47,7 @@
                 unset($_SESSION["recover_mail_Err"]);
             break;
     }
+    unset($_SESSION["recover_step"]);
     ?>
     </div>
     <div class="col-sm-3"></div>
