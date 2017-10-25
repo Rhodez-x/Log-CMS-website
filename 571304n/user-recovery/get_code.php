@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $contact_name = $row['username'];
                             $recovercode_string = random_str(12); // first created when we are sure that the user is valid
                             $stmt_set = $conn->prepare("UPDATE ReplaceDBusers SET recoverycode = ?, recoverytime = ? WHERE id = ? ");
-                            $stmt_set->execute(array($recovercode_string, time(), $row['id']));
+                            $stmt_set->execute(array($recovercode_string, (time() + 900), $row['id']));
                             $stmt_set = null;
                         }
                         else {
@@ -96,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <br>
                     '.$text_for_recovery_mail.'<br>
                     <br>
-                    Med Venlig Hilsen
+                    Med Venlig Hilsen<br>
                     '.$global_firm_name.'
 
                 </body>

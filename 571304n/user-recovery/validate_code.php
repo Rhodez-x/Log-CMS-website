@@ -21,29 +21,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $temp_error = false;
             $recovercode_string = '';
             $contact_name = '';
+            $_SESSION["recover_input_code"] = clean_input_text($_POST["recover_code"]);
             try {
                 $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                $stmt = $conn->prepare("SELECT id, active, username, recoverytime FROM ReplaceDBusers WHERE mail = ? AND rocoverycode = ? ; ");
-                $stmt->execute(array($_SESSION["recover_mail"], clean_input_text($_POST["recovery_code"]));
+                $stmt = $conn->prepare("SELECT id, active, username, recoverytime FROM ReplaceDBusers WHERE mail = ? AND recoverycode = ? ; ");
+                $stmt->execute(array($_SESSION["recover_mail"], $_SESSION["recover_input_code"]));
                 if ($stmt->rowCount() == 1) {
                     foreach($stmt->fetchAll() as $row) {
                         if ($row['active'] == 1) {
                             if ($row['recoverytime'] > time()) {
-                                $contact_name = $row['username'];
-                                $recovercode_string = random_str(12); // first created when we are sure that the user is valid
-                                // reset the recoverycode and time, so it's no longer possible to use the code
-                                $stmt_set = $conn->prepare("UPDATE ReplaceDBusers SET recoverycode = '', recoverytime = '' WHERE id = ? ");
-                                $stmt_set->execute(array($row['id']));
-                                $stmt_set = null;
+                                $_SESSION["recover_username"] = $row['username'];
+                                $_SESSION["feedback_recover"] = '<div class="row">
+                                <div class="col-sm-12 alert alert-success"><b>Koden er godkendt</b> <br> 
+                                Du kan nu lave et nyt password.
+                                </div>
+                                </div>';
                                 $_SESSION["recover_step"] = 2;
                                 
                             }
                             else {
+                                $stmt_set = $conn->prepare("UPDATE ReplaceDBusers SET recoverycode = '', recoverytime = '' WHERE id = ? ");
+                                $stmt_set->execute(array($row['id']));
+                                $stmt_set = null;
                                 $_SESSION["feedback_recover"] = '<div class="row">
                                 <div class="col-sm-12 alert alert-danger"><b>Din recovery-kode er udløbet</b> <br> 
                                 Få en ny ved at indtaste din mail og trykke fortsæt.
                                 </div>
                                 </div>';
+                                // reset the recoverycode and time, so it's no longer possible to use the code
                                 $_SESSION["recover_step"] = 1;
                             }
                         }
