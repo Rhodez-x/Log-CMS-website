@@ -1,7 +1,9 @@
 <?php
-/* Sandsized CMS - By Guld-berg.dk software technologies
+/** Sandsized CMS - By Guld-berg.dk software technologies
 *  Developed by Jørn Guldberg
 *  Copyright (C) Jørn Guldberg - Guld-berg.dk All Rights Reserved. 
+*  @version 4.0.0 - Major update, not compatiple with earlier realises. 
+*  Full release-notes se the github repository
 */
 
 session_start();
@@ -106,6 +108,7 @@ if (isset($_SESSION['login_user'])) {
                     define('LOGIN_ID', $row['id']);
                     define('LOGIN_SESSION', $row['username']);
                     define('LOGIN_SESSIONCLEAN', $row['username_clean']);
+                    define('LOGIN_MAIL', $row['mail']);
                     define('LOGIN_LEVEL', $row['loginlevel']);
                     $_SESSION['LOGIN_LAST_ACTIVITY'] = (time() + 900); // 900 sec = 15 minutes - Set a timer for the user, if the user is inactive, the user is logout
                 }

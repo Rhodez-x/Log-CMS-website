@@ -1,25 +1,32 @@
 <?php
-/* Sandsized CMS - By Guld-berg.dk software technologies
+/** Sandsized CMS - By Guld-berg.dk software technologies
 *  Developed by Jørn Guldberg
 *  Copyright (C) Jørn Guldberg - Guld-berg.dk All Rights Reserved. 
+*  @version 4.0.0 - Major update, not compatiple with earlier realises. 
+*  Full release-notes se the github repository
 */
+
+if (!empty($_SESSION["new_user_name"])) {
+    $username_form_value = $_SESSION["new_user_name"];
+    unset($_SESSION["new_user_name"]);
+} 
+else {
+    $username_form_value = $_SESSION["login_user"];
+}
+
+if (!empty($_SESSION["new_user_mail"])) {
+    $user_mail = $_SESSION["new_user_mail"];
+    unset($_SESSION["new_user_mail"]);
+} 
+else {
+    $user_mail = LOGIN_MAIL;
+}
+
 ?>
 
 <div class="container GLOBALdesign">
     <h2>Controlpanel</h2>
-    <?php echo menu_line($web_page_name);
-    echo $_SESSION["uploade_feedback"];
-    unset($_SESSION["uploade_feedback"]); 
-
-    if (!empty($_SESSION["new_user_name"])) {
-        $username_form_value = $_SESSION["new_user_name"];
-        unset($_SESSION["new_user_name"]);
-    } 
-    else {
-        $username_form_value = $_SESSION["login_user"];
-    }
-
-    ?>
+    <?php echo menu_line($web_page_name); ?>
 
     <div class="row">
         <nav class="col-sm-3" id="myScrollspy">
@@ -31,6 +38,10 @@
             </ul>
         </nav>
         <div class="col-sm-6">
+        <?php
+            echo $_SESSION["uploade_feedback"];
+            unset($_SESSION["uploade_feedback"]); 
+        ?>
             <div id="username"> 
                 <h2>Ændre brugernavn:</h2>
                 <form name="createForm" action="/570104z/contain/user_control/name_pass_handler" onsubmit="return confirmAction()" method="post">
@@ -65,31 +76,21 @@
                     <div class="form-group">
                     <label for="titel">Indtast nuværende password:</label>
                     <input type="password" class="form-control" name="password" id="password">
-                    <?php echo $_SESSION["change_password_feedback"] . "<br>"; ?>
                     </div>
+                    <?php echo $_SESSION["change_password_feedback"] . "<br>"; ?>
                     <button type="submit" class="btn btn-default" name="handel" value="pass">Opdater</button>
                 </form>
             </div>
             <Hr / >
             <div id="profile">
                 <h2>Ændre profiloplysninger:</h2>
-                Dette er kun et test exempel
                 <form name="createForm" action="/570104z/contain/user_control/user_handler" onsubmit="return confirmAction()" method="post">
                     <div class="form-group">
-                    <label for="titel">Fornavn:</label>
-                    <input type="text" class="form-control" name="username" id="username">
-                    <span id="errUser"></span>
-                    </div>
-                    <div class="form-group">
-                    <label for="titel">Efternavn:</label>
-                    <input type="text" class="form-control" name="username" id="username">
-                    <span id="errUser"></span>
-                    </div>
-                    <div class="form-group">
                     <label for="titel">E-mail:</label>
-                    <input type="password" class="form-control" name="password" id="password">
+                    <input type="text" class="form-control" name="mail" id="mail" value="<?php echo $user_mail; ?>">
                     <span id="errPass"></span>
                     </div>
+                    <?php echo $_SESSION["change_mail_feedback"] . "<br>"; ?>
                     <button type="submit" class="btn btn-default">Opdater</button>
                 </form>
             </div>

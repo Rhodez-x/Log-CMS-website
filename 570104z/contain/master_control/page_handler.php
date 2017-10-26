@@ -1,12 +1,18 @@
 <?php
+/** Sandsized CMS - By Guld-berg.dk software technologies
+*  Developed by Jørn Guldberg
+*  Copyright (C) Jørn Guldberg - Guld-berg.dk All Rights Reserved. 
+*  @version 4.0.0 - Major update, not compatiple with earlier realises. 
+*  Full release-notes se the github repository
+*/
+
 $loginsidelevel = 49; 
 require_once $_SERVER['DOCUMENT_ROOT']."/570304x/x530199.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $post_id = clean_input_text($_POST["id"]);
     $post_page_name = clean_input_text($_POST["page_name"]);
-    $post_page_name_dk = clean_input_text($_POST["page_name_dk"]);
-    $post_page_name_en = clean_input_text($_POST["page_name_en"]);    
+    $post_page_name_dk = clean_input_text($_POST["page_name_dk"]);   
     $post_handel = clean_input_text($_POST["handel"]); // The value of the button preesed
     $post_navi_order = clean_input_text($_POST["navi_order"]);
     $post_link = clean_input_text($_POST["link"]);
@@ -33,24 +39,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmt->execute(array($post_page_name_dk, $new_post_page_name_link, $heighst_navi_order));
             $stmt = null;
             $conn = null;
-            
-            $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-            $stmt = $conn->prepare("INSERT INTO ReplaceDBnavi (name, link, language, navi_order) VALUES (?, ?, 'GB', ?);");
-            $stmt->execute(array($post_page_name_en, $new_post_page_name_link, $heighst_navi_order));
-            $stmt = null;
-            $conn = null;
-            
+
             $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
             $stmt = $conn->prepare("INSERT INTO ReplaceDBtext (language, page_name, text) VALUES ('DK', ?, ?);");
             $stmt->execute(array($post_page_name_dk, $post_page_name_dk));
             $stmt = null;
             $conn = null;
             
-            $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-            $stmt = $conn->prepare("INSERT INTO ReplaceDBtext (language, page_name, text) VALUES ('GB', ?, ?);");
-            $stmt->execute(array($post_page_name_dk, $post_page_name_en));
-            $stmt = null;
-            $conn = null;
             
         }
         else {
@@ -87,20 +82,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
         $_SESSION["uploade_feedback"] = '<div class="row">
-        <div class="col-sm-8 alert alert-success">
+        <div class="col-sm-12 alert alert-success">
         <strong>SUCCESS</strong> Handlingen er gennemført
         </div>
-        <div class="col-sm-4"></div>
         </div>';
         header("location: /570104z/master_control");
 
     }
     catch(PDOException $e) {
         $_SESSION["uploade_feedback"] = '<div class="row">
-        <div class="col-sm-8 alert alert-danger">
+        <div class="col-sm-12 alert alert-danger">
         <strong>ERROR</strong> Der skete en fejl '.$e.'
         </div>
-        <div class="col-sm-4"></div>
         </div>';
         header("location: /570104z/master_control");
     }

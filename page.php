@@ -1,5 +1,11 @@
 <?php 
-// copyright Jørn Jespersen - guld-berg.dk
+/** Sandsized CMS - By Guld-berg.dk software technologies
+*  Developed by Jørn Guldberg
+*  Copyright (C) Jørn Guldberg - Guld-berg.dk All Rights Reserved. 
+*  @version 4.0.0 - Major update, not compatiple with earlier realises. 
+*  Full release-notes se the github repository
+*/
+
 $loginsidelevel = 0; // sidens login level 0 for ikke at skulle være logget ind og 1 for at skulle være logget ind. 
 /*
 Special page which loads ALL content from the db. 
