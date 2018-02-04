@@ -64,7 +64,7 @@ CREATE TABLE `ReplaceDBnavi` (
 INSERT INTO `ReplaceDBnavi` (`id`, `name`, `link`, `language`, `required`, `navi_order`) VALUES
 (1, 'Index', 'index', 'DK', 1, 1),
 (2, 'KONTAKT', 'kontakt', 'DK', 1, 3),
-(3, 'Indhold', 'page?id=Indhold', 'DK', 0, 2);
+(3, 'content', 'page?id=content', 'DK', 0, 2);
 
 -- --------------------------------------------------------
 
@@ -87,7 +87,7 @@ CREATE TABLE `ReplaceDBtext` (
 INSERT INTO `ReplaceDBtext` (`id`, `text`, `language`, `page_name`, `required`) VALUES
 (1, '<h1><span style=\"font-size:16px\"><strong>Kontakt</strong></span></h1>\r\n\r\n<p><span style=\"font-size:12px\">Brug kontakt formular herunder</span></p>\r\n', 'DK', 'contact', 1),
 (2, '<p>Index tekst</p>\r\n', 'DK', 'index', 1),
-(3, '<p>Her kan skrives alt det indhold at du vil have p&aring; side</p>\r\n', 'DK', 'Indhold', 0);
+(3, '<p>Her kan skrives alt det content at du vil have p&aring; side</p>\r\n', 'DK', 'content', 0);
 
 -- --------------------------------------------------------
 

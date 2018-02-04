@@ -20,7 +20,7 @@
             echo '<p>
                     Indtast den recovery-kode du har modtaget på din email 
                 </p>
-                <form action="/571304n/user-recovery/validate_code" id="forgotForm" onsubmit="return validateContactForm()" method="post">
+                <form action="/content/user-recovery/validate_code" id="forgotForm" onsubmit="return validateContactForm()" method="post">
                     <div class="form-group">
                     <label for="mail">Recovery-kode:</label>
                     <input type="text" class="form-control" name="recover_code" id="recover_code" autocomplete="off">
@@ -35,7 +35,7 @@
                     Indtast dit nye password og tryk på fortsæt, <br>
                 </p>
                 <h2>Ændre password:</h2>
-                <form name="createForm" action="/571304n/user-recovery/new_pass" onsubmit="return validateContactForm()" method="post">
+                <form name="createForm" action="/content/user-recovery/new_pass" onsubmit="return validateContactForm()" method="post">
                     <div class="form-group">
                     <label for="titel">Indtast nyt password:</label>
                     <input type="password" class="form-control" name="new_pass" id="new_pass">
@@ -57,7 +57,7 @@
                     og du vil modtage en recovery-kode på mail. 
                     Den skal du indtaste bagefter. 
                 </p>
-                <form action="/571304n/user-recovery/get_code" id="forgotForm" onsubmit="return validateContactForm()" method="post">
+                <form action="/content/user-recovery/get_code" id="forgotForm" onsubmit="return validateContactForm()" method="post">
                     <div class="form-group">
                     <label for="mail">'.$lang_data_mail.':</label>
                     <input type="text" class="form-control" name="mail" id="mail" autocomplete="off" value="'.stripslashes($_SESSION["recover_mail"]).'">

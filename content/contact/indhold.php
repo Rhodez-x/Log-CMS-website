@@ -15,7 +15,7 @@
                         }
                     } 
                 ?>
-  <form action="/571304n/contact/process" id="contactForm" onsubmit="return validateContactForm()" method="post">
+  <form action="/content/contact/process" id="contactForm" onsubmit="return validateContactForm()" method="post">
 <div class="form-group">
   	<label for="mail"><?php echo $lang_data_mail . ":" ?></label>
   	<input type="text" class="form-control" name="mail" id="mail" value="<?php echo $_SESSION["contact_mail"]; unset($_SESSION["contact_mail"]); ?>">

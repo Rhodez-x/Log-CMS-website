@@ -7,8 +7,8 @@
 */
 
 $loginsidelevel = 10; // 10 for all users are aloud to use this 
-require_once $_SERVER['DOCUMENT_ROOT']."/570304x/x530199.php";
-require_once $_SERVER['DOCUMENT_ROOT']."/570304x/validation_functions.php"; // validation functions used to validate the input
+require_once $_SERVER['DOCUMENT_ROOT']."/core/x530199.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/core/validation_functions.php"; // validation functions used to validate the input
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $ok = true;

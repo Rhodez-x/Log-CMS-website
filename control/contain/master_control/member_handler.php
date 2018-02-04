@@ -4,7 +4,7 @@
 *  Copyright (C) Jørn Guldberg - Guld-berg.dk All Rights Reserved. 
 */
 $loginsidelevel = 49; 
-require_once $_SERVER['DOCUMENT_ROOT']."/570304x/x530199.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/core/x530199.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $post_id = clean_input_text($_POST["id"]);   

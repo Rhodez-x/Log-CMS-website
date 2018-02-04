@@ -6,8 +6,8 @@
 *  Full release-notes se the github repository
 */
 
-require_once $_SERVER['DOCUMENT_ROOT']."/570304x/x530199.php"; // kernel
-require_once $_SERVER['DOCUMENT_ROOT']."/570304x/validation_functions.php"; // validation functions used to validate the input
+require_once $_SERVER['DOCUMENT_ROOT']."/core/x530199.php"; // kernel
+require_once $_SERVER['DOCUMENT_ROOT']."/core/validation_functions.php"; // validation functions used to validate the input
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

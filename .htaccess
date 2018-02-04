@@ -13,7 +13,12 @@ RewriteRule ^([^.?]+)$ %{REQUEST_URI}.php [L]
 RewriteCond %{THE_REQUEST} "^[^ ]* .*?\.php[? ].*$"
 RewriteRule .* - [L,R=404]
 
-#RewriteBase /
+# Should say if request is false
+# then go to default.php
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule ^.*$ /default.php [L]
+
 #RewriteCond %{REQUEST_URI} !=/index.php
 #RewriteRule ^(.*) /index.php?req=$1 [L,PT]
 

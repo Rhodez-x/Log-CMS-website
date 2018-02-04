@@ -4,8 +4,8 @@
 *  Copyright (C) Jørn Guldberg - Guld-berg.dk All Rights Reserved. 
 */
 
-include $_SERVER['DOCUMENT_ROOT']."/570304x/x530199.php"; // kernel
-include $_SERVER['DOCUMENT_ROOT']."/570304x/validation_functions.php"; // validation functions used to validate the input
+include $_SERVER['DOCUMENT_ROOT']."/core/x530199.php"; // kernel
+include $_SERVER['DOCUMENT_ROOT']."/core/validation_functions.php"; // validation functions used to validate the input
 
 /**
  * Generate a random string, using a cryptographically secure 
