@@ -9,10 +9,10 @@ function menu_line($active){
         *  name, path, and loginlevel,
         * If the user is not an admin, the tabs will not be avible.
         */ 
-        array("Min side", '/570104z/index', 9),
-        array("Mine indstillinger", '/570104z/user_control', 9), 
-        array("Rediger side", '/570104z/site_editor', 49),
-        array("Master control", '/570104z/master_control', 49)
+        array("Min side", '/control/index', 9),
+        array("Mine indstillinger", '/control/user_control', 9), 
+        array("Rediger side", '/control/site_editor', 49),
+        array("Master control", '/control/master_control', 49)
         );
     $return_string = '<ul class="nav nav-tabs">';
     foreach($tabs as $tab) {
