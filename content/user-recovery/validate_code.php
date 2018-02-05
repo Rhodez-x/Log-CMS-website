@@ -6,7 +6,7 @@
 *  Full release-notes se the github repository
 */
 
-require_once $_SERVER['DOCUMENT_ROOT']."/core/x530199.php"; // kernel
+require_once $_SERVER['DOCUMENT_ROOT']."/core/system_core.php"; // kernel
 require_once $_SERVER['DOCUMENT_ROOT']."/core/validation_functions.php"; // validation functions used to validate the input
 
 

@@ -4,7 +4,7 @@
 *  Copyright (C) Jørn Guldberg - Guld-berg.dk All Rights Reserved. 
 */
 
-require_once $_SERVER['DOCUMENT_ROOT']."/core/x530199.php"; // kernefilen
+require_once $_SERVER['DOCUMENT_ROOT']."/core/system_core.php"; // kernefilen
 include $_SERVER['DOCUMENT_ROOT']."/".$sidenssti.$overmodule;
 // Her tjekkes der om der skal laves  login felter, eller om brugeren er logget ind.
 if(isset($_SESSION['login_user'])) {
@@ -59,6 +59,6 @@ echo '<!DOCTYPE html>
 </head>
 <body>';
 
-require_once $_SERVER['DOCUMENT_ROOT']."/570904q/basicscript.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/core/includes/basicscript.php";
 
 ?>
