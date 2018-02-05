@@ -9,5 +9,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['page_name_lang'] = 'DK';
         }
 }
-header("location: /570104z/site_editor");
+header("location: /control/site_editor");
 ?>

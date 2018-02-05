@@ -86,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <strong>SUCCESS</strong> Handlingen er gennemført
         </div>
         </div>';
-        header("location: /570104z/master_control");
+        header("location: /control/master_control");
 
     }
     catch(PDOException $e) {
@@ -95,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <strong>ERROR</strong> Der skete en fejl '.$e.'
         </div>
         </div>';
-        header("location: /570104z/master_control");
+        header("location: /control/master_control");
     }
 }
 else {

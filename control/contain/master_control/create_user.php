@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="col-sm-4"></div>
             </div>';        
     }
-    header('Location: /570104z/master_control');
+    header('Location: /control/master_control');
 } else {
     header('Location: /');
 }

@@ -7,7 +7,7 @@
 */
 function loggetind() {
     //if (LOGIN_LEVEL > 49) {
-    //    $admin_menu = '<li><a href="/570104z/index">Kontrolpanel</a></li>';
+    //    $admin_menu = '<li><a href="/control/index">Kontrolpanel</a></li>';
     //}
     $navnbar = '
           <li class="dropdown">

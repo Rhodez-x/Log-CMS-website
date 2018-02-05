@@ -13,7 +13,7 @@ if(isset($_SESSION['login_user'])) {
             <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">Min Menu<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="/570104z/index">Kontrolpanel</a></li>
+            <li><a href="/control/index">Kontrolpanel</a></li>
             <li><a href="/logud.php">Log ud</a></li>
           </ul>
         </li></form>';

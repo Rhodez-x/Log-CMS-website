@@ -127,7 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>';
         }
 
-        header("location: /570104z/user_control");
+        header("location: /control/user_control");
 
     }
     catch(PDOException $e) {
@@ -137,7 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
         <div class="col-sm-4"></div>
         </div>';
-        header("location: /570104z/user_control");
+        header("location: /control/user_control");
     }
 }
 else {
