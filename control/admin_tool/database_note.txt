@@ -1,0 +1,9 @@
+Database notes of v5.0.0 of the main-core Sandsized CMS 
+by Jørn Guldberg. 
+
+Database updates: 
+#1	The navi tabel in the database has to holde all entries of navi-links in the DB. 
+	Including the navi for the controlpanel. 
+	There is added a permission in the navi tabel, this holds the integer ID for that
+	permission with the given ID which the user has to have to gain access and even see the navi. 
+	This is going the be filtered when php generate the navi's. 
