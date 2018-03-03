@@ -1,11 +1,13 @@
 <?php
-
-/*
-Copy-right Jørn Guldberg
+/** Sandsized CMS - By Guld-berg.dk software technologies
+*  Developed by Jørn Guldberg
+*  Copyright (C) Jørn Guldberg - Guld-berg.dk All Rights Reserved. 
+*  @version 5.0.0 - Major update, not compatiple with earlier realises. 
+*  Full release-notes se the github repository
 */
 function loggetind() {
     //if (LOGIN_LEVEL > 49) {
-    //    $admin_menu = '<li><a href="/570104z/index">Kontrolpanel</a></li>';
+    //    $admin_menu = '<li><a href="/control/index">Kontrolpanel</a></li>';
     //}
     $navnbar = '
           <li class="dropdown">
@@ -13,7 +15,7 @@ function loggetind() {
         <span class="caret"></span></a>
         <ul class="dropdown-menu" style="background-color:black;">
         <li style="color: white;"></li>
-        <li><a href="/570104z/index">Kontrolpanel</a></li>
+        <li><a href="/control/index">Kontrolpanel</a></li>
           '.$admin_menu.'
         <li><a href="/logout">Log ud</a></li>
         </ul>
@@ -51,23 +53,6 @@ echo '<div class="modal fade" id="myModal" role="dialog" style="z-index: 9999;">
     </div>
   </div>';
 }
-// <a href="/glemt">Glemt kode?</a> is removed, as long as its only the admins which can logon no need for forgotten passwprd
-/*
-If a logo has to be added
-<div class="container-fluid" style="background-color:#161511;">
-    <img style="margin-top:50px;" class="img-responsive center-block" src="/570404v/logo.jpg" alt="logo"> 
-</div>
-
-Add flags to nav bar to select lang
-<li><form style="padding-right:10px; padding-top:15px;">
-    <input type="hidden" id="lang" name="lang" value="DK">
-    <input type="image" name="submit" src="/570404v/dk.svg"  height="20px" border="0" alt="Submit" />
-</form></li> 
-<li><form style="padding-right:10px; padding-top:15px;">
-        <input type="hidden" id="lang" name="lang" value="GB">
-        <input type="image" name="submit" src="/570404v/gb.svg" height="20px" border="0" alt="Submit" />
-</form></li> 
-*/
 ?>
 
 <div class="container">
@@ -88,7 +73,11 @@ Add flags to nav bar to select lang
                     <?php
                         try {
                             $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                            $stmt = $conn->prepare("SELECT * FROM ReplaceDBnavi WHERE Language = ? ORDER BY navi_order;");
+                            $stmt = $conn->prepare("SELECT ReplaceDBnavi.link, ReplaceDBnavi_name.name
+                                                    FROM ReplaceDBnavi
+                                                    INNER JOIN ReplaceDBnavi_name ON ReplaceDBnavi.id=ReplaceDBnavi_name.parent_id 
+                                                    WHERE ReplaceDBnavi.place = 'standart'
+                                                    ORDER BY navi_order;");
                             $stmt->execute(array($_SESSION['session_language']));
                             if ($stmt->rowCount() > 0) {
                                 foreach($stmt->fetchAll() as $row) {

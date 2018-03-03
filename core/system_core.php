@@ -7,6 +7,9 @@
 */
 
 session_start();
+
+include $_SERVER['DOCUMENT_ROOT']."/user-sec/site_settings.php";
+
 // Her indstilles tidindstillingerne på siden
 date_default_timezone_set("Europe/Copenhagen");
 define(DATE_AND_TIME, date('Y-m-d H:i:s'));
@@ -49,8 +52,6 @@ function password_crypt($password_crypt, $username_check) {
     
     return $feedback;
 }
-
-include $_SERVER['DOCUMENT_ROOT']."/core/site_settings.php";
 
 //siden titel
 $web_page_title = GLOBAL_FIRM_NAME . " - " . $web_page_name;
@@ -136,6 +137,6 @@ else if ($loginsidelevel > LOGIN_LEVEL && isset($_SESSION['login_user'])) {
 }
 
 
-include $_SERVER['DOCUMENT_ROOT']."/core/site_special_func.php"; // The special functionality of the specific site
+include $_SERVER['DOCUMENT_ROOT']."/user-sec/site_special_func.php"; // The special functionality of the specific site
 
 ?>

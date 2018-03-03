@@ -1,6 +1,6 @@
 <?php
 $loginsidelevel = 49; 
-require_once $_SERVER['DOCUMENT_ROOT']."/core/x530199.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/core/system_core.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $POST_username = clean_input_text($_POST["username"]);
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="col-sm-4"></div>
             </div>';        
     }
-    header('Location: /570104z/master_control');
+    header('Location: /control/master_control');
 } else {
     header('Location: /');
 }

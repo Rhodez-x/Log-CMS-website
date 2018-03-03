@@ -4,7 +4,7 @@
 *  Copyright (C) Jørn Guldberg - Guld-berg.dk All Rights Reserved. 
 */
 
-require_once $_SERVER['DOCUMENT_ROOT']."/core/x530199.php"; // kernefilen
+require_once $_SERVER['DOCUMENT_ROOT']."/core/system_core.php"; // kernefilen
 include $_SERVER['DOCUMENT_ROOT']."/".$sidenssti.$overmodule;
 // Her tjekkes der om der skal laves  login felter, eller om brugeren er logget ind.
 if(isset($_SESSION['login_user'])) {
@@ -13,7 +13,7 @@ if(isset($_SESSION['login_user'])) {
             <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">Min Menu<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="/570104z/index">Kontrolpanel</a></li>
+            <li><a href="/control/index">Kontrolpanel</a></li>
             <li><a href="/logud.php">Log ud</a></li>
           </ul>
         </li></form>';
@@ -55,10 +55,10 @@ echo '<!DOCTYPE html>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="/570404v/style.css">
+<link rel="stylesheet" href="/design/style.css">
 </head>
 <body>';
 
-require_once $_SERVER['DOCUMENT_ROOT']."/570904q/basicscript.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/core/includes/basicscript.php";
 
 ?>

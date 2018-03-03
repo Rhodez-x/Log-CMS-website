@@ -7,7 +7,7 @@
           <h3>Site editor:</h3>
         <?php echo $_SESSION["uploade_feedback"];
             unset($_SESSION["uploade_feedback"]); ?>
-    <form action="/570104z/contain/site_editor/select" method="post" class="form-inline">
+    <form action="/control/contain/site_editor/select" method="post" class="form-inline">
         <div class="input-group">
             <select class="form-control" name="edit_page_name" id="edit_page_name">
                 <option disabled selected>Choose text for a site</option>
@@ -58,7 +58,7 @@
                         $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
                         foreach($stmt->fetchAll() as $row) {
                             echo "<h3>Du er ved at redigere: ".$_SESSION['page_name_text_edit']." Sprog: ".$_SESSION['page_name_lang']."</h3>
-                                <form action='/570104z/contain/site_editor/save' method='post'>
+                                <form action='/control/contain/site_editor/save' method='post'>
                                     <button class='btn btn-success' type='submit'>Save</button>
                                     <textarea name='editor1' id='editor1' rows='10' cols='80'>"
                                         . $row['text'] . 

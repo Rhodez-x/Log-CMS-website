@@ -4,7 +4,7 @@
 *  Copyright (C) Jørn Guldberg - Guld-berg.dk All Rights Reserved. 
 */
 
-include $_SERVER['DOCUMENT_ROOT']."/core/x530199.php"; // kernel
+include $_SERVER['DOCUMENT_ROOT']."/core/system_core.php"; // kernel
 include $_SERVER['DOCUMENT_ROOT']."/core/validation_functions.php"; // validation functions used to validate the input
 
 /**

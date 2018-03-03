@@ -40,7 +40,7 @@
                     $select_lang_options = $select_lang_options . "<option $select_lang_active_edit_lang value='$select_lang_code'>".$select_lang_name."</option>";
 
                 }
-                $select_lang_text = '<form class="form-inline" onsubmit="return confirmDelete()" action="/570104z/contain/setup/member_handler" method="post">
+                $select_lang_text = '<form class="form-inline" onsubmit="return confirmDelete()" action="/control/contain/setup/member_handler" method="post">
                 Vælg hvilket sprog der skal redigeres
                 <div class="input-group">
                 <select class="form-control" name="edit_page_name" id="edit_page_name">  
@@ -65,7 +65,7 @@
         <hr>
     <div id="user"> 
             <h2>Create user:</h2>
-        <form class="form-inline" name="createForm" action="/570104z/contain/master_control/create_user" onsubmit="return validateForm()" method="post">
+        <form class="form-inline" name="createForm" action="/control/contain/master_control/create_user" onsubmit="return validateForm()" method="post">
         <div class="form-group">
         <label for="titel">Username:</label>
         <input type="text" class="form-control" name="username" id="username">
@@ -124,7 +124,7 @@
                             $admin_or_users = 2;
                         }
 
-                        $page_edit_text = $page_edit_text . '<form class="form-inline" onsubmit="return confirmDelete()" action="/570104z/contain/master_control/member_handler" method="post">
+                        $page_edit_text = $page_edit_text . '<form class="form-inline" onsubmit="return confirmDelete()" action="/control/contain/master_control/member_handler" method="post">
                         <div class="form-group">
                         <label for="page_name">'.$edit_page_lang.'</label>
                             <input type="text" class="form-control" name="username" id="username" readonly value="'.$data_login_username.'">
@@ -177,7 +177,7 @@
                             $edit_page_required_disable = 'disabled';
                         }
                         
-                        $page_edit_text = $page_edit_text . '<form class="form-inline" onsubmit="return confirmDelete()" action="/570104z/contain/master_control/page_handler" method="post">
+                        $page_edit_text = $page_edit_text . '<form class="form-inline" onsubmit="return confirmDelete()" action="/control/contain/master_control/page_handler" method="post">
                         <div class="form-group">
                         <label for="page_name">'.$edit_page_lang.'</label>
                             <input type="text" class="form-control" name="page_name" id="page_name" value="'.$edit_page_name.'">
@@ -204,7 +204,7 @@
             $stmt = null;
             $conn = null;
             
-            echo $page_edit_text . '<br><form class="form-inline" action="/570104z/contain/master_control/page_handler" method="post">
+            echo $page_edit_text . '<br><form class="form-inline" action="/control/contain/master_control/page_handler" method="post">
                         <div class="form-group">
                         <label for="max_weight">Tilføj ny side</label>
                             <input type="text" class="form-control" name="page_name_dk" id="page_name" value="">
