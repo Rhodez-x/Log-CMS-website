@@ -34,6 +34,5 @@
      <button type="submit" class="btn btn-success">Send</button>
   </form>
             </div>
-
         </div>
 </div>
