@@ -157,7 +157,10 @@
                 $page_edit_text = '';
                 $edit_page_navi_order_temp = "1";
                 $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                $stmt = $conn->prepare("SELECT * FROM ReplaceDBnavi WHERE language = ? ORDER BY navi_order, language;");
+                $stmt = $conn->prepare("SELECT ReplaceDBnavi.*, ReplaceDBnavi_name.* 
+                                        FROM ReplaceDBnavi 
+                                        INNER JOIN ReplaceDBnavi_name ON ReplaceDBnavi.id=ReplaceDBnavi_name.parent_id
+                                         WHERE language = ? AND place = 'standart' ORDER BY navi_order, language;");
                 $stmt->execute(array($_SESSION['master_control_edit_lang']));
                 if ($stmt->rowCount() > 0) {
                     foreach($stmt->fetchAll() as $row) {
@@ -180,12 +183,12 @@
                         $page_edit_text = $page_edit_text . '<form class="form-inline" onsubmit="return confirmDelete()" action="/control/contain/master_control/page_handler" method="post">
                         <div class="form-group">
                         <label for="page_name">'.$edit_page_lang.'</label>
-                            <input type="text" class="form-control" name="page_name" id="page_name" value="'.$edit_page_name.'">
+                            <input type="text" class="form-control" name="page_name" id="page_name" readonly value="'.$edit_page_name.'">
                           </div>
                           <input type="hidden" class="form-control" name="navi_order" id="navi_order" value="'.$edit_page_navi_order.'">
                           <input type="hidden" class="form-control" name="link" id="link" value="'.$edit_page_link.'">
                           <input type="hidden" class="form-control" name="id" id="id" value="'.$edit_page_id.'">
-                          <button type="submit" class="btn btn-default" name="handel" value="edit">Rediger</button>
+                          <a href="/control/contain/site_editor/select?edit_page_name='.$edit_page_name.'" class="btn btn-default" role="button">Rediger</a>
                           <button type="submit" class="btn btn-danger" '.$edit_page_required_disable.' name="handel" value="rm">Fjern</button>
                           <button type="submit" class="btn btn-default" name="handel" value="mv_up"><span class="glyphicon glyphicon-arrow-up"></span></button>
                           <button type="submit" class="btn btn-default" name="handel" value="mv_dw"><span class="glyphicon glyphicon-arrow-down"></span></button></form>';
