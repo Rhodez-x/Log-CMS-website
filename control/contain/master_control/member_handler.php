@@ -4,7 +4,7 @@
 *  Copyright (C) Jørn Guldberg - Guld-berg.dk All Rights Reserved. 
 */
 $loginsidelevel = 49; 
-require_once $_SERVER['DOCUMENT_ROOT']."/core/x530199.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/core/system_core.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $post_id = clean_input_text($_POST["id"]);   
@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             case 'admin':
                 
                 $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                $stmt = $conn->prepare("UPDATE ReplaceDBusers SET loginlevel = 50 WHERE id = ? ;");
+                $stmt = $conn->prepare("UPDATE GBone_users SET loginlevel = 50 WHERE id = ? ;");
                 $stmt->execute(array($post_id));
                 $stmt = null;
                 $conn = null;
@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             case 'noadmin':
                 
                 $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                $stmt = $conn->prepare("UPDATE ReplaceDBusers SET loginlevel = 10 WHERE id = ? ;");
+                $stmt = $conn->prepare("UPDATE GBone_users SET loginlevel = 10 WHERE id = ? ;");
                 $stmt->execute(array($post_id));
                 $stmt = null;
                 $conn = null;
@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             case 'deactivate':
                 
                 $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                $stmt = $conn->prepare("UPDATE ReplaceDBusers SET active = 0 WHERE id = ? ;");
+                $stmt = $conn->prepare("UPDATE GBone_users SET active = 0 WHERE id = ? ;");
                 $stmt->execute(array($post_id));
                 $stmt = null;
                 $conn = null;
@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             case 'activate':
                 
                 $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                $stmt = $conn->prepare("UPDATE ReplaceDBusers SET active = 1 WHERE id = ? ;");
+                $stmt = $conn->prepare("UPDATE GBone_users SET active = 1 WHERE id = ? ;");
                 $stmt->execute(array($post_id));
                 $stmt = null;
                 $conn = null;
@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             case 'delete':
                 
                 $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                $stmt = $conn->prepare("DELETE FROM ReplaceDBusers WHERE id = ? ;");
+                $stmt = $conn->prepare("DELETE FROM GBone_users WHERE id = ? ;");
                 $stmt->execute(array($post_id));
                 $stmt = null;
                 $conn = null;
@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
         <div class="col-sm-4"></div>
         </div>';
-        header("location: /570104z/master_control");
+        header("location: /control/master_control");
 
     }
     catch(PDOException $e) {
@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
         <div class="col-sm-4"></div>
         </div>';
-        header("location: /570104z/master_control");
+        header("location: /control/master_control");
     }
 }
 else {

@@ -25,7 +25,7 @@
         <?php 
         try {
             $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-            $stmt = $conn->prepare("SELECT * FROM ReplaceDBcountry WHERE active = 1 ORDER BY name;");
+            $stmt = $conn->prepare("SELECT * FROM GBone_country WHERE active = 1 ORDER BY name;");
             $stmt->execute();
             if ($stmt->rowCount() > 1) {
                 foreach($stmt->fetchAll() as $row) {
@@ -40,7 +40,7 @@
                     $select_lang_options = $select_lang_options . "<option $select_lang_active_edit_lang value='$select_lang_code'>".$select_lang_name."</option>";
 
                 }
-                $select_lang_text = '<form class="form-inline" onsubmit="return confirmDelete()" action="/570104z/contain/setup/member_handler" method="post">
+                $select_lang_text = '<form class="form-inline" onsubmit="return confirmDelete()" action="/control/contain/setup/member_handler" method="post">
                 Vælg hvilket sprog der skal redigeres
                 <div class="input-group">
                 <select class="form-control" name="edit_page_name" id="edit_page_name">  
@@ -65,7 +65,7 @@
         <hr>
     <div id="user"> 
             <h2>Create user:</h2>
-        <form class="form-inline" name="createForm" action="/570104z/contain/master_control/create_user" onsubmit="return validateForm()" method="post">
+        <form class="form-inline" name="createForm" action="/control/contain/master_control/create_user" onsubmit="return validateForm()" method="post">
         <div class="form-group">
         <label for="titel">Username:</label>
         <input type="text" class="form-control" name="username" id="username">
@@ -99,7 +99,7 @@
                 *  They are ordered by the loginlevel, so that the adminstrators is listed first, the the regular members
                 *  When this is finnsihed the members with active 0 is listed, this is the members which is deactivated.
                 */
-                $stmt = $conn->prepare("SELECT * FROM ReplaceDBusers ORDER BY active DESC, loginlevel DESC, username;");
+                $stmt = $conn->prepare("SELECT * FROM GBone_users ORDER BY active DESC, loginlevel DESC, username;");
                 $stmt->execute();
                 if ($stmt->rowCount() > 0) {
                     foreach($stmt->fetchAll() as $row) {
@@ -124,7 +124,7 @@
                             $admin_or_users = 2;
                         }
 
-                        $page_edit_text = $page_edit_text . '<form class="form-inline" onsubmit="return confirmDelete()" action="/570104z/contain/master_control/member_handler" method="post">
+                        $page_edit_text = $page_edit_text . '<form class="form-inline" onsubmit="return confirmDelete()" action="/control/contain/master_control/member_handler" method="post">
                         <div class="form-group">
                         <label for="page_name">'.$edit_page_lang.'</label>
                             <input type="text" class="form-control" name="username" id="username" readonly value="'.$data_login_username.'">
@@ -157,7 +157,7 @@
                 $page_edit_text = '';
                 $edit_page_navi_order_temp = "1";
                 $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                $stmt = $conn->prepare("SELECT * FROM ReplaceDBnavi WHERE language = ? ORDER BY navi_order, language;");
+                $stmt = $conn->prepare("SELECT * FROM GBone_navi WHERE language = ? ORDER BY navi_order, language;");
                 $stmt->execute(array($_SESSION['master_control_edit_lang']));
                 if ($stmt->rowCount() > 0) {
                     foreach($stmt->fetchAll() as $row) {
@@ -177,7 +177,7 @@
                             $edit_page_required_disable = 'disabled';
                         }
                         
-                        $page_edit_text = $page_edit_text . '<form class="form-inline" onsubmit="return confirmDelete()" action="/570104z/contain/master_control/page_handler" method="post">
+                        $page_edit_text = $page_edit_text . '<form class="form-inline" onsubmit="return confirmDelete()" action="/control/contain/master_control/page_handler" method="post">
                         <div class="form-group">
                         <label for="page_name">'.$edit_page_lang.'</label>
                             <input type="text" class="form-control" name="page_name" id="page_name" value="'.$edit_page_name.'">
@@ -204,7 +204,7 @@
             $stmt = null;
             $conn = null;
             
-            echo $page_edit_text . '<br><form class="form-inline" action="/570104z/contain/master_control/page_handler" method="post">
+            echo $page_edit_text . '<br><form class="form-inline" action="/control/contain/master_control/page_handler" method="post">
                         <div class="form-group">
                         <label for="max_weight">Tilføj ny side</label>
                             <input type="text" class="form-control" name="page_name_dk" id="page_name" value="">

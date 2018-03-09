@@ -4,26 +4,31 @@
 *  Copyright (C) Jørn Guldberg - Guld-berg.dk All Rights Reserved. 
 */
 function menu_line($active){
-    $tabs=array(
-        /* Menu list for controlpanel
-        *  name, path, and loginlevel,
-        * If the user is not an admin, the tabs will not be avible.
-        */ 
-        array("Min side", '/570104z/index', 9),
-        array("Mine indstillinger", '/570104z/user_control', 9), 
-        array("Rediger side", '/570104z/site_editor', 49),
-        array("Master control", '/570104z/master_control', 49)
-        );
     $return_string = '<ul class="nav nav-tabs">';
-    foreach($tabs as $tab) {
-        if ($tab[2] < LOGIN_LEVEL) {
-            if ($tab[0] == $active) {
-                $return_string = $return_string . '<li class="active"><a href="'.$tab[1].'">'.$tab[0].'</a></li>' ;
-            } else {
-                $return_string = $return_string . '<li><a href="'.$tab[1].'">'.$tab[0].'</a></li>' ;
+    try {
+        $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
+        $stmt = $conn->prepare("SELECT GBone_navi.link, GBone_navi_name.name
+                                FROM GBone_navi
+                                INNER JOIN GBone_navi_name ON GBone_navi.id=GBone_navi_name.parent_id 
+                                WHERE GBone_navi.place = 'controlpanel'
+                                ORDER BY navi_order;");
+        $stmt->execute(array($_SESSION['session_language']));
+        if ($stmt->rowCount() > 0) {
+            foreach($stmt->fetchAll() as $row) {
+                if ($row['name'] == $active) {
+                    $return_string = $return_string . '<li class="active"><a href="/'.$row['link'].'">'.$row['name'].'</a></li>' ;
+                } else {
+                    $return_string = $return_string . '<li><a href="/'.$row['link'].'">'.$row['name'].'</a></li>' ;
+                }
+            
             }
         }
     }
+    catch(PDOException $e) {
+            $feedback = "Der er sket en fejl.";
+    }
+    $stmt = null;
+    $conn = null;
 
     return $return_string = $return_string . '</ul>';
 }

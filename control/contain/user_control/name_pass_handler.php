@@ -4,7 +4,7 @@
 *  Copyright (C) Jørn Guldberg - Guld-berg.dk All Rights Reserved. 
 */
 $loginsidelevel = 10; // 10 for all users are aloud to use this 
-require_once $_SERVER['DOCUMENT_ROOT']."/core/x530199.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/core/system_core.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $ok = true;
@@ -28,13 +28,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                     $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
 
-                    $stmt_check = $conn->prepare("SELECT id, active FROM ReplaceDBusers WHERE username_clean = ? AND password = ?;");
+                    $stmt_check = $conn->prepare("SELECT id, active FROM GBone_users WHERE username_clean = ? AND password = ?;");
                     $stmt_check->execute(array($check_username_confirm, $check_password_confirm ));
                     if ($stmt_check->rowCount() == 1) {
                         foreach($stmt_check->fetchAll() as $row) {
                             if ($row['active'] == 1) {
                                 // if the user exist and the password is right
-                                $stmt = $conn->prepare("UPDATE ReplaceDBusers SET username = ?, username_clean = ?, password = ? WHERE id = ?;");
+                                $stmt = $conn->prepare("UPDATE GBone_users SET username = ?, username_clean = ?, password = ? WHERE id = ?;");
                                 $stmt->execute(array($_SESSION["new_username"], $check_username_new, $check_password_new, $row['id']));
                                 $_SESSION['login_user'] = $_SESSION["new_username"];
                             }
@@ -76,13 +76,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                         $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
 
-                        $stmt_check = $conn->prepare("SELECT id, active FROM ReplaceDBusers WHERE username_clean = ? AND password = ?;");
+                        $stmt_check = $conn->prepare("SELECT id, active FROM GBone_users WHERE username_clean = ? AND password = ?;");
                         $stmt_check->execute(array($check_username_confirm, $check_password_confirm ));
                         if ($stmt_check->rowCount() == 1) {
                             foreach($stmt_check->fetchAll() as $row) {
                                 if ($row['active'] == 1) {
                                     // if the user exist and the password is right
-                                    $stmt = $conn->prepare("UPDATE ReplaceDBusers SET password = ? WHERE id = ?;");
+                                    $stmt = $conn->prepare("UPDATE GBone_users SET password = ? WHERE id = ?;");
                                     $stmt->execute(array($check_password_new, $row['id']));
                                 }
                                 else {
@@ -127,7 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>';
         }
 
-        header("location: /570104z/user_control");
+        header("location: /control/user_control");
 
     }
     catch(PDOException $e) {
@@ -137,7 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
         <div class="col-sm-4"></div>
         </div>';
-        header("location: /570104z/user_control");
+        header("location: /control/user_control");
     }
 }
 else {

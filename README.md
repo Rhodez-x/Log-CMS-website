@@ -4,7 +4,7 @@ Replace following when "install" on new page:
 
 Spørg jakob for genvej til at replace all in directory
 REPLACE_ME_PATH -> if install in root folder delete this
-ReplaceDB -> this is the prefix for databasenames
+GBone_ -> this is the prefix for databasenames
 
 Make new Repo and add this an upstream: 
 

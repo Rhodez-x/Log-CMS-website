@@ -12,7 +12,7 @@ $(document).ready(function(){
         var brugernavn = document.getElementById("brugernavn").value;
         var password = document.getElementById("password").value;
         var feedback = "";
-        $.post("/571204m/m530199l",
+        $.post("/core/authentication",
             {
             sendtBrugernavn: brugernavn,
             sendtPassword: password,

@@ -12,7 +12,7 @@
 define('MAIN_DB_HOST', 'localhost'); // host
 define('MAIN_DB_USER', 'webedit_sql'); // user
 define('MAIN_DB_PASS', 'webmysql'); // pw
-define('MAIN_DB_DATABASE_NAME', 'MaincoreDBdev5'); // Database name
+define('MAIN_DB_DATABASE_NAME', 'GBone'); // Database name
 
 
 /*
@@ -21,10 +21,10 @@ define('MAIN_DB_DATABASE_NAME', 'MaincoreDBdev5'); // Database name
 define('DEFAULT_LANG', 'DK'); // Default lang
 define('GLOBAL_META_LOCAL', 'da-DK'); 
 define('GLOBAL_CONTACT_EMAIL', "new@guld-berg.dk");
-define('GLOBAL_FIRM_NAME', "Sandsized CMS rt5");
+define('GLOBAL_FIRM_NAME', "Gulberg.one");
 define('GLOBAL_FIRM_DESCRIPTION', "Sampel discripe");
 
 define('GLOBAL_FIRM_IMAGE_META', "Sampel discripe");
-define('GLOBAL_URL', "https://guld-berg.dk");
+define('GLOBAL_URL', "https://guldberg.one");
 
 ?>

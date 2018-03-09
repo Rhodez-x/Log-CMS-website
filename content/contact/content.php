@@ -5,7 +5,10 @@
                 echo $_SESSION["contact_send"];
                 unset($_SESSION["contact_send"]);
                     $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                    $stmt = $conn->prepare("SELECT text FROM ReplaceDBtext WHERE page_name = 'contact' AND language = ?;");
+                    $stmt = $conn->prepare("SELECT GBone_navi_name.name, GBone_text.text
+                                            FROM GBone_navi_name 
+                                            INNER JOIN GBone_text ON GBone_navi_name.parent_id=GBone_text.parent_id
+                                            WHERE GBone_navi_name.name = 'contact' AND GBone_navi_name.language = ?");
                     $stmt->execute(array($_SESSION['session_language']));
                             // set the resulting array to associative
                     if ($stmt->rowCount() == 1) {
@@ -34,6 +37,5 @@
      <button type="submit" class="btn btn-success">Send</button>
   </form>
             </div>
-
         </div>
 </div>
