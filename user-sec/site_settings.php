@@ -13,6 +13,7 @@ define('MAIN_DB_HOST', 'localhost'); // host
 define('MAIN_DB_USER', 'webedit_sql'); // user
 define('MAIN_DB_PASS', 'webmysql'); // pw
 define('MAIN_DB_DATABASE_NAME', 'GBone'); // Database name
+define('MAIN_DB_DATABASE_PREFIX', 'GBone'); // Database name
 
 
 /*
