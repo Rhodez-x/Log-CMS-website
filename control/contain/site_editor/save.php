@@ -1,6 +1,6 @@
 <?php
 $loginsidelevel = 49;
-require_once $_SERVER['DOCUMENT_ROOT']."/core/x530199.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/core/system_core.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
@@ -29,5 +29,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>';
         }
     }
-header("location: /570104z/site_editor");
+header("location: /control/site_editor");
 ?>

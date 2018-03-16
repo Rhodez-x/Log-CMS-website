@@ -7,7 +7,7 @@
 */
 
 $loginsidelevel = 10; // 10 for all users are aloud to use this 
-require_once $_SERVER['DOCUMENT_ROOT']."/core/x530199.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/core/system_core.php";
 require_once $_SERVER['DOCUMENT_ROOT']."/core/validation_functions.php"; // validation functions used to validate the input
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>';
             unset($_SESSION["new_user_mail"]);
             unset($_SESSION["change_mail_feedback"]);
-            header("location: /570104z/user_control");
+            header("location: /control/user_control");
 
         }
         catch(PDOException $e) {
@@ -37,11 +37,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <strong>ERROR</strong> Der skete en fejl '.$e.'
             </div>
             </div>';
-            header("location: /570104z/user_control");
+            header("location: /control/user_control");
         } 
     }
     else {
-        header("location: /570104z/user_control");
+        header("location: /control/user_control");
     }
 }
 else {

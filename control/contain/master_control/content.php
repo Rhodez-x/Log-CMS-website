@@ -40,7 +40,7 @@
                     $select_lang_options = $select_lang_options . "<option $select_lang_active_edit_lang value='$select_lang_code'>".$select_lang_name."</option>";
 
                 }
-                $select_lang_text = '<form class="form-inline" onsubmit="return confirmDelete()" action="/570104z/contain/setup/member_handler" method="post">
+                $select_lang_text = '<form class="form-inline" onsubmit="return confirmDelete()" action="/control/contain/setup/member_handler" method="post">
                 Vælg hvilket sprog der skal redigeres
                 <div class="input-group">
                 <select class="form-control" name="edit_page_name" id="edit_page_name">  
@@ -65,7 +65,7 @@
         <hr>
     <div id="user"> 
             <h2>Create user:</h2>
-        <form class="form-inline" name="createForm" action="/570104z/contain/master_control/create_user" onsubmit="return validateForm()" method="post">
+        <form class="form-inline" name="createForm" action="/control/contain/master_control/create_user" onsubmit="return validateForm()" method="post">
         <div class="form-group">
         <label for="titel">Username:</label>
         <input type="text" class="form-control" name="username" id="username">
@@ -124,7 +124,7 @@
                             $admin_or_users = 2;
                         }
 
-                        $page_edit_text = $page_edit_text . '<form class="form-inline" onsubmit="return confirmDelete()" action="/570104z/contain/master_control/member_handler" method="post">
+                        $page_edit_text = $page_edit_text . '<form class="form-inline" onsubmit="return confirmDelete()" action="/control/contain/master_control/member_handler" method="post">
                         <div class="form-group">
                         <label for="page_name">'.$edit_page_lang.'</label>
                             <input type="text" class="form-control" name="username" id="username" readonly value="'.$data_login_username.'">
@@ -157,7 +157,10 @@
                 $page_edit_text = '';
                 $edit_page_navi_order_temp = "1";
                 $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                $stmt = $conn->prepare("SELECT * FROM ReplaceDBnavi WHERE language = ? ORDER BY navi_order, language;");
+                $stmt = $conn->prepare("SELECT ReplaceDBnavi.*, ReplaceDBnavi_name.* 
+                                        FROM ReplaceDBnavi 
+                                        INNER JOIN ReplaceDBnavi_name ON ReplaceDBnavi.id=ReplaceDBnavi_name.parent_id
+                                         WHERE language = ? AND place = 'standart' ORDER BY navi_order, language;");
                 $stmt->execute(array($_SESSION['master_control_edit_lang']));
                 if ($stmt->rowCount() > 0) {
                     foreach($stmt->fetchAll() as $row) {
@@ -177,15 +180,15 @@
                             $edit_page_required_disable = 'disabled';
                         }
                         
-                        $page_edit_text = $page_edit_text . '<form class="form-inline" onsubmit="return confirmDelete()" action="/570104z/contain/master_control/page_handler" method="post">
+                        $page_edit_text = $page_edit_text . '<form class="form-inline" onsubmit="return confirmDelete()" action="/control/contain/master_control/page_handler" method="post">
                         <div class="form-group">
                         <label for="page_name">'.$edit_page_lang.'</label>
-                            <input type="text" class="form-control" name="page_name" id="page_name" value="'.$edit_page_name.'">
+                            <input type="text" class="form-control" name="page_name" id="page_name" readonly value="'.$edit_page_name.'">
                           </div>
                           <input type="hidden" class="form-control" name="navi_order" id="navi_order" value="'.$edit_page_navi_order.'">
                           <input type="hidden" class="form-control" name="link" id="link" value="'.$edit_page_link.'">
                           <input type="hidden" class="form-control" name="id" id="id" value="'.$edit_page_id.'">
-                          <button type="submit" class="btn btn-default" name="handel" value="edit">Rediger</button>
+                          <a href="/control/contain/site_editor/select?edit_page_name='.$edit_page_name.'" class="btn btn-default" role="button">Rediger</a>
                           <button type="submit" class="btn btn-danger" '.$edit_page_required_disable.' name="handel" value="rm">Fjern</button>
                           <button type="submit" class="btn btn-default" name="handel" value="mv_up"><span class="glyphicon glyphicon-arrow-up"></span></button>
                           <button type="submit" class="btn btn-default" name="handel" value="mv_dw"><span class="glyphicon glyphicon-arrow-down"></span></button></form>';
@@ -204,7 +207,7 @@
             $stmt = null;
             $conn = null;
             
-            echo $page_edit_text . '<br><form class="form-inline" action="/570104z/contain/master_control/page_handler" method="post">
+            echo $page_edit_text . '<br><form class="form-inline" action="/control/contain/master_control/page_handler" method="post">
                         <div class="form-group">
                         <label for="max_weight">Tilføj ny side</label>
                             <input type="text" class="form-control" name="page_name_dk" id="page_name" value="">

@@ -4,7 +4,7 @@
 *  Copyright (C) Jørn Guldberg - Guld-berg.dk All Rights Reserved. 
 */
 $loginsidelevel = 49; 
-require_once $_SERVER['DOCUMENT_ROOT']."/core/x530199.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/core/system_core.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $post_id = clean_input_text($_POST["id"]);   
@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
         <div class="col-sm-4"></div>
         </div>';
-        header("location: /570104z/master_control");
+        header("location: /control/master_control");
 
     }
     catch(PDOException $e) {
@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
         <div class="col-sm-4"></div>
         </div>';
-        header("location: /570104z/master_control");
+        header("location: /control/master_control");
     }
 }
 else {

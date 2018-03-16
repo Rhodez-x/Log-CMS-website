@@ -3,7 +3,7 @@
 *  Developed by Jørn Guldberg
 *  Copyright (C) Jørn Guldberg - Guld-berg.dk All Rights Reserved. 
 */
-include $_SERVER['DOCUMENT_ROOT']."/core/x530199.php";
+include $_SERVER['DOCUMENT_ROOT']."/core/system_core.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // safty for bruteforce attack
