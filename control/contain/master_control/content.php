@@ -25,7 +25,7 @@
         <?php 
         try {
             $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-            $stmt = $conn->prepare("SELECT * FROM ReplaceDBcountry WHERE active = 1 ORDER BY name;");
+            $stmt = $conn->prepare("SELECT * FROM GBone_country WHERE active = 1 ORDER BY name;");
             $stmt->execute();
             if ($stmt->rowCount() > 1) {
                 foreach($stmt->fetchAll() as $row) {
@@ -99,7 +99,7 @@
                 *  They are ordered by the loginlevel, so that the adminstrators is listed first, the the regular members
                 *  When this is finnsihed the members with active 0 is listed, this is the members which is deactivated.
                 */
-                $stmt = $conn->prepare("SELECT * FROM ReplaceDBusers ORDER BY active DESC, loginlevel DESC, username;");
+                $stmt = $conn->prepare("SELECT * FROM GBone_users ORDER BY active DESC, loginlevel DESC, username;");
                 $stmt->execute();
                 if ($stmt->rowCount() > 0) {
                     foreach($stmt->fetchAll() as $row) {
@@ -157,10 +157,14 @@
                 $page_edit_text = '';
                 $edit_page_navi_order_temp = "1";
                 $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
+<<<<<<< HEAD
                 $stmt = $conn->prepare("SELECT ReplaceDBnavi.*, ReplaceDBnavi_name.* 
                                         FROM ReplaceDBnavi 
                                         INNER JOIN ReplaceDBnavi_name ON ReplaceDBnavi.id=ReplaceDBnavi_name.parent_id
                                          WHERE language = ? AND place = 'standart' ORDER BY navi_order, language;");
+=======
+                $stmt = $conn->prepare("SELECT * FROM GBone_navi WHERE language = ? ORDER BY navi_order, language;");
+>>>>>>> 293c4e6f06e1f994af919fe5a9186ffef882c92d
                 $stmt->execute(array($_SESSION['master_control_edit_lang']));
                 if ($stmt->rowCount() > 0) {
                     foreach($stmt->fetchAll() as $row) {
