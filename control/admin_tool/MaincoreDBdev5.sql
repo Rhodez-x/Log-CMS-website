@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.4.1
--- http://www.phpmyadmin.net
+-- version 4.6.6deb4
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Nov 29, 2017 at 06:38 PM
--- Server version: 5.5.57-0+deb8u1
--- PHP Version: 7.0.23-1~dotdeb+8.1
+-- Host: localhost:3306
+-- Generation Time: Mar 09, 2018 at 08:01 PM
+-- Server version: 10.1.26-MariaDB-0+deb9u1
+-- PHP Version: 7.0.27-0+deb9u1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `GBone_`
+-- Database: `GBone`
 --
 
 -- --------------------------------------------------------
@@ -68,21 +68,49 @@ INSERT INTO `GBone_country` (`countryID`, `name`, `code`, `active`) VALUES
 
 CREATE TABLE `GBone_navi` (
   `id` int(11) NOT NULL,
-  `name` varchar(32) NOT NULL,
   `link` varchar(40) NOT NULL,
-  `language` varchar(8) NOT NULL,
   `required` int(11) NOT NULL,
-  `navi_order` int(11) NOT NULL
+  `navi_order` int(11) NOT NULL,
+  `permission` int(11) NOT NULL,
+  `place` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `GBone_navi`
 --
 
-INSERT INTO `GBone_navi` (`id`, `name`, `link`, `language`, `required`, `navi_order`) VALUES
-(1, 'Forside', 'index', 'DK', 1, 1),
-(2, 'Page', 'page?id=page', 'DK', 0, 2),
-(3, 'Kontak', 'kontakt', 'DK', 0, 3);
+INSERT INTO `GBone_navi` (`id`, `link`, `required`, `navi_order`, `permission`, `place`) VALUES
+(1, 'index', 1, 1, 0, 'standart'),
+(2, 'page?id=page', 0, 2, 0, 'standart'),
+(3, 'kontakt', 0, 3, 0, 'standart'),
+(4, 'control/index', 1, 1, 2, 'controlpanel'),
+(5, 'control/user_control', 1, 2, 2, 'controlpanel'),
+(6, 'control/master_control', 1, 3, 2, 'controlpanel');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `GBone_navi_name`
+--
+
+CREATE TABLE `GBone_navi_name` (
+  `id` int(11) NOT NULL,
+  `name` varchar(32) NOT NULL,
+  `language` varchar(8) NOT NULL,
+  `parent_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `GBone_navi_name`
+--
+
+INSERT INTO `GBone_navi_name` (`id`, `name`, `language`, `parent_id`) VALUES
+(1, 'Forside', 'DK', 1),
+(2, 'Page', 'DK', 2),
+(3, 'Kontakt', 'DK', 3),
+(4, 'Min side', 'DK', 4),
+(5, 'Mine instillinger', 'DK', 5),
+(6, 'Master control', 'DK', 6);
 
 -- --------------------------------------------------------
 
@@ -101,7 +129,9 @@ CREATE TABLE `GBone_permissions` (
 --
 
 INSERT INTO `GBone_permissions` (`id`, `name`, `description`) VALUES
-(1, 'create_user', 'Allowed to create a new user');
+(0, 'allow_any', 'This is a rule for a visitor, the visitor does not have to login '),
+(1, 'create_user', 'Allowed to create a new user'),
+(2, 'user_control_panel', 'Gain access to the user controlpanel');
 
 -- --------------------------------------------------------
 
@@ -150,7 +180,7 @@ CREATE TABLE `GBone_text` (
   `id` int(11) NOT NULL,
   `text` longtext NOT NULL,
   `language` varchar(8) NOT NULL,
-  `page_name` varchar(32) NOT NULL,
+  `parent_id` int(11) NOT NULL,
   `required` int(11) NOT NULL,
   `bgimg` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -159,10 +189,10 @@ CREATE TABLE `GBone_text` (
 -- Dumping data for table `GBone_text`
 --
 
-INSERT INTO `GBone_text` (`id`, `text`, `language`, `page_name`, `required`, `bgimg`) VALUES
-(2, 'Standart forside', 'DK', 'index', 1, ''),
-(3, 'Brug formularen', 'DK', 'kontakt', 0, ''),
-(4, 'Det er en side', 'DK', 'Page', 0, '');
+INSERT INTO `GBone_text` (`id`, `text`, `language`, `parent_id`, `required`, `bgimg`) VALUES
+(2, '<p>Standart forside</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Dette er version rtm5.0.0a0</p>\r\n', 'DK', 1, 1, ''),
+(3, 'Brug formularen', 'DK', 3, 0, ''),
+(4, 'Det er en side', 'DK', 2, 0, '');
 
 -- --------------------------------------------------------
 
@@ -238,6 +268,13 @@ ALTER TABLE `GBone_navi`
   ADD UNIQUE KEY `id` (`id`);
 
 --
+-- Indexes for table `GBone_navi_name`
+--
+ALTER TABLE `GBone_navi_name`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
+
+--
 -- Indexes for table `GBone_permissions`
 --
 ALTER TABLE `GBone_permissions`
@@ -284,12 +321,17 @@ ALTER TABLE `GBone_country`
 -- AUTO_INCREMENT for table `GBone_navi`
 --
 ALTER TABLE `GBone_navi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `GBone_navi_name`
+--
+ALTER TABLE `GBone_navi_name`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `GBone_permissions`
 --
 ALTER TABLE `GBone_permissions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `GBone_permission_groups`
 --
@@ -299,12 +341,12 @@ ALTER TABLE `GBone_permission_groups`
 -- AUTO_INCREMENT for table `GBone_text`
 --
 ALTER TABLE `GBone_text`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `GBone_users`
 --
 ALTER TABLE `GBone_users`
-  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

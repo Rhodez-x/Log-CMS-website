@@ -3,10 +3,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $get_page_name = htmlspecialchars($_GET["id"]);
     try {
         $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-        $stmt = $conn->prepare("SELECT ReplaceDBnavi_name.name, ReplaceDBtext.text
-                                FROM ReplaceDBnavi_name 
-                                INNER JOIN ReplaceDBtext ON ReplaceDBnavi_name.parent_id=ReplaceDBtext.parent_id
-                                WHERE ReplaceDBnavi_name.name = ? AND ReplaceDBnavi_name.language = ?;");
+        $stmt = $conn->prepare("SELECT * FROM ReplaceDBtext WHERE page_name = ? AND language = ? AND required = 0");
         $stmt->execute(array($get_page_name, $_SESSION['session_language']));
         if ($stmt->rowCount() == 1) {
             foreach($stmt->fetchAll() as $row) {

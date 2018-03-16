@@ -19,16 +19,16 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `ReplaceDB`
+-- Database: `GBone_`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ReplaceDBadmin_info`
+-- Table structure for table `GBone_admin_info`
 --
 
-CREATE TABLE `ReplaceDBadmin_info` (
+CREATE TABLE `GBone_admin_info` (
   `id` int(11) NOT NULL,
   `titel` varchar(64) NOT NULL,
   `description` text NOT NULL,
@@ -36,19 +36,19 @@ CREATE TABLE `ReplaceDBadmin_info` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `ReplaceDBadmin_info`
+-- Dumping data for table `GBone_admin_info`
 --
 
-INSERT INTO `ReplaceDBadmin_info` (`id`, `titel`, `description`, `priority`) VALUES
+INSERT INTO `GBone_admin_info` (`id`, `titel`, `description`, `priority`) VALUES
 (1, 'Devoloper', 'Devoloper', -100);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ReplaceDBcalender`
+-- Table structure for table `GBone_calender`
 --
 
-CREATE TABLE `ReplaceDBcalender` (
+CREATE TABLE `GBone_calender` (
   `id` int(11) NOT NULL,
   `owner_user_id` int(11) NOT NULL,
   `name` varchar(48) NOT NULL,
@@ -59,10 +59,10 @@ CREATE TABLE `ReplaceDBcalender` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ReplaceDBcountry`
+-- Table structure for table `GBone_country`
 --
 
-CREATE TABLE `ReplaceDBcountry` (
+CREATE TABLE `GBone_country` (
   `countryID` int(8) NOT NULL,
   `name` varchar(16) NOT NULL,
   `code` varchar(4) NOT NULL,
@@ -70,19 +70,19 @@ CREATE TABLE `ReplaceDBcountry` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `ReplaceDBcountry`
+-- Dumping data for table `GBone_country`
 --
 
-INSERT INTO `ReplaceDBcountry` (`countryID`, `name`, `code`, `active`) VALUES
+INSERT INTO `GBone_country` (`countryID`, `name`, `code`, `active`) VALUES
 (1, 'denmark', 'DK', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ReplaceDBimages`
+-- Table structure for table `GBone_images`
 --
 
-CREATE TABLE `ReplaceDBimages` (
+CREATE TABLE `GBone_images` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `dir` varchar(128) NOT NULL,
@@ -93,10 +93,10 @@ CREATE TABLE `ReplaceDBimages` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ReplaceDBnavi`
+-- Table structure for table `GBone_navi`
 --
 
-CREATE TABLE `ReplaceDBnavi` (
+CREATE TABLE `GBone_navi` (
   `id` int(11) NOT NULL,
   `name` varchar(32) NOT NULL,
   `link` varchar(40) NOT NULL,
@@ -106,10 +106,10 @@ CREATE TABLE `ReplaceDBnavi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `ReplaceDBnavi`
+-- Dumping data for table `GBone_navi`
 --
 
-INSERT INTO `ReplaceDBnavi` (`id`, `name`, `link`, `language`, `required`, `navi_order`) VALUES
+INSERT INTO `GBone_navi` (`id`, `name`, `link`, `language`, `required`, `navi_order`) VALUES
 (1, 'Forside', 'index', 'DK', 1, 1),
 (3, 'Klubben', 'page?id=klubben', 'DK', 0, 2),
 (4, 'Vedtægter', 'page?id=Vedtægter', 'DK', 0, 3),
@@ -121,10 +121,10 @@ INSERT INTO `ReplaceDBnavi` (`id`, `name`, `link`, `language`, `required`, `navi
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ReplaceDBtext`
+-- Table structure for table `GBone_text`
 --
 
-CREATE TABLE `ReplaceDBtext` (
+CREATE TABLE `GBone_text` (
   `id` int(11) NOT NULL,
   `text` longtext NOT NULL,
   `language` varchar(8) NOT NULL,
@@ -134,10 +134,10 @@ CREATE TABLE `ReplaceDBtext` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `ReplaceDBtext`
+-- Dumping data for table `GBone_text`
 --
 
-INSERT INTO `ReplaceDBtext` (`id`, `text`, `language`, `page_name`, `required`, `bgimg`) VALUES
+INSERT INTO `GBone_text` (`id`, `text`, `language`, `page_name`, `required`, `bgimg`) VALUES
 (2, '<h1 style=\"text-align:right\">&nbsp;</h1>\r\n\r\n<h1 style=\"text-align:right\">&nbsp;</h1>\r\n\r\n<h1 style=\"text-align:right\">&nbsp;</h1>\r\n\r\n<h1 style=\"text-align:right\">&nbsp;</h1>\r\n\r\n<h1 style=\"text-align:right\">&nbsp;</h1>\r\n\r\n<h1 style=\"text-align:right\"><span style=\"color:#ffffff\">Det skal v&aelig;re sjovt<br />\r\nat fotografere!</span></h1>\r\n', 'DK', 'index', 1, ''),
 (3, '<h2><span style=\"font-size:22px\"><span style=\"font-family:verdana,geneva,sans-serif\"><strong>Kerteminde Fotoklub</strong></span></span></h2>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">Kerteminde Fotoklub blev startet op i april 2011, og kort efter fik vi et&nbsp;rigtig&nbsp;godt&nbsp;lokale&nbsp;p&aring; Bakkeg&aring;rdsskolen i Langeskov.</span></p>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">Kerteminde Fotoklub er en klub hvor der er plads til alle - b&aring;de professionelle og amat&oslash;rer. Form&aring;let med klubben er at fremme interessen for fotografering, og vi hj&aelig;lper gerne hinanden med hensyn til billederedigering, fototeknik m.m.</span></p>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">Vi deler samme interesse for fotografering, men vi har i klubben mange forskellige interesseomr&aring;der for valg af motiver, ligesom vores tekniske kunnen ogs&aring; sp&aelig;nder vidt, men vi bestr&aelig;ber p&aring; at hj&aelig;lpe og motivere hinanden til at komme videre med vores f&aelig;lles interesse, at lave gode billeder</span><span style=\"font-family:verdana,geneva,sans-serif\"> og forbedre teknikken, finde nye vinkler, - s&aring; er du ogs&aring; bidt af verdens bedste kreative hobby, s&aring; kunne Kerteminde Fotoklub m&aring;ske v&aelig;re noget for dig.</span></p>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">K&oslash;n, alder, erfaring, og udstyr er ikke det v&aelig;sentlige..... Det handler om, at alle f&aring;r noget ud af, at v&aelig;re sammen med ligesindede og ikke mindst, -&nbsp;at f&aring; taget en masse gode billeder sammen.</span></p>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">Vi har i klubben et fotostudie, som medlemmerne kan g&oslash;re brug af de aftener, der ikke er klubaften, til model og portr&aelig;tfotografering m.m.</span></p>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">Skulle du have lyst til at se hvad vi er for nogle, er vores d&oslash;r altid &aring;ben for nye medlemmer, men det er en god id&eacute; lige at kontakte en af klubbens medlemmer f&oslash;rst, s&aring; vi er klar til at tage godt imod dig.</span></p>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">Vi har klubaften hver tirsdag fra kl. 19 - ?</span></p>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">Langeskov skole &quot;bakken&quot;</span></p>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">R&oslash;nningevej 38</span></p>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">5550 Langeskov</span></p>\r\n', 'DK', 'klubben', 0, ''),
 (4, '<h2><span style=\"font-family:verdana,geneva,sans-serif\">Generelt</span></h2>\r\n\r\n<div class=\"art-postcontent\">\r\n<div class=\"art-article\">\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">&sect;1. Klubbens navn er Kerteminde Fotoklub (CVR-nr&nbsp;</span>35791590)</p>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">&sect;2. Klubbens form&aring;l er at udvikle medlemmernes evner og interesser for fotografi og billedbehandling. Klubben s&oslash;ger ved afholdelse af m&oslash;der, foredrag, konkurrencer og lign. samt ved deltagelse i nationale og internationale konkurrence- og udstillingsarrangementer at udvikle medlemmernes fotografiske f&aelig;rdigheder.</span></p>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">&sect;3. Klubben har hjemsted p&aring; Langeskov Skole.</span></p>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">&sect;4. Enhver person kan optages som medlem af klubben. Indmeldelse sker ved henvendelse til bestyrelsen.</span></p>\r\n\r\n<h2><span style=\"font-family:verdana,geneva,sans-serif\">Klubbens bestyrelse</span></h2>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">&sect;5. Klubben ledes af en bestyrelse p&aring; 4 medlemmer, som v&aelig;lges af generalforsamlingen. Bestyrelsesmedlemmer v&aelig;lges for 2 &aring;r.&nbsp;</span><br />\r\n<span style=\"font-family:verdana,geneva,sans-serif\">Generalforsamlingen v&aelig;lger tillige 2 bestyrelsessuppleanter for 1 &aring;r. Derudover v&aelig;lges en revisor og revisorsuppleant p&aring; generalforsamlingen for 1 &aring;r. Genvalg kan finde sted. Bestyrelsen konstituerer sig selv.</span></p>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">&sect;6. Hvis et bestyrelsesmedlem&nbsp;nedl&aelig;gger deres hverv inden valgperiodens udl&oslash;b, indtr&aelig;der suppleanten.</span></p>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">&sect;7. Bestyrelsen kan fasts&aelig;tte sin egen forretningsorden.</span></p>\r\n\r\n<h2><span style=\"font-family:verdana,geneva,sans-serif\">Regnskab og revision</span></h2>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">&sect;8. Klubbens regnskabs&aring;r f&oslash;lger kalender&aring;ret.</span></p>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">&sect;9. Kontingentet fasts&aelig;ttes af generalforsamlingen for et &aring;r ad gangen. Alle medlemmer betaler samme kontingent.</span></p>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">&sect;10. Kontingent opkr&aelig;ves 4 gange &aring;rligt og betales forud. Betalt kontingent refunderes ikke ved udmeldelse af klubben. Nye medlemmer har en pr&oslash;vetid p&aring; 1 m&aring;ned, inden kontingent betales.</span></p>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">&sect;11. P&aring;t&aelig;nkte nyanskaffelser eller andre udgifter, der overstiger 10.000 kr. skal forel&aelig;gges generalforsamlingen til godkendelse.</span></p>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">&sect;12. Foreningen kan ikke optage l&aring;n.</span></p>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">&sect;13. Til kritisk at overv&aring;ge regnskabets f&oslash;relse v&aelig;lger generalforsamlingen blandt medlemmerne en revisor og en revisorsuppleant, begge for et &aring;r ad gangen. Hverken revisor eller revisorsuppleant m&aring; v&aelig;re medlemmer af klubbens bestyrelse eller v&aelig;re suppleant til denne.</span></p>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">&sect;14. Kassereren udarbejder ved regnskabs&aring;rets afslutning et &aring;rsregnskab, der revideres af klubbens revisor. Hvis kassereren nedl&aelig;gger sit hverv inden regnskabs&aring;rets udl&oslash;b, udarbejdes et regnskab for den forl&oslash;bne periode. Dette revideres af klubbens revisor.</span></p>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">&sect;15. Det reviderede regnskab forel&aelig;gges generalforsamlingen til godkendelse. Regnskabet udsendes til samtlige medlemmer senest en uge f&oslash;r generalforsamlingens afholdelse.</span></p>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">&sect;16. For de aftaler, som klubben indg&aring;r, h&aelig;fter kun klubben selv. Medlemmerne h&aelig;fter ikke for klubbens forpligtelser.</span></p>\r\n\r\n<h2><span style=\"font-family:verdana,geneva,sans-serif\">Generalforsamlingen</span></h2>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">&sect;17. Generalforsamlingen er Kerteminde Fotoklubs h&oslash;jeste myndighed. Alle fremm&oslash;dte medlemmer, som ikke er i kontingentrestance, er stemmeberettigede p&aring; generalforsamlingen og er valgbare til bestyrelsen, som revisor og som suppleanter. Valg in absentia kan finde sted ved forudg&aring;ende skriftlig samtykke fra den p&aring;g&aelig;ldende.</span></p>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">&sect;18. Ordin&aelig;r generalforsamling afholdes hvert &aring;r inden den 15. marts og skal varsles mindst 3 uger f&oslash;r afholdelse.</span></p>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">&sect;19. Dagsorden for ordin&aelig;r generalforsamling skal indeholde mindst f&oslash;lgende punkter.</span></p>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">1. Valg af dirigent</span></p>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">2. Bestyrelsens beretning</span></p>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">3. Forel&aelig;ggelse af revideret regnskab til godkendelse</span></p>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">4. Fasts&aelig;ttelse af n&aelig;ste &aring;rs kontingent</span></p>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">5. Behandling af indkomne forslag fra medlemmer og forslag fra bestyrelsen</span></p>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">6. Valg af bestyrelsesmedlemmer og suppleanter</span></p>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">7. Valg af revisor og revisorsuppleant</span></p>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">8. Eventuelt</span></p>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">&sect;20. Forslag, der &oslash;nskes behandlet p&aring; den ordin&aelig;re generalforsamling, skal v&aelig;re bestyrelsen i h&aelig;nde senest 2&nbsp;uger f&oslash;r generalforsamlingen. Indkomne forslag samt forslag fra bestyrelsen udsendes til medlemmerne senest sammen med regnskabet.</span></p>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">&sect;21. Ekstraordin&aelig;r generalforsamling kan afholdes p&aring; bestyrelsens foranledning. Ekstraordin&aelig;r generalforsamling kan endvidere afholdes, n&aring;r mindst halvdelen af klubbens medlemmer skriftligt frems&aelig;tter anmodning herom til bestyrelsen. Generalforsamlingen skal afholdes senest en m&aring;ned derefter.</span></p>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">&sect;22. Ekstraordin&aelig;r generalforsamling skal indkaldes med mindst en uges varsel ved skriftlig meddelelse til samtlige medlemmer med angivelse af dagsorden.</span></p>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">&sect;23. Beslutninger p&aring; generalforsamlingen vedtages med almindeligt flertal ved h&aring;ndsopr&aelig;kning, med mindre andet er angivet andetsteds i vedt&aelig;gterne. Skriftlig afstemning skal afholdes, hvis &eacute;t af medlemmerne &oslash;nsker dette.</span></p>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">&sect;24. Enhver lovlig varslet generalforsamling er beslutningsdygtig uanset antallet af fremm&oslash;dte.</span></p>\r\n\r\n<h2><span style=\"font-family:verdana,geneva,sans-serif\">Diverse bestemmelser</span></h2>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">&sect;25. Forslag om vedt&aelig;gts&aelig;ndringer kan kun vedtages, n&aring;r mindst 2/3 af de </span></p>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">fremm&oslash;dte </span><span style=\"font-family:verdana,geneva,sans-serif\">stemmeberettigede stemmer herfor.</span></p>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">&sect;26. Undlader et medlem at betale det fastsatte kontingent, udsender bestyrelsen efter passende tid en p&aring;mindelse. Betales kontingentet stadig ikke, betragtes den p&aring;g&aelig;ldende som ekskluderet af klubben.</span></p>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">&sect;27. Klubbens bestyrelse kan indstille et medlem til eksklusion, hvis den p&aring;g&aelig;ldende groft skader klubbens interesser. Indstillinger om eksklusion forel&aelig;gges klubbens generalforsamling og kan kun vedtages med mindst 2/3 af de fremm&oslash;dte stemmeberettigede.</span></p>\r\n\r\n<h2><span style=\"font-family:verdana,geneva,sans-serif\">Opl&oslash;sning af klubben</span></h2>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">&sect;28. Ved opl&oslash;sning af klubben overdrages eventuelle aktiver til foreningslivet i Langeskov.</span></p>\r\n\r\n<p><span style=\"font-family:verdana,geneva,sans-serif\">&sect;29. Disse vedt&aelig;gter er vedtaget p&aring; Kerteminde Fotoklubs stiftende generalforsamling d.11 april 2011.<br />\r\nRevideret p&aring; generalforsamlingen d.11 marts 2014</span></p>\r\n</div>\r\n</div>\r\n', 'DK', 'Vedtægter', 0, ''),
@@ -149,10 +149,10 @@ INSERT INTO `ReplaceDBtext` (`id`, `text`, `language`, `page_name`, `required`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ReplaceDBusers`
+-- Table structure for table `GBone_users`
 --
 
-CREATE TABLE `ReplaceDBusers` (
+CREATE TABLE `GBone_users` (
   `id` int(2) NOT NULL,
   `username` varchar(40) NOT NULL,
   `username_clean` varchar(40) NOT NULL,
@@ -166,19 +166,19 @@ CREATE TABLE `ReplaceDBusers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `ReplaceDBusers`
+-- Dumping data for table `GBone_users`
 --
 
-INSERT INTO `ReplaceDBusers` (`id`, `username`, `username_clean`, `mail`, `mobile`, `loginlevel`, `password`, `active`, `recoverycode`, `recoverytime`) VALUES
+INSERT INTO `GBone_users` (`id`, `username`, `username_clean`, `mail`, `mobile`, `loginlevel`, `password`, `active`, `recoverycode`, `recoverytime`) VALUES
 (1, 'Rhodez', 'rhodez', 'jorn@guld-berg.dk', '25336607', 50, '4069599633d6afb2ca255bbc4f871e2f08dff2e17a58f0e8273af4bf0975bcf5', 1, '', '');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ReplaceDBuser_info`
+-- Table structure for table `GBone_user_info`
 --
 
-CREATE TABLE `ReplaceDBuser_info` (
+CREATE TABLE `GBone_user_info` (
   `id` int(11) NOT NULL,
   `firstname` varchar(64) NOT NULL,
   `lastname` varchar(64) NOT NULL,
@@ -188,10 +188,10 @@ CREATE TABLE `ReplaceDBuser_info` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `ReplaceDBuser_info`
+-- Dumping data for table `GBone_user_info`
 --
 
-INSERT INTO `ReplaceDBuser_info` (`id`, `firstname`, `lastname`, `profile_text`, `profile_img`, `hidden`) VALUES
+INSERT INTO `GBone_user_info` (`id`, `firstname`, `lastname`, `profile_text`, `profile_img`, `hidden`) VALUES
 (1, 'Jørn', 'Guldberg', 'Devoloper', '/570404v/1/0309b3fe35ae9c7442950812ab2f35531511732371.png', 1);
 
 --
@@ -199,56 +199,56 @@ INSERT INTO `ReplaceDBuser_info` (`id`, `firstname`, `lastname`, `profile_text`,
 --
 
 --
--- Indexes for table `ReplaceDBadmin_info`
+-- Indexes for table `GBone_admin_info`
 --
-ALTER TABLE `ReplaceDBadmin_info`
+ALTER TABLE `GBone_admin_info`
   ADD UNIQUE KEY `id` (`id`);
 
 --
--- Indexes for table `ReplaceDBcalender`
+-- Indexes for table `GBone_calender`
 --
-ALTER TABLE `ReplaceDBcalender`
+ALTER TABLE `GBone_calender`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `ReplaceDBcountry`
+-- Indexes for table `GBone_country`
 --
-ALTER TABLE `ReplaceDBcountry`
+ALTER TABLE `GBone_country`
   ADD PRIMARY KEY (`countryID`),
   ADD UNIQUE KEY `countryID` (`countryID`);
 
 --
--- Indexes for table `ReplaceDBimages`
+-- Indexes for table `GBone_images`
 --
-ALTER TABLE `ReplaceDBimages`
+ALTER TABLE `GBone_images`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`);
 
 --
--- Indexes for table `ReplaceDBnavi`
+-- Indexes for table `GBone_navi`
 --
-ALTER TABLE `ReplaceDBnavi`
+ALTER TABLE `GBone_navi`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`);
 
 --
--- Indexes for table `ReplaceDBtext`
+-- Indexes for table `GBone_text`
 --
-ALTER TABLE `ReplaceDBtext`
+ALTER TABLE `GBone_text`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `page_name` (`id`);
 
 --
--- Indexes for table `ReplaceDBusers`
+-- Indexes for table `GBone_users`
 --
-ALTER TABLE `ReplaceDBusers`
+ALTER TABLE `GBone_users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`);
 
 --
--- Indexes for table `ReplaceDBuser_info`
+-- Indexes for table `GBone_user_info`
 --
-ALTER TABLE `ReplaceDBuser_info`
+ALTER TABLE `GBone_user_info`
   ADD UNIQUE KEY `id` (`id`);
 
 --
@@ -256,39 +256,39 @@ ALTER TABLE `ReplaceDBuser_info`
 --
 
 --
--- AUTO_INCREMENT for table `ReplaceDBcalender`
+-- AUTO_INCREMENT for table `GBone_calender`
 --
-ALTER TABLE `ReplaceDBcalender`
+ALTER TABLE `GBone_calender`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT for table `ReplaceDBcountry`
+-- AUTO_INCREMENT for table `GBone_country`
 --
-ALTER TABLE `ReplaceDBcountry`
+ALTER TABLE `GBone_country`
   MODIFY `countryID` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `ReplaceDBimages`
+-- AUTO_INCREMENT for table `GBone_images`
 --
-ALTER TABLE `ReplaceDBimages`
+ALTER TABLE `GBone_images`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
--- AUTO_INCREMENT for table `ReplaceDBnavi`
+-- AUTO_INCREMENT for table `GBone_navi`
 --
-ALTER TABLE `ReplaceDBnavi`
+ALTER TABLE `GBone_navi`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `ReplaceDBtext`
+-- AUTO_INCREMENT for table `GBone_text`
 --
-ALTER TABLE `ReplaceDBtext`
+ALTER TABLE `GBone_text`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `ReplaceDBusers`
+-- AUTO_INCREMENT for table `GBone_users`
 --
-ALTER TABLE `ReplaceDBusers`
+ALTER TABLE `GBone_users`
   MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 

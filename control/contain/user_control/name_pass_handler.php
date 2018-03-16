@@ -28,13 +28,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                     $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
 
-                    $stmt_check = $conn->prepare("SELECT id, active FROM ReplaceDBusers WHERE username_clean = ? AND password = ?;");
+                    $stmt_check = $conn->prepare("SELECT id, active FROM GBone_users WHERE username_clean = ? AND password = ?;");
                     $stmt_check->execute(array($check_username_confirm, $check_password_confirm ));
                     if ($stmt_check->rowCount() == 1) {
                         foreach($stmt_check->fetchAll() as $row) {
                             if ($row['active'] == 1) {
                                 // if the user exist and the password is right
-                                $stmt = $conn->prepare("UPDATE ReplaceDBusers SET username = ?, username_clean = ?, password = ? WHERE id = ?;");
+                                $stmt = $conn->prepare("UPDATE GBone_users SET username = ?, username_clean = ?, password = ? WHERE id = ?;");
                                 $stmt->execute(array($_SESSION["new_username"], $check_username_new, $check_password_new, $row['id']));
                                 $_SESSION['login_user'] = $_SESSION["new_username"];
                             }
@@ -76,13 +76,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                         $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
 
-                        $stmt_check = $conn->prepare("SELECT id, active FROM ReplaceDBusers WHERE username_clean = ? AND password = ?;");
+                        $stmt_check = $conn->prepare("SELECT id, active FROM GBone_users WHERE username_clean = ? AND password = ?;");
                         $stmt_check->execute(array($check_username_confirm, $check_password_confirm ));
                         if ($stmt_check->rowCount() == 1) {
                             foreach($stmt_check->fetchAll() as $row) {
                                 if ($row['active'] == 1) {
                                     // if the user exist and the password is right
-                                    $stmt = $conn->prepare("UPDATE ReplaceDBusers SET password = ? WHERE id = ?;");
+                                    $stmt = $conn->prepare("UPDATE GBone_users SET password = ? WHERE id = ?;");
                                     $stmt->execute(array($check_password_new, $row['id']));
                                 }
                                 else {
