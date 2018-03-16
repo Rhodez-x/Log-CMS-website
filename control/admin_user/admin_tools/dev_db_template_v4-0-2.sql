@@ -17,16 +17,16 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `ReplaceDB`
+-- Database: `GBone_`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ReplaceDBadmin_info`
+-- Table structure for table `GBone_admin_info`
 --
 
-CREATE TABLE `ReplaceDBadmin_info` (
+CREATE TABLE `GBone_admin_info` (
   `id` int(11) NOT NULL,
   `titel` varchar(64) NOT NULL,
   `description` text NOT NULL,
@@ -34,19 +34,19 @@ CREATE TABLE `ReplaceDBadmin_info` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `ReplaceDBadmin_info`
+-- Dumping data for table `GBone_admin_info`
 --
 
-INSERT INTO `ReplaceDBadmin_info` (`id`, `titel`, `description`, `priority`) VALUES
+INSERT INTO `GBone_admin_info` (`id`, `titel`, `description`, `priority`) VALUES
 (1, 'Devoloper', 'Devoloper', -100);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ReplaceDBcountry`
+-- Table structure for table `GBone_country`
 --
 
-CREATE TABLE `ReplaceDBcountry` (
+CREATE TABLE `GBone_country` (
   `countryID` int(8) NOT NULL,
   `name` varchar(16) NOT NULL,
   `code` varchar(4) NOT NULL,
@@ -54,19 +54,19 @@ CREATE TABLE `ReplaceDBcountry` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `ReplaceDBcountry`
+-- Dumping data for table `GBone_country`
 --
 
-INSERT INTO `ReplaceDBcountry` (`countryID`, `name`, `code`, `active`) VALUES
+INSERT INTO `GBone_country` (`countryID`, `name`, `code`, `active`) VALUES
 (1, 'denmark', 'DK', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ReplaceDBnavi`
+-- Table structure for table `GBone_navi`
 --
 
-CREATE TABLE `ReplaceDBnavi` (
+CREATE TABLE `GBone_navi` (
   `id` int(11) NOT NULL,
   `name` varchar(32) NOT NULL,
   `link` varchar(40) NOT NULL,
@@ -76,10 +76,10 @@ CREATE TABLE `ReplaceDBnavi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `ReplaceDBnavi`
+-- Dumping data for table `GBone_navi`
 --
 
-INSERT INTO `ReplaceDBnavi` (`id`, `name`, `link`, `language`, `required`, `navi_order`) VALUES
+INSERT INTO `GBone_navi` (`id`, `name`, `link`, `language`, `required`, `navi_order`) VALUES
 (1, 'Forside', 'index', 'DK', 1, 1),
 (2, 'Page', 'page?id=page', 'DK', 0, 2),
 (3, 'Kontak', 'kontakt', 'DK', 0, 3);
@@ -87,66 +87,66 @@ INSERT INTO `ReplaceDBnavi` (`id`, `name`, `link`, `language`, `required`, `navi
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ReplaceDBpermissions`
+-- Table structure for table `GBone_permissions`
 --
 
-CREATE TABLE `ReplaceDBpermissions` (
+CREATE TABLE `GBone_permissions` (
   `id` int(11) NOT NULL,
   `name` varchar(64) NOT NULL,
   `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `ReplaceDBpermissions`
+-- Dumping data for table `GBone_permissions`
 --
 
-INSERT INTO `ReplaceDBpermissions` (`id`, `name`, `description`) VALUES
+INSERT INTO `GBone_permissions` (`id`, `name`, `description`) VALUES
 (1, 'create_user', 'Allowed to create a new user');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ReplaceDBpermission_groups`
+-- Table structure for table `GBone_permission_groups`
 --
 
-CREATE TABLE `ReplaceDBpermission_groups` (
+CREATE TABLE `GBone_permission_groups` (
   `id` int(11) NOT NULL,
   `name` varchar(64) NOT NULL,
   `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `ReplaceDBpermission_groups`
+-- Dumping data for table `GBone_permission_groups`
 --
 
-INSERT INTO `ReplaceDBpermission_groups` (`id`, `name`, `description`) VALUES
+INSERT INTO `GBone_permission_groups` (`id`, `name`, `description`) VALUES
 (1, 'admin', 'Adminstrators of the site');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ReplaceDBpermission_group_relation`
+-- Table structure for table `GBone_permission_group_relation`
 --
 
-CREATE TABLE `ReplaceDBpermission_group_relation` (
+CREATE TABLE `GBone_permission_group_relation` (
   `permission_id` int(11) NOT NULL,
   `permission_group_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `ReplaceDBpermission_group_relation`
+-- Dumping data for table `GBone_permission_group_relation`
 --
 
-INSERT INTO `ReplaceDBpermission_group_relation` (`permission_id`, `permission_group_id`) VALUES
+INSERT INTO `GBone_permission_group_relation` (`permission_id`, `permission_group_id`) VALUES
 (1, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ReplaceDBtext`
+-- Table structure for table `GBone_text`
 --
 
-CREATE TABLE `ReplaceDBtext` (
+CREATE TABLE `GBone_text` (
   `id` int(11) NOT NULL,
   `text` longtext NOT NULL,
   `language` varchar(8) NOT NULL,
@@ -156,10 +156,10 @@ CREATE TABLE `ReplaceDBtext` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `ReplaceDBtext`
+-- Dumping data for table `GBone_text`
 --
 
-INSERT INTO `ReplaceDBtext` (`id`, `text`, `language`, `page_name`, `required`, `bgimg`) VALUES
+INSERT INTO `GBone_text` (`id`, `text`, `language`, `page_name`, `required`, `bgimg`) VALUES
 (2, 'Standart forside', 'DK', 'index', 1, ''),
 (3, 'Brug formularen', 'DK', 'kontakt', 0, ''),
 (4, 'Det er en side', 'DK', 'Page', 0, '');
@@ -167,10 +167,10 @@ INSERT INTO `ReplaceDBtext` (`id`, `text`, `language`, `page_name`, `required`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ReplaceDBusers`
+-- Table structure for table `GBone_users`
 --
 
-CREATE TABLE `ReplaceDBusers` (
+CREATE TABLE `GBone_users` (
   `id` int(2) NOT NULL,
   `username` varchar(40) NOT NULL,
   `username_clean` varchar(40) NOT NULL,
@@ -185,19 +185,19 @@ CREATE TABLE `ReplaceDBusers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `ReplaceDBusers`
+-- Dumping data for table `GBone_users`
 --
 
-INSERT INTO `ReplaceDBusers` (`id`, `username`, `username_clean`, `mail`, `mobile`, `loginlevel`, `permission_group_id`, `password`, `active`, `recoverycode`, `recoverytime`) VALUES
+INSERT INTO `GBone_users` (`id`, `username`, `username_clean`, `mail`, `mobile`, `loginlevel`, `permission_group_id`, `password`, `active`, `recoverycode`, `recoverytime`) VALUES
 (1, 'Rhodez', 'rhodez', 'jorn@guld-berg.dk', '25336607', 50, 1, '4069599633d6afb2ca255bbc4f871e2f08dff2e17a58f0e8273af4bf0975bcf5', 1, '', '');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ReplaceDBuser_info`
+-- Table structure for table `GBone_user_info`
 --
 
-CREATE TABLE `ReplaceDBuser_info` (
+CREATE TABLE `GBone_user_info` (
   `id` int(11) NOT NULL,
   `firstname` varchar(64) NOT NULL,
   `lastname` varchar(64) NOT NULL,
@@ -207,10 +207,10 @@ CREATE TABLE `ReplaceDBuser_info` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `ReplaceDBuser_info`
+-- Dumping data for table `GBone_user_info`
 --
 
-INSERT INTO `ReplaceDBuser_info` (`id`, `firstname`, `lastname`, `profile_text`, `profile_img`, `hidden`) VALUES
+INSERT INTO `GBone_user_info` (`id`, `firstname`, `lastname`, `profile_text`, `profile_img`, `hidden`) VALUES
 (1, 'Jørn', 'Guldberg', 'Devoloper', '/570404v/1/0309b3fe35ae9c7442950812ab2f35531511732371.png', 1);
 
 --
@@ -218,57 +218,57 @@ INSERT INTO `ReplaceDBuser_info` (`id`, `firstname`, `lastname`, `profile_text`,
 --
 
 --
--- Indexes for table `ReplaceDBadmin_info`
+-- Indexes for table `GBone_admin_info`
 --
-ALTER TABLE `ReplaceDBadmin_info`
+ALTER TABLE `GBone_admin_info`
   ADD UNIQUE KEY `id` (`id`);
 
 --
--- Indexes for table `ReplaceDBcountry`
+-- Indexes for table `GBone_country`
 --
-ALTER TABLE `ReplaceDBcountry`
+ALTER TABLE `GBone_country`
   ADD PRIMARY KEY (`countryID`),
   ADD UNIQUE KEY `countryID` (`countryID`);
 
 --
--- Indexes for table `ReplaceDBnavi`
+-- Indexes for table `GBone_navi`
 --
-ALTER TABLE `ReplaceDBnavi`
+ALTER TABLE `GBone_navi`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`);
 
 --
--- Indexes for table `ReplaceDBpermissions`
+-- Indexes for table `GBone_permissions`
 --
-ALTER TABLE `ReplaceDBpermissions`
+ALTER TABLE `GBone_permissions`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`);
 
 --
--- Indexes for table `ReplaceDBpermission_groups`
+-- Indexes for table `GBone_permission_groups`
 --
-ALTER TABLE `ReplaceDBpermission_groups`
+ALTER TABLE `GBone_permission_groups`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`);
 
 --
--- Indexes for table `ReplaceDBtext`
+-- Indexes for table `GBone_text`
 --
-ALTER TABLE `ReplaceDBtext`
+ALTER TABLE `GBone_text`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `page_name` (`id`);
 
 --
--- Indexes for table `ReplaceDBusers`
+-- Indexes for table `GBone_users`
 --
-ALTER TABLE `ReplaceDBusers`
+ALTER TABLE `GBone_users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`);
 
 --
--- Indexes for table `ReplaceDBuser_info`
+-- Indexes for table `GBone_user_info`
 --
-ALTER TABLE `ReplaceDBuser_info`
+ALTER TABLE `GBone_user_info`
   ADD UNIQUE KEY `id` (`id`);
 
 --
@@ -276,34 +276,34 @@ ALTER TABLE `ReplaceDBuser_info`
 --
 
 --
--- AUTO_INCREMENT for table `ReplaceDBcountry`
+-- AUTO_INCREMENT for table `GBone_country`
 --
-ALTER TABLE `ReplaceDBcountry`
+ALTER TABLE `GBone_country`
   MODIFY `countryID` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT for table `ReplaceDBnavi`
+-- AUTO_INCREMENT for table `GBone_navi`
 --
-ALTER TABLE `ReplaceDBnavi`
+ALTER TABLE `GBone_navi`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
--- AUTO_INCREMENT for table `ReplaceDBpermissions`
+-- AUTO_INCREMENT for table `GBone_permissions`
 --
-ALTER TABLE `ReplaceDBpermissions`
+ALTER TABLE `GBone_permissions`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT for table `ReplaceDBpermission_groups`
+-- AUTO_INCREMENT for table `GBone_permission_groups`
 --
-ALTER TABLE `ReplaceDBpermission_groups`
+ALTER TABLE `GBone_permission_groups`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT for table `ReplaceDBtext`
+-- AUTO_INCREMENT for table `GBone_text`
 --
-ALTER TABLE `ReplaceDBtext`
+ALTER TABLE `GBone_text`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
--- AUTO_INCREMENT for table `ReplaceDBusers`
+-- AUTO_INCREMENT for table `GBone_users`
 --
-ALTER TABLE `ReplaceDBusers`
+ALTER TABLE `GBone_users`
   MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
