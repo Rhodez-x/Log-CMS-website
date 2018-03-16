@@ -65,7 +65,7 @@ if (!$_SESSION['session_language']) {       // if language is not set yet, the d
 if (isset($_GET["lang"])) {
     try {
         $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-        $stmt = $conn->prepare("SELECT code FROM GBone_country WHERE code = ? AND active = 1 ");
+        $stmt = $conn->prepare("SELECT code FROM ReplaceDBcountry WHERE code = ? AND active = 1 ");
         $stmt->execute(array(clean_input_text($_GET["lang"])));
                 // set the resulting array to associative
         if ($stmt->rowCount() == 1) {
@@ -99,7 +99,7 @@ if (isset($_SESSION['login_user'])) {
     // Hvis der findes en bruger i systemet med login navnet findes de forskellige oplysninger om brugeren.
     try {
         $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-        $stmt = $conn->prepare('SELECT * FROM GBone_users WHERE username_clean = ?;');
+        $stmt = $conn->prepare('SELECT * FROM ReplaceDBusers WHERE username_clean = ?;');
         $stmt->execute(array($login_tjek));
                 // set the resulting array to associative
         if (($stmt->rowCount() == 1) && ($_SESSION['LOGIN_LAST_ACTIVITY'] > time())) {

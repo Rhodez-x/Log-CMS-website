@@ -73,10 +73,10 @@ echo '<div class="modal fade" id="myModal" role="dialog" style="z-index: 9999;">
                     <?php
                         try {
                             $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                            $stmt = $conn->prepare("SELECT GBone_navi.link, GBone_navi_name.name
-                                                    FROM GBone_navi
-                                                    INNER JOIN GBone_navi_name ON GBone_navi.id=GBone_navi_name.parent_id 
-                                                    WHERE GBone_navi.place = 'standart'
+                            $stmt = $conn->prepare("SELECT ReplaceDBnavi.link, ReplaceDBnavi_name.name
+                                                    FROM ReplaceDBnavi
+                                                    INNER JOIN ReplaceDBnavi_name ON ReplaceDBnavi.id=ReplaceDBnavi_name.parent_id 
+                                                    WHERE ReplaceDBnavi.place = 'standart'
                                                     ORDER BY navi_order;");
                             $stmt->execute(array($_SESSION['session_language']));
                             if ($stmt->rowCount() > 0) {

@@ -46,14 +46,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $contact_name = '';
             try {
                 $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                $stmt = $conn->prepare("SELECT id, active, username FROM GBone_users WHERE mail = ? ");
+                $stmt = $conn->prepare("SELECT id, active, username FROM ReplaceDBusers WHERE mail = ? ");
                 $stmt->execute(array($_SESSION["recover_mail"]));
                 if ($stmt->rowCount() == 1) {
                     foreach($stmt->fetchAll() as $row) {
                         if ($row['active'] == 1) {
                             $contact_name = $row['username'];
                             $recovercode_string = random_str(12); // first created when we are sure that the user is valid
-                            $stmt_set = $conn->prepare("UPDATE GBone_users SET recoverycode = ?, recoverytime = ? WHERE id = ? ");
+                            $stmt_set = $conn->prepare("UPDATE ReplaceDBusers SET recoverycode = ?, recoverytime = ? WHERE id = ? ");
                             $stmt_set->execute(array($recovercode_string, (time() + 900), $row['id']));
                             $stmt_set = null;
                         }
