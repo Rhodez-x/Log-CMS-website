@@ -210,7 +210,7 @@
             echo $page_edit_text . '<br><form class="form-inline" action="/control/contain/master_control/page_handler" method="post">
                         <div class="form-group">
                         <label for="max_weight">Tilføj ny side</label>
-                            <input type="text" class="form-control" name="page_name_dk" id="page_name" value="">
+                            <input type="text" class="form-control" name="page_name" id="page_name" value="">
                           </div>
                           <input type="hidden" class="form-control" name="add" id="add" value="1">
                           <button type="submit" class="btn btn-default">Tilføj</button></form>';
