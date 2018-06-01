@@ -13,14 +13,10 @@
                 <option disabled selected>Choose text for a site</option>
                 <?php
                     $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-<<<<<<< HEAD:control/contain/site_editor/content.php
                     $stmt = $conn->prepare("SELECT ReplaceDBnavi_name.name, ReplaceDBtext.text
                                 FROM ReplaceDBnavi_name 
                                 INNER JOIN ReplaceDBtext ON ReplaceDBnavi_name.parent_id=ReplaceDBtext.parent_id
                                 GROUP BY ReplaceDBnavi_name.name;");
-=======
-                    $stmt = $conn->prepare("SELECT * FROM GBone_text GROUP BY page_name;");
->>>>>>> 293c4e6f06e1f994af919fe5a9186ffef882c92d:control/contain/site_editor/indhold.php
                     $stmt->execute();
                             // set the resulting array to associative
                     if ($stmt->rowCount() > 0) {
@@ -37,7 +33,7 @@
                 <option disabled selected>Choose language:</option>
                 <?php
                     $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                    $stmt = $conn->prepare("SELECT * FROM GBone_country WHERE active = 1;");
+                    $stmt = $conn->prepare("SELECT * FROM ReplaceDBcountry WHERE active = 1;");
                     $stmt->execute();
                             // set the resulting array to associative
                     if ($stmt->rowCount() > 0) {
@@ -58,14 +54,10 @@
                     *  instance, using default configuration.
                     */
                     $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-<<<<<<< HEAD:control/contain/site_editor/content.php
-                    $stmt = $conn->prepare("SELECT ReplaceDBnavi_name.name, ReplaceDBtext.text
+                    $stmt = $conn->prepare("SELECT ReplaceDBnavi_name.name, ReplaceDBtext.text, ReplaceDBtext.parent_id
                                 FROM ReplaceDBnavi_name 
                                 INNER JOIN ReplaceDBtext ON ReplaceDBnavi_name.parent_id=ReplaceDBtext.parent_id
                                 WHERE ReplaceDBnavi_name.name = ? AND ReplaceDBnavi_name.language = ?;");
-=======
-                    $stmt = $conn->prepare("SELECT text FROM GBone_text WHERE page_name = ? AND language = ?");
->>>>>>> 293c4e6f06e1f994af919fe5a9186ffef882c92d:control/contain/site_editor/indhold.php
                     $stmt->execute(array($_SESSION['page_name_text_edit'], $_SESSION['page_name_lang']));
                             // set the resulting array to associative
                     if ($stmt->rowCount() == 1) {
@@ -73,6 +65,7 @@
                         foreach($stmt->fetchAll() as $row) {
                             echo "<h3>Du er ved at redigere: ".$_SESSION['page_name_text_edit']." Sprog: ".$_SESSION['page_name_lang']."</h3>
                                 <form action='/control/contain/site_editor/save' method='post'>
+                                <input type='text' id='parent_id' name='parent_id' class='form-control sr-only' value='".$row['parent_id']."'>
                                     <button class='btn btn-success' type='submit'>Save</button>
                                     <textarea name='editor1' id='editor1' rows='10' cols='80'>"
                                         . $row['text'] . 

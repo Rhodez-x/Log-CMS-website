@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION["recover_input_code"] = clean_input_text($_POST["recover_code"]);
             try {
                 $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                $stmt = $conn->prepare("SELECT id, active, username, recoverytime FROM GBone_users WHERE mail = ? AND recoverycode = ? ; ");
+                $stmt = $conn->prepare("SELECT id, active, username, recoverytime FROM ReplaceDBusers WHERE mail = ? AND recoverycode = ? ; ");
                 $stmt->execute(array($_SESSION["recover_mail"], $_SESSION["recover_input_code"]));
                 if ($stmt->rowCount() == 1) {
                     foreach($stmt->fetchAll() as $row) {
@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 
                             }
                             else {
-                                $stmt_set = $conn->prepare("UPDATE GBone_users SET recoverycode = '', recoverytime = '' WHERE id = ? ");
+                                $stmt_set = $conn->prepare("UPDATE ReplaceDBusers SET recoverycode = '', recoverytime = '' WHERE id = ? ");
                                 $stmt_set->execute(array($row['id']));
                                 $stmt_set = null;
                                 $_SESSION["feedback_recover"] = '<div class="row">
