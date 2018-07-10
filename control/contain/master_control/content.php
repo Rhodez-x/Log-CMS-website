@@ -188,7 +188,7 @@
                           <input type="hidden" class="form-control" name="navi_order" id="navi_order" value="'.$edit_page_navi_order.'">
                           <input type="hidden" class="form-control" name="link" id="link" value="'.$edit_page_link.'">
                           <input type="hidden" class="form-control" name="id" id="id" value="'.$edit_page_id.'">
-                          <a href="/control/contain/site_editor/select?edit_page_name='.$edit_page_name.'" class="btn btn-default" role="button">Rediger</a>
+                          <a href="/control/site_editor?edit_page_name='.$edit_page_name.'" class="btn btn-default" role="button">Rediger side</a>
                           <button type="submit" class="btn btn-danger" '.$edit_page_required_disable.' name="handel" value="rm">Fjern</button>
                           <button type="submit" class="btn btn-default" name="handel" value="mv_up"><span class="glyphicon glyphicon-arrow-up"></span></button>
                           <button type="submit" class="btn btn-default" name="handel" value="mv_dw"><span class="glyphicon glyphicon-arrow-down"></span></button></form>';

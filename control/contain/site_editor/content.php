@@ -7,10 +7,10 @@
           <h3>Site editor:</h3>
         <?php echo $_SESSION["uploade_feedback"];
             unset($_SESSION["uploade_feedback"]); ?>
-    <form action="/control/contain/site_editor/select" method="get" class="form-inline">
+    <form action="/control/site_editor" method="get" class="form-inline">
         <div class="input-group">
             <select class="form-control" name="edit_page_name" id="edit_page_name">
-                <option disabled selected>Choose text for a site</option>
+                <option disabled selected>Vælg hvilken side</option>
                 <?php
                     $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
                     $stmt = $conn->prepare("SELECT ReplaceDBnavi_name.name, ReplaceDBtext.text
@@ -30,7 +30,7 @@
             </div>
             <div class="input-group">
             <select class="form-control" name="edit_page_lang" id="edit_page_lang">
-                <option disabled selected>Choose language:</option>
+                <option disabled selected>Vælg hvilket sprog:</option>
                 <?php
                     $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
                     $stmt = $conn->prepare("SELECT * FROM ReplaceDBcountry WHERE active = 1;");
@@ -45,7 +45,7 @@
                 ?>
             </select>
             </div>
-                <button type="submit" class="btn btn-defult">select</button>
+                <button type="submit" class="btn btn-defult">Vælg</button>
     </form>
       <div class="well well-sm" style="color:black; margin-top:20px;">
                 <?php
@@ -65,8 +65,20 @@
                         foreach($stmt->fetchAll() as $row) {
                             echo "<h3>Du er ved at redigere: ".$_SESSION['page_name_text_edit']." Sprog: ".$_SESSION['page_name_lang']."</h3>
                                 <form action='/control/contain/site_editor/save' method='post'>
+                                <button class='btn btn-success' type='submit'>Gem</button>
+                                <div class='form-group'>
+                                <label for='titel'>Title:</label>
+                                <input type='text' class='form-control' name='username' id='username' value='Title'>
+                                </div>
+                                
+                                 <div class='form-group'>
+                                  <label for='comment'>Kort beskrivelse:</label>
+                                  <textarea class='form-control' rows='5' id='comment'></textarea>
+                                </div> 
+                                
+                                <label for='titel'>Tekst:</label>
                                 <input type='text' id='parent_id' name='parent_id' class='form-control sr-only' value='".$row['parent_id']."'>
-                                    <button class='btn btn-success' type='submit'>Save</button>
+                                    
                                     <textarea name='editor1' id='editor1' rows='10' cols='80'>"
                                         . $row['text'] . 
 
@@ -74,9 +86,26 @@
                                     <script>
                                         CKEDITOR.replace( 'editor1' );
                                     </script>
-                                    <button class='btn btn-success' type='submit'>Save</button>
+                                    <button class='btn btn-success' type='submit'>Gem</button>
                                 </form>";
-                        }
+
+
+                                echo "<h3>Tilknyttet billeder:</h3>";
+                                $stmt = $conn->prepare("SELECT ReplaceDBnavi_name.name, ReplaceDBtext.text, ReplaceDBtext.parent_id
+                                FROM ReplaceDBnavi_name 
+                                INNER JOIN ReplaceDBtext ON ReplaceDBnavi_name.parent_id=ReplaceDBtext.parent_id
+                                WHERE ReplaceDBnavi_name.name = ? AND ReplaceDBnavi_name.language = ?;");
+                                $stmt->execute(array($_SESSION['page_name_text_edit'], $_SESSION['page_name_lang']));
+                                // set the resulting array to associative
+                                if ($stmt->rowCount() == 1) {
+                                    $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                                    foreach($stmt->fetchAll() as $row) {
+                                    
+                                    }
+                                }
+
+                                
+                            }
                     }
                     else {
                         echo "<h3>Vælg hvilken side du vil redigere</h3>"; 
