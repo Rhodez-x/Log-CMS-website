@@ -38,8 +38,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         else {
             if ($post_handel == "mv_up") {
                 $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                $stmt = $conn->prepare("UPDATE ReplaceDBnavi SET navi_order = navi_order + 1 WHERE navi_order = ?;
-                                        UPDATE ReplaceDBnavi SET navi_order = navi_order - 1 WHERE link = ?;");
+                $stmt = $conn->prepare("UPDATE ReplaceDBnavi SET navi_order = navi_order + 1 WHERE navi_order = ? AND place ='standart';
+                                        UPDATE ReplaceDBnavi SET navi_order = navi_order - 1 WHERE link = ? AND place ='standart';");
                 $stmt->execute(array(($post_navi_order - 1), $post_link));
                 $stmt = null;
                 $conn = null;
