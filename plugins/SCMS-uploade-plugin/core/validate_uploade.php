@@ -66,7 +66,9 @@ function domath($ma) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $datomedtid = DATE_AND_TIME;
     $_SESSION['uploade_feedback'] = '';                     // Sørger for at feddbacken er tom.
-    $tilknyt_img_to = clean_input_text($_POST["kategori"]);      // Event id billedet skal knyttes til.
+    $post_attached_id = clean_input_text($_POST["attached_id"]);
+    $post_attached_group = clean_input_text($_POST["attached_group"]);
+
     $total = count($_FILES['upload']['name']);              // Count # of uploaded files in array
     
     // Loop through each file
@@ -130,8 +132,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                     if ($_POST["mode"] == 1) {
 
-                        $stmt = $conn->prepare("SELECT @this_show_order := (SELECT max(show_order) FROM hifiDBimages WHERE (user_id = :user_id) OR (user_id = 0)) + 1;
-                                                INSERT INTO hifiDBimages (user_id, dir, uploaded, show_order)
+                        $stmt = $conn->prepare("SELECT @this_show_order := (SELECT max(show_order) FROM ReplaceDBimages WHERE (user_id = :user_id) OR (user_id = 0)) + 1;
+                                                INSERT INTO ReplaceDBimages (user_id, dir, uploaded, show_order)
                                                 VALUES (:user_id, :dir, :uploaded, @this_show_order); ");
                         $int_id = LOGIN_ID;
                         $stmt->bindParam(':user_id', $int_id, PDO::PARAM_INT);
@@ -142,7 +144,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     }
                     else if ($_POST["mode"] == 2) {
 
-                        $stmt_check = $conn->prepare("SELECT profile_img FROM hifiDBuser_info WHERE (id = ?) AND (profile_img != '/design/default_profile_img.png'); ");
+                        $stmt_check = $conn->prepare("SELECT profile_img FROM ReplaceDBuser_info WHERE (id = ?) AND (profile_img != '/design/default_profile_img.png'); ");
                         $stmt_check->execute(array(LOGIN_ID));
                             // set the resulting array to associative
                         if ($stmt_check->rowCount() == 1) {
@@ -152,7 +154,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             }
 
                         } 
-                        $stmt = $conn->prepare("UPDATE hifiDBuser_info SET profile_img = :dir WHERE id = :user_id; ");
+                        $stmt = $conn->prepare("UPDATE ReplaceDBuser_info SET profile_img = :dir WHERE id = :user_id; ");
                         $int_id = LOGIN_ID;
                         $stmt->bindParam(':dir', $newnamefinish);
                         $stmt->bindParam(':user_id', $int_id, PDO::PARAM_INT);
@@ -162,7 +164,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         $page_name = $_POST['page_id'];
                         try {
                             $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                            $stmt = $conn->prepare("SELECT bgimg FROM hifiDBtext WHERE page_name = :page_id;");
+                            $stmt = $conn->prepare("SELECT bgimg FROM ReplaceDBtext WHERE page_name = :page_id;");
                             $stmt->bindParam(':page_id', $page_name);
                             $stmt->execute();
                               // set the resulting array to associative
@@ -170,7 +172,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             if ($stmt->rowCount() > 0) {
                                 foreach($stmt->fetchAll() as $row) {
 
-                                    $stmt_2 = $conn->prepare("SELECT bgimg FROM hifiDBtext WHERE bgimg = :bgimg;");
+                                    $stmt_2 = $conn->prepare("SELECT bgimg FROM ReplaceDBtext WHERE bgimg = :bgimg;");
                                     $stmt_2->bindParam(':bgimg', $row['bgimg']);
                                     $stmt_2->execute();
 
@@ -192,9 +194,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </div>';
                         }
                         // uddate background img for at page. 
-                        $stmt = $conn->prepare("UPDATE hifiDBtext SET bgimg = :dir WHERE page_name = :page_id ");
+                        $stmt = $conn->prepare("UPDATE ReplaceDBtext SET bgimg = :dir WHERE page_name = :page_id ");
                         $stmt->bindParam(':dir', $newnamefinish);
                         $stmt->bindParam(':page_id', $page_name);
+                        $stmt->execute();
+                    }
+                    else if ($_POST["mode"] == 4) { 
+                        // attach image to page or post (or somthing else)
+                        $stmt = $conn->prepare("SELECT @this_show_order := (SELECT max(show_order) FROM ReplaceDBimages WHERE (user_id = :user_id) OR (user_id = 0)) + 1;
+                                                INSERT INTO ReplaceDBimages (user_id, dir, uploaded, show_order, attached_group, attached_id)
+                                                VALUES (:user_id, :dir, :uploaded, @this_show_order, :post_attached_group, :post_attached_id); ");
+                        $int_id = LOGIN_ID;
+                        $stmt->bindParam(':user_id', $int_id, PDO::PARAM_INT);
+                        $stmt->bindParam(':dir', $newnamefinish);
+                        $stmt->bindParam(':uploaded', $datomedtid);
+                        $stmt->bindParam(':post_attached_id', $post_attached_id);
+                        $stmt->bindParam(':post_attached_group', $post_attached_group);
+
                         $stmt->execute();
                     }
 
@@ -223,7 +239,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
     }
-    header('Location: /control/index');
+    if($_POST["mode"] == 4) {
+        header('Location: /control/site_editor?content_type='.$_SESSION["page_content_type"].'&id='.$_SESSION['page_parent_id']);
+    }
+    else {
+        header('Location: /control/index');
+    }
 }
 else {
     header('Location: /');

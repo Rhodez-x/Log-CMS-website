@@ -53,23 +53,27 @@
                     *  Replace the <textarea id="editor1"> with a CKEditor
                     *  instance, using default configuration.
                     */
+
                     $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
                     $stmt = $conn->prepare("SELECT ReplaceDBnavi_name.name, ReplaceDBtext.text, ReplaceDBtext.parent_id
                                 FROM ReplaceDBnavi_name 
                                 INNER JOIN ReplaceDBtext ON ReplaceDBnavi_name.parent_id=ReplaceDBtext.parent_id
-                                WHERE ReplaceDBnavi_name.name = ? AND ReplaceDBnavi_name.language = ?;");
-                    $stmt->execute(array($_SESSION['page_name_text_edit'], $_SESSION['page_name_lang']));
+                                WHERE ReplaceDBnavi_name.parent_id = ? AND ReplaceDBnavi_name.language = ? AND ReplaceDBtext.content_group = ?;");
+                                        
+
+                    $stmt->execute(array($_SESSION['page_parent_id'], $_SESSION['page_name_lang'], $_SESSION['page_content_type']));
                             // set the resulting array to associative
                     if ($stmt->rowCount() == 1) {
                         $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
                         foreach($stmt->fetchAll() as $row) {
-                            $text_parant_id = $row['parent_id']
-                            echo "<h3>Du er ved at redigere: ".$_SESSION['page_name_text_edit']." Sprog: ".$_SESSION['page_name_lang']."</h3>
+                            $text_parant_id = $row['parent_id'];
+                            $text_title = $row['name'];
+                            echo "<h3>Du er ved at redigere: ".$text_title." Sprog: ".$_SESSION['page_name_lang']."</h3>
                                 <form action='/control/content/site_editor/save' method='post'>
                                 <button class='btn btn-success' type='submit'>Gem</button>
                                 <div class='form-group'>
                                 <label for='titel'>Title:</label>
-                                <input type='text' class='form-control' name='username' id='username' value='Title'>
+                                <input type='text' class='form-control' name='username' id='username' value='".$text_title."'>
                                 </div>
                                 
                                  <div class='form-group'>
@@ -92,20 +96,29 @@
 
 
                                 echo "<h3>Tilknyttet billeder:</h3>";
-                                $stmt = $conn->prepare("SELECT * FROM ReplaceDBimages;");
-                                $stmt->execute(array($_SESSION['page_name_text_edit'], $_SESSION['page_name_lang']));
+                                $stmt = $conn->prepare("SELECT * FROM ReplaceDBimages WHERE attached_group = 'page' AND attached_id = ?;");
+                                $stmt->execute(array($text_parant_id));
                                 // set the resulting array to associative
                                 if ($stmt->rowCount() > 0) {
                                     $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
                                     foreach($stmt->fetchAll() as $row) {
-                                    
+                                        echo "<div class='row'>
+                                                <div class='col-sm-2'> 
+                                                    <a href='".$row['dir']."' target='_blank'>
+                                                        <img class='img-responsive'  src='".$row['dir']."' alt='".$row['img_text']."' style='max-height:150px;'>
+                                                    </a> 
+                                                </div>
+                                                <div class='col-sm-10'>
+                                                    URL: ".$row['dir']. "
+                                                </div>
+                                            </div>";
                                     }
                                 }
                                 else {
                                     echo "Der er ikke nogle billeder tilknyttet";
                                 }
                                 // args = Title, mode, attached_group, attached_id
-                                echo SCMS_uploade_plugin_get_uploade_form("Tilføj billede", 4, $attached_id = $text_parant_id);
+                                echo "<Hr />" . SCMS_uploade_plugin_get_uploade_form("Tilføj billede", 4, $attached_group = "page", $attached_id = $text_parant_id);
 
                                 
                             }

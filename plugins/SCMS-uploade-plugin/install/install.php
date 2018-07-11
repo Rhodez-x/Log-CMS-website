@@ -35,7 +35,7 @@ function insert_data_to_database() {
   // If this is 0, then the image is not attached to anything. 
 
 
-/*CREATE TABLE `hifiDBimages` (
+/*CREATE TABLE `ReplaceDBimages` (
   `id` int(11) NOT NULL,
   `img_text` text NOT NULL,
   `user_id` int(11) NOT NULL,
@@ -55,9 +55,9 @@ function insert_data_to_database() {
 --
 
 --
--- Indexes for table `hifiDBimages`
+-- Indexes for table `ReplaceDBimages`
 --
-ALTER TABLE `hifiDBimages`
+ALTER TABLE `ReplaceDBimages`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`);
 
@@ -66,9 +66,9 @@ ALTER TABLE `hifiDBimages`
 --
 
 --
--- AUTO_INCREMENT for table `hifiDBimages`
+-- AUTO_INCREMENT for table `ReplaceDBimages`
 --
-ALTER TABLE `hifiDBimages`
+ALTER TABLE `ReplaceDBimages`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;*/
 }
 
