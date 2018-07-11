@@ -31,6 +31,10 @@ function install() {
  *  folder and, then be loaded in to the dabase.
  */
 function insert_data_to_database() {
+  // attached_id is the ID of some text or post that the image is attached to. 
+  // If this is 0, then the image is not attached to anything. 
+
+
 /*CREATE TABLE `hifiDBimages` (
   `id` int(11) NOT NULL,
   `img_text` text NOT NULL,

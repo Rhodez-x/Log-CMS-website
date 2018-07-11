@@ -121,35 +121,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $_SESSION['uploade_feedback'] = "<h4>Billederne er uploadet</h4>";
                 try {
                     $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                    if ($_POST["mode"] == 1) {
-                        $exif = exif_read_data($_SERVER['DOCUMENT_ROOT'].'/'.$newnamefinish, 0, true);
-                        $no_flash_codes = array(0, 16, 20, 32, 80, 88);
-                        $exif_flash = '';
-                        if (in_array($exif["EXIF"]["Flash"], $no_flash_codes))  {
-                            $exif_flash = 'nej';
-                        }
-                        else {
-                            $exif_flash = 'ja';
-                        }
-                        $exif_fnumber = $exif["EXIF"]["FNumber"] ? domath($exif["EXIF"]["FNumber"]) : "Ingen data" ;
-                        $exif_exposuretime = $exif["EXIF"]["ExposureTime"] ? $exif["EXIF"]["ExposureTime"] : "Ingen data" ;
-                        $exif_isospeedratings = $exif["EXIF"]["ISOSpeedRatings"] ? $exif["EXIF"]["ISOSpeedRatings"] : "Ingen data" ;
-                        $exif_focallength = $exif["EXIF"]["FocalLength"] ? domath($exif["EXIF"]["FocalLength"]) : "Ingen data" ;
+                    
+                    /**
+                    *   1 = Normal upload of image
+                    *   2 = New profile image
+                    *   3 = New background image
+                    */
 
+                    if ($_POST["mode"] == 1) {
 
                         $stmt = $conn->prepare("SELECT @this_show_order := (SELECT max(show_order) FROM hifiDBimages WHERE (user_id = :user_id) OR (user_id = 0)) + 1;
-                                                INSERT INTO hifiDBimages (user_id, dir, uploaded, show_order, flash, fnumber, exposuretime, isospeedratings, focallength)
-                                                VALUES (:user_id, :dir, :uploaded, @this_show_order, :flash, :fnumber, :ExposureTime, :ISOSpeedRatings, :FocalLength); ");
+                                                INSERT INTO hifiDBimages (user_id, dir, uploaded, show_order)
+                                                VALUES (:user_id, :dir, :uploaded, @this_show_order); ");
                         $int_id = LOGIN_ID;
                         $stmt->bindParam(':user_id', $int_id, PDO::PARAM_INT);
                         $stmt->bindParam(':dir', $newnamefinish);
                         $stmt->bindParam(':uploaded', $datomedtid);
-                        // if exif data has to be stored
-                        $stmt->bindParam(':flash', $exif_flash ); // Cameramodel
-                        $stmt->bindParam(':fnumber', $exif_fnumber ); // F-Stop 
-                        $stmt->bindParam(':ExposureTime', $exif_exposuretime); 
-                        $stmt->bindParam(':ISOSpeedRatings', $exif_isospeedratings); 
-                        $stmt->bindParam(':FocalLength', $exif_focallength);  
 
                         $stmt->execute();
                     }
@@ -237,6 +224,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
     header('Location: /control/index');
+}
+else {
+    header('Location: /');
 }
 ?>
 

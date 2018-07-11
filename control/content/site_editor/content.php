@@ -63,8 +63,9 @@
                     if ($stmt->rowCount() == 1) {
                         $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
                         foreach($stmt->fetchAll() as $row) {
+                            $text_parant_id = $row['parent_id']
                             echo "<h3>Du er ved at redigere: ".$_SESSION['page_name_text_edit']." Sprog: ".$_SESSION['page_name_lang']."</h3>
-                                <form action='/control/contain/site_editor/save' method='post'>
+                                <form action='/control/content/site_editor/save' method='post'>
                                 <button class='btn btn-success' type='submit'>Gem</button>
                                 <div class='form-group'>
                                 <label for='titel'>Title:</label>
@@ -77,7 +78,7 @@
                                 </div> 
                                 
                                 <label for='titel'>Tekst:</label>
-                                <input type='text' id='parent_id' name='parent_id' class='form-control sr-only' value='".$row['parent_id']."'>
+                                <input type='text' id='parent_id' name='parent_id' class='form-control sr-only' value='".$text_parant_id."'>
                                     
                                     <textarea name='editor1' id='editor1' rows='10' cols='80'>"
                                         . $row['text'] . 
@@ -91,18 +92,20 @@
 
 
                                 echo "<h3>Tilknyttet billeder:</h3>";
-                                $stmt = $conn->prepare("SELECT ReplaceDBnavi_name.name, ReplaceDBtext.text, ReplaceDBtext.parent_id
-                                FROM ReplaceDBnavi_name 
-                                INNER JOIN ReplaceDBtext ON ReplaceDBnavi_name.parent_id=ReplaceDBtext.parent_id
-                                WHERE ReplaceDBnavi_name.name = ? AND ReplaceDBnavi_name.language = ?;");
+                                $stmt = $conn->prepare("SELECT * FROM ReplaceDBimages;");
                                 $stmt->execute(array($_SESSION['page_name_text_edit'], $_SESSION['page_name_lang']));
                                 // set the resulting array to associative
-                                if ($stmt->rowCount() == 1) {
+                                if ($stmt->rowCount() > 0) {
                                     $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
                                     foreach($stmt->fetchAll() as $row) {
                                     
                                     }
                                 }
+                                else {
+                                    echo "Der er ikke nogle billeder tilknyttet";
+                                }
+                                // args = Title, mode, attached_group, attached_id
+                                echo SCMS_uploade_plugin_get_uploade_form("Tilføj billede", 4, $attached_id = $text_parant_id);
 
                                 
                             }

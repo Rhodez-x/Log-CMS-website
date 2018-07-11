@@ -8,7 +8,7 @@
 
 $loginsidelevel = 5; // sidens login level 0 for ikke at skulle være logget ind og 1 for at skulle være logget ind. 
 $web_page_name = "Indstillinger"; // Sidens navn, dette navn afgører hvilken fane i menuen der er aktiv. (Skal være identisk med det i Mysql)
-$sidenssti = "/control/contain/user_control"; // Dette er stien til hvor filerne ligger
+$sidenssti = "/control/content/user_control"; // Dette er stien til hvor filerne ligger
 $overmodule = "/overmodule.php"; // Dette er overmoduleet, det jeg kalder for behandlingsfiler
 $content = "/content.php"; // Her er filnavnet på contentet af den pågældene side. 
 $sidenspecialescript = "/script.php";
