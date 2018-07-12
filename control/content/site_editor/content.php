@@ -55,35 +55,46 @@
                     */
 
                     $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                    $stmt = $conn->prepare("SELECT ReplaceDBnavi_name.name, ReplaceDBtext.text, ReplaceDBtext.parent_id
+                    if ($_SESSION['page_content_type'] == "page") {
+                        $stmt = $conn->prepare("SELECT ReplaceDBnavi_name.name, ReplaceDBtext.text, ReplaceDBtext.parent_id, ReplaceDBtext.description
                                 FROM ReplaceDBnavi_name 
                                 INNER JOIN ReplaceDBtext ON ReplaceDBnavi_name.parent_id=ReplaceDBtext.parent_id
                                 WHERE ReplaceDBnavi_name.parent_id = ? AND ReplaceDBnavi_name.language = ? AND ReplaceDBtext.content_group = ?;");
-                                        
+                        $stmt->execute(array($_SESSION['page_parent_id'], $_SESSION['page_name_lang'], $_SESSION['page_content_type']));
+                        
+                    }
+                    else if ($_SESSION['page_content_type'] == "post") {
+                        $stmt = $conn->prepare("SELECT * FROM ReplaceDBpost WHERE id = ? AND language = ?;");
+                        $stmt->execute(array($_SESSION['page_parent_id'], $_SESSION['page_name_lang']));
 
-                    $stmt->execute(array($_SESSION['page_parent_id'], $_SESSION['page_name_lang'], $_SESSION['page_content_type']));
-                            // set the resulting array to associative
+                    }
+                    // set the resulting array to associative
                     if ($stmt->rowCount() == 1) {
                         $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
                         foreach($stmt->fetchAll() as $row) {
-                            $text_parant_id = $row['parent_id'];
+                            if ($_SESSION['page_content_type'] == "page") {
+                                $text_parant_id = $row['parent_id'];
+                            }
+                            else if ($_SESSION['page_content_type'] == "post") {
+                                $text_parant_id = $row['id'];
+                            }
                             $text_title = $row['name'];
+                            $text_description = $row['description'];
+                            $text_thumbnail = $row['thumbnail'];
                             echo "<h3>Du er ved at redigere: ".$text_title." Sprog: ".$_SESSION['page_name_lang']."</h3>
                                 <form action='/control/content/site_editor/save' method='post'>
                                 <button class='btn btn-success' type='submit'>Gem</button>
                                 <div class='form-group'>
                                 <label for='titel'>Title:</label>
-                                <input type='text' class='form-control' name='username' id='username' value='".$text_title."'>
+                                <input type='text' class='form-control' name='text_title' id='text_title' value='".$text_title."'>
                                 </div>
                                 
                                  <div class='form-group'>
                                   <label for='comment'>Kort beskrivelse:</label>
-                                  <textarea class='form-control' rows='5' id='comment'></textarea>
+                                  <textarea class='form-control' rows='5' name='comment' id='comment'>".$text_description."</textarea>
                                 </div> 
                                 
                                 <label for='titel'>Tekst:</label>
-                                <input type='text' id='parent_id' name='parent_id' class='form-control sr-only' value='".$text_parant_id."'>
-                                    
                                     <textarea name='editor1' id='editor1' rows='10' cols='80'>"
                                         . $row['text'] . 
 
@@ -102,14 +113,38 @@
                                 if ($stmt->rowCount() > 0) {
                                     $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
                                     foreach($stmt->fetchAll() as $row) {
+                                        
+                                        $button_thumbnail = "";
+
+                                        if ($text_thumbnail == $row['dir']) {
+                                            $button_thumbnail = "Billede er thumbnail";
+                                        } 
+                                        else if ($_SESSION['page_content_type'] == "post") {
+                                            $button_thumbnail = "<form class='form-inline' action='/plugins/SCMS-uploade-plugin/core/update_use_of_image' onsubmit='return confirmAction()' method='post'>
+                                            <input type='hidden' class='form-control' name='id' id='id' value='".$text_parant_id."'>
+                                            <input type='hidden' class='form-control' name='dir' id='dir' value='".$row['dir']."'>
+                                            <button type='submit' class='btn btn-default'>Brug som thumbnail</button>
+                                            </form>";
+                                        }
+                                        
+
                                         echo "<div class='row'>
                                                 <div class='col-sm-2'> 
                                                     <a href='".$row['dir']."' target='_blank'>
                                                         <img class='img-responsive'  src='".$row['dir']."' alt='".$row['img_text']."' style='max-height:150px;'>
                                                     </a> 
                                                 </div>
-                                                <div class='col-sm-10'>
+                                                <div class='col-sm-6'>
                                                     URL: ".$row['dir']. "
+                                                </div>
+                                                <div class='col-sm-2'>
+                                                    $button_thumbnail
+                                                </div>
+                                                <div class='col-sm-2'>
+                                                    <form class='form-inline' action='/plugins/SCMS-uploade-plugin/core/remove_img' onsubmit='return confirmAction()' method='post'>
+                                                    <input type='hidden' class='form-control' name='id' id='id' value='".$row['id']."'>
+                                                    <button type='submit' class='btn btn-danger'>Fjern</button>
+                                                    </form>
                                                 </div>
                                             </div>";
                                     }
