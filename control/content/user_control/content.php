@@ -44,7 +44,7 @@ else {
         ?>
             <div id="username"> 
                 <h2>Ændre brugernavn:</h2>
-                <form name="createForm" action="/control/contain/user_control/name_pass_handler" onsubmit="return confirmAction()" method="post">
+                <form name="createForm" action="/control/content/user_control/name_pass_handler" onsubmit="return confirmAction()" method="post">
                     <div class="form-group">
                     <label for="titel">Nyt brugernavn:</label>
                     <input type="text" class="form-control" name="username" id="username" value="<?php echo $username_form_value; ?>">
@@ -62,7 +62,7 @@ else {
             <Hr / > 
             <div id="password">
                 <h2>Ændre password:</h2>
-                <form name="createForm" action="/control/contain/user_control/name_pass_handler" onsubmit="return confirmAction()" method="post">
+                <form name="createForm" action="/control/content/user_control/name_pass_handler" onsubmit="return confirmAction()" method="post">
                     <div class="form-group">
                     <label for="titel">Indtast nyt password:</label>
                     <input type="password" class="form-control" name="new_pass" id="new_pass">
@@ -84,7 +84,7 @@ else {
             <Hr / >
             <div id="profile">
                 <h2>Ændre profiloplysninger:</h2>
-                <form name="createForm" action="/control/contain/user_control/user_handler" onsubmit="return confirmAction()" method="post">
+                <form name="createForm" action="/control/content/user_control/user_handler" onsubmit="return confirmAction()" method="post">
                     <div class="form-group">
                     <label for="titel">E-mail:</label>
                     <input type="text" class="form-control" name="mail" id="mail" value="<?php echo $user_mail; ?>">
