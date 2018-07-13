@@ -11,10 +11,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
             
             if($_SESSION['page_content_type'] == "post") {
-                $stmt = $conn->prepare("UPDATE ReplaceDBtext SET name = ?, description  = ?, text = ? WHERE id = ? AND language = ?");
-                $stmt->execute(array($edited_title, $edited_comment, $edited_text, $_SESSION['page_parent_id'], $_SESSION['page_name_lang']));
-                $stmt = null;
-                $conn = null;
+                if ($_SESSION['page_parent_id'] == "new") {
+                    $stmt = $conn->prepare("INSERT INTO ReplaceDBpost (name, description, text, language, date, active) VALUES (?, ?, ?, ?, ?, ?) ");
+                    $stmt->execute(array($edited_title, $edited_comment, $edited_text, $_SESSION['page_name_lang'], DATE_AND_TIME, 1));
+                    $stmt = null;
+                    $conn = null;
+                }
+                else {
+                    $stmt = $conn->prepare("UPDATE ReplaceDBpost SET name = ?, description  = ?, text = ? WHERE id = ? AND language = ?");
+                    $stmt->execute(array($edited_title, $edited_comment, $edited_text, $_SESSION['page_parent_id'], $_SESSION['page_name_lang']));
+                    $stmt = null;
+                    $conn = null;    
+                }
+                
             }
             else if ($_SESSION['page_content_type'] == "page") {
                 $new_page_name_link = 'page?id='.urlencode($edited_title);
