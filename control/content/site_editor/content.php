@@ -131,11 +131,11 @@
                                         echo "<div class='row'>
                                                 <div class='col-sm-2'> 
                                                     <a href='".$row['dir']."' target='_blank'>
-                                                        <img class='img-responsive'  src='".$row['dir']."' alt='".$row['img_text']."' style='max-height:150px;'>
+                                                        <img class='img-responsive'  style='padding-bottom:6px;' src='".$row['dir']."' alt='".$row['img_text']."' style='max-height:150px;'>
                                                     </a> 
                                                 </div>
                                                 <div class='col-sm-6'>
-                                                    URL: ".$row['dir']. "
+                                                    <strong>URL:</strong><br>".$row['dir']. "
                                                 </div>
                                                 <div class='col-sm-2'>
                                                     $button_thumbnail
