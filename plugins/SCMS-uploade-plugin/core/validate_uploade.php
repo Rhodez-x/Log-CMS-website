@@ -111,7 +111,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         // Check if $uploadOk is set to 0 by an error
         if ($uploadOk == 0) {
-            $_SESSION['uploade_feedback'] = "<h4>Billedet er ikke uploaded.</h4>" .$uploadbilledeErr;
+            $_SESSION['uploade_feedback'] = "<div class='row'>
+                            <div class='col-sm-12 alert alert-danger'>
+                                <h4>Billedet er ikke uploaded.</h4>" .$uploadbilledeErr . "
+                                </div>
+                                </div>";
         // if everything is ok, try to upload file
         } 
         else {
@@ -120,7 +124,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $newnamefinish = '/user_content/'.LOGIN_ID."/".$newnamebillede.'.'.$imageFileType;
 
             if (move_uploaded_file($_FILES["upload"]["tmp_name"][$i], $_SERVER['DOCUMENT_ROOT'].$newnamefinish)) {
-                $_SESSION['uploade_feedback'] = "<h4>Billederne er uploadet</h4>";
+                $_SESSION['uploade_feedback'] = "<div class='row'>
+                            <div class='col-sm-12 alert alert-success'>
+                            <h4>Billederne er uploadet</h4>
+                            </div>
+                            </div>";
                 try {
                     $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
                     
@@ -224,7 +232,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 catch(PDOException $e) {
                     $_SESSION["uploade_feedback"] = '<div class="row">
                     <div class="col-sm-8 alert alert-danger">
-                    <strong>ERROR</strong> Der er sket en fejl - '.$e.'
+                    <strong>ERROR</strong> Der er sket en fejl
                     </div>
                     <div class="col-sm-4"></div>
                     </div>';
@@ -233,8 +241,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $conn = null;
                 
             } else {
-                $_SESSION['uploade_feedback'] = "<h4>Billedet er ikke uploaded</h4>
-                Der er desværre opstået en fejl. ".basename($_FILES["upload"]["tmp_name"][$i]) ." new: ". $newnamefinish;
+                $_SESSION['uploade_feedback'] = "<div class='row'>
+                            <div class='col-sm-12 alert alert-danger'>
+                                <h4>Billedet er ikke uploaded</h4>
+                                Der er desværre opstået en fejl. ".basename($_FILES["upload"]["tmp_name"][$i]) ." new: ". $newnamefinish ." 
+                            </div>
+                            </div>";
                 header('Location: /control/index');
             }
         }
