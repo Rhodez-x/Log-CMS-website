@@ -19,11 +19,11 @@ define('MAIN_DB_DATABASE_NAME', 'MaincoreDBdev5'); // Database name
 */
 define('DEFAULT_LANG', 'DK'); // Default lang
 define('GLOBAL_META_LOCAL', 'da-DK'); 
-define('GLOBAL_CONTACT_EMAIL', "new@guld-berg.dk");
+define('GLOBAL_CONTACT_EMAIL', "kontakt@guld-berg.dk");
 define('GLOBAL_FIRM_NAME', "MaincoreDBdev");
-define('GLOBAL_FIRM_DESCRIPTION', "Sampel discripe");
+define('GLOBAL_FIRM_DESCRIPTION', "Sandsized CMS");
 
-define('GLOBAL_FIRM_IMAGE_META', "Sampel discripe");
-define('GLOBAL_URL', "https://guldberg.one");
+define('GLOBAL_FIRM_IMAGE_META', "Sandsized CMS");
+define('GLOBAL_URL', "https://guld-berg.dk");
 
 ?>

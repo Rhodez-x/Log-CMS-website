@@ -122,6 +122,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $newnamebillede = $_FILES["upload"]["tmp_name"][$i].$datomedtid;
             $newnamebillede = md5($newnamebillede).time();
             $newnamefinish = '/user_content/'.LOGIN_ID."/".$newnamebillede.'.'.$imageFileType;
+            
+            // Create dir if it does not exist (if user uploade its first image)
+            
+            if(!file_exists(($_SERVER['DOCUMENT_ROOT'].'/user_content/2'))) {
+                mkdir(($_SERVER['DOCUMENT_ROOT'].'/user_content/2'), 0777, true);
+            }
 
             if (move_uploaded_file($_FILES["upload"]["tmp_name"][$i], $_SERVER['DOCUMENT_ROOT'].$newnamefinish)) {
                 $_SESSION['uploade_feedback'] = "<div class='row'>
