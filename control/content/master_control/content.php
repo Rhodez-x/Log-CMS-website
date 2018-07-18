@@ -89,11 +89,11 @@
                 */
                 $admin_or_users = 0;
                 $button_admin_no_admin = '<button type="submit" class="btn btn-default" name="handel" value="noadmin">
-                                          Gør til almindelig medlem</button>';
+                                          Fjern administrator rettigheder</button>';
                 $text_user_active = 'Deactivate';
                 $value_user_activate = 'deactivate';
 
-                $page_edit_text = $page_edit_text . '<h3>Adminstrators</h3>';
+                $page_edit_text = $page_edit_text . '<h3>Administratorer</h3>';
                 $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
                 /* The order of the finding members, is first those whom is active = 1
                 *  They are ordered by the loginlevel, so that the adminstrators is listed first, the the regular members
@@ -110,14 +110,14 @@
                         
                         if ($admin_or_users == 0 && $data_login_level < 49 && $data_login_is_active == 1 ) {
                             // Admins has been printed, now members has to be printet
-                            $page_edit_text = $page_edit_text . '<h3>Members</h3>';
+                            $page_edit_text = $page_edit_text . '<h3>Medlemmer</h3>';
                             $button_admin_no_admin = '<button type="submit" class="btn btn-default" name="handel" value="admin">
-                                                    Gør til bestyrelses medlem</button>';
+                                                    Gør til administrator</button>';
                             $admin_or_users = 1;
                         }
                         else if ($data_login_is_active == 0 && $admin_or_users != 2) {
                             // $data_login_is_active = 0 is deactivated
-                            $page_edit_text = $page_edit_text . '<h3>Deactivated Members</h3>';
+                            $page_edit_text = $page_edit_text . '<h3>Deaktiver Medlem</h3>';
                             $text_user_active = 'Activate';
                             $value_user_activate = 'activate';
                             $button_admin_no_admin = ''; // No button to make the user admin while deactiveted, then first activate and then promote to admin

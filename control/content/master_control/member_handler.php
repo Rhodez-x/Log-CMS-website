@@ -16,9 +16,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             case 'admin':
                 
                 $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                $stmt = $conn->prepare("UPDATE ReplaceDBusers SET loginlevel = 50 WHERE id = ? ;");
+                $stmt = $conn->prepare("UPDATE ReplaceDBusers SET loginlevel = 50 WHERE id = ?;");
                 $stmt->execute(array($post_id));
+                $stmt2 = $conn->prepare("INSERT INTO ReplaceDBadmin_info (id, priority) VALUES(?, ?);");  
+                $stmt2->execute(array($post_id, $post_id));
                 $stmt = null;
+                $stmt2 = null;
                 $conn = null;
                 break;
 
@@ -27,7 +30,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
                 $stmt = $conn->prepare("UPDATE ReplaceDBusers SET loginlevel = 10 WHERE id = ? ;");
                 $stmt->execute(array($post_id));
+                $stmt2 = $conn->prepare("DELETE FROM ReplaceDBadmin_info WHERE id = ?;");
+                $stmt2->execute(array($post_id));
                 $stmt = null;
+                $stmt2 = null;
                 $conn = null;
                 break;
 

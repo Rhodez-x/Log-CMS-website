@@ -83,21 +83,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $to = $subject = $message = $headers = "";
         
                 $to = $_SESSION["recover_mail"];
-                $subject = "Recovery af password - " . $global_firm_name; 
+                $subject = "Recovery af password - " . GLOBAL_FIRM_NAME; 
                 $message = '
                 <html>
                 <head>
-                <title>Recovery af password - ' . $global_firm_name .'</title>
+                <title>Recovery af password - ' . GLOBAL_FIRM_NAME .'</title>
                 </head>
                 <body style="font-family:Helvetica Neue, Helvetica, Arial, sans-serif;">
                     Hej '.$contact_name.'<br>
                     <br>
-                    Du har bedt om at få nulstillet dit password på siden '.$global_firm_name.'<br>
+                    Du har bedt om at få nulstillet dit password på siden '.GLOBAL_FIRM_NAME.'<br>
                     <br>
                     '.$text_for_recovery_mail.'<br>
                     <br>
                     Med Venlig Hilsen<br>
-                    '.$global_firm_name.'
+                    '.GLOBAL_FIRM_NAME.'
 
                 </body>
                 </html>';
@@ -107,7 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
                     
                 // More headers
-                $headers .= 'From: <'.$global_contact_email.'>' . "\r\n";
+                $headers .= 'From: <'.GLOBAL_CONTACT_EMAIL.'>' . "\r\n";
                 mail($to, '=?utf-8?B?'.base64_encode($subject).'?=', $message, $headers); // =?utf-8?B?'.base64_encode($subject) Set the subject to contain utf-8 charset so that the subject can contain the danish æøå
             }
             $_SESSION["recover_step"] = 1;

@@ -41,12 +41,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             //Email is sent to info@vinylmusix.com
             $to = $subject = $message = $headers = "";
     
-            $to = $global_contact_email;
-            $subject = "Besked fra kontakt formular på " . $global_firm_name; 
+            $to = GLOBAL_CONTACT_EMAIL;
+            $subject = "Besked fra kontakt formular på " . GLOBAL_FIRM_NAME; 
             $message = '
             <html>
             <head>
-            <title>Besked fra kontakt formular på '.$global_firm_name.'</title>
+            <title>Besked fra kontakt formular på '.GLOBAL_FIRM_NAME.'</title>
             </head>
             <body style="font-family:Helvetica Neue, Helvetica, Arial, sans-serif;">
             Beskeden er sendt af: '.$contact_name.'<br>
