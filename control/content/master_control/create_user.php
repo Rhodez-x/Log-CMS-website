@@ -16,6 +16,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt = $conn->prepare("INSERT INTO ReplaceDBusers (username, username_clean, loginlevel, password, active)
                             VALUES(?, ?, 10, ?, 1);"); // 10 for a regular user, 1 for that the user is immediately active
     $stmt->execute(array($POST_username, $POST_username_clean, $POST_password));
+    
+    $stmt2 = $conn->prepare("INSERT INTO ReplaceDBuser_info (id, profile_img, hidden)
+                            VALUES(?, ?, 0);"); // 10 for a regular user, 1 for that the user is immediately active
+    $stmt2->execute(array($conn->lastInsertId(), DEFAULT_PROFILE_IMG));
+        
+
     $_SESSION["uploade_feedback"] = '<div class="row">
             <div class="col-sm-8 alert alert-success">
             <strong>SUCCESS</strong> User is created

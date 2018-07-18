@@ -17,6 +17,7 @@ define('MAIN_DB_DATABASE_NAME', 'MaincoreDBdev5'); // Database name
 /*
 *  Constants maybe have to be loaded from the DB 
 */
+define('DEFAULT_PROFILE_IMG', '/design/default-profile.png'); // Default lang
 define('DEFAULT_LANG', 'DK'); // Default lang
 define('GLOBAL_META_LOCAL', 'da-DK'); 
 define('GLOBAL_CONTACT_EMAIL', "kontakt@guld-berg.dk");
