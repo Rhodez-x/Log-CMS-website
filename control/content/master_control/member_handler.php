@@ -58,8 +58,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             case 'delete':
                 
                 $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                $stmt = $conn->prepare("DELETE FROM ReplaceDBusers WHERE id = ? ;");
-                $stmt->execute(array($post_id));
+                $stmt = $conn->prepare("DELETE FROM ReplaceDBusers WHERE id = ? ;
+                                        DELETE FROM ReplaceDBuser_info WHERE id = ?;
+                                        DELETE FROM ReplaceDBadmin_info WHERE id = ?;");
+                $stmt->execute(array($post_id, $post_id, $post_id));
                 $stmt = null;
                 $conn = null;
                 break;
