@@ -22,11 +22,11 @@ function img_resize($targett, $newcpy, $w, $h, $extn)
     
     $img="";
     $extn = strtolower($extn);
-    if($extn == "gif")
+    if($extn == "gif" || $extn == "GIF")
     {
         $img = imagecreatefromgif($targett);
     }
-    else if($extn == "png")
+    else if($extn == "png" || $extn == "PNG")
     {
         $img = imagecreatefrompng($targett);
     }
@@ -234,7 +234,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $resize = $_SERVER['DOCUMENT_ROOT'].'/'.$newnamefinish;
                     $max_width = 1920; // maximum width of new file. Change it according to your need
                     $max_height = 1080; // maximum height of new file. Change it according to your need
-                    img_resize($target, $resize, $max_width, $max_height, $extension);
+                    img_resize($target, $resize, $max_width, $max_height, $imageFileType);
                     
                 }
                 catch(PDOException $e) {

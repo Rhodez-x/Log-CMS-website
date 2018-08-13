@@ -12,8 +12,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             
             if($_SESSION['page_content_type'] == "post") {
                 if ($_SESSION['page_parent_id'] == "new") {
-                    $stmt = $conn->prepare("INSERT INTO ReplaceDBpost (name, description, text, language, date, active) VALUES (?, ?, ?, ?, ?, ?) ");
-                    $stmt->execute(array($edited_title, $edited_comment, $edited_text, $_SESSION['page_name_lang'], DATE_AND_TIME, 1));
+                    $stmt = $conn->prepare("INSERT INTO ReplaceDBpost (name, description, text, language, category, date, active) VALUES (?, ?, ?, ?, ?, ?, ?) ");
+                    $stmt->execute(array($edited_title, $edited_comment, $edited_text, $_SESSION['page_name_lang'], $_SESSION['category_type'], DATE_AND_TIME, 1));
+                    $_SESSION['page_parent_id'] = $conn->lastInsertId();
                     $stmt = null;
                     $conn = null;
                 }
@@ -52,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="col-sm-8 alert alert-danger">
             <strong>ERROR</strong> Der er sket en fejl 
             </div>
-            <div class="col-sm-4"></div>
+            <div class="col-sm-4">'.$e.'</div>
             </div>';
         }
     }
