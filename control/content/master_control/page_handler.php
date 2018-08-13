@@ -58,7 +58,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         DELETE FROM ReplaceDBtext WHERE parent_id = ? AND content_group = 'page';
                                         DELETE FROM ReplaceDBnavi_name WHERE parent_id = ?;");
                 $stmt->execute(array($post_link, $post_parent_id, $post_parent_id));
+                
                 $stmt = null;
+
+                $stmt2 = $conn->prepare("SELECT * FROM ReplaceDBimages WHERE attached_group = 'page' AND attached_id = ?;");
+                $stmt2->execute(array($post_parent_id));
+                    // set the resulting array to associative
+                if ($stmt2->rowCount() > 0) {
+                    $result = $stmt2->setFetchMode(PDO::FETCH_ASSOC);
+                    foreach($stmt2->fetchAll() as $row) {
+                        unlink($_SERVER['DOCUMENT_ROOT']. '/' .$row['dir']); 
+                    }
+                } 
+
+                $stmt2 = null;
+
+                $stmt3 = $conn->prepare("DELETE FROM ReplaceDBimages WHERE attached_group = 'page' AND attached_id = ?;");
+                $stmt3->execute(array($post_parent_id));
+
+                $stmt3 = null;
                 $conn = null;
             }
             else if ($post_handel == "edit") {

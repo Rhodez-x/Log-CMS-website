@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $stmt->execute(array($get_page_name, $_SESSION['session_language']));
         if ($stmt->rowCount() == 1) {
             foreach($stmt->fetchAll() as $row) {
-                $date_from_db_page_name = $row['page_name'];
+                $date_from_db_page_name = $row['name'];
                 $date_from_db_page_text = $row['text'];
             }
 

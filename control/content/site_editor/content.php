@@ -160,7 +160,7 @@
                             echo "Der er ikke nogle billeder tilknyttet";
                         }
                                 // args = Title, mode, attached_group, attached_id
-                        echo "<Hr />" . SCMS_uploade_plugin_get_uploade_form("Tilføj billede", 4, $attached_group = "page", $attached_id = $text_parant_id);
+                        echo "<Hr />" . SCMS_uploade_plugin_get_uploade_form("Tilføj billede", 4, $attached_group = $_SESSION['page_content_type'], $attached_id = $text_parant_id);
                 ?>
         </div>
     </div>
