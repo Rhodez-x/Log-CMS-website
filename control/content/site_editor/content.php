@@ -9,11 +9,11 @@
             unset($_SESSION["uploade_feedback"]); ?>
     <form action="/control/site_editor" method="get" class="form-inline">
         <div class="input-group">
-            <select class="form-control" name="edit_page_name" id="edit_page_name">
+            <select class="form-control" name="id" id="id">
                 <option disabled selected>Vælg hvilken side</option>
                 <?php
                     $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                    $stmt = $conn->prepare("SELECT ReplaceDBnavi_name.name, ReplaceDBtext.text
+                    $stmt = $conn->prepare("SELECT ReplaceDBnavi_name.id, ReplaceDBnavi_name.name, ReplaceDBtext.text
                                 FROM ReplaceDBnavi_name 
                                 INNER JOIN ReplaceDBtext ON ReplaceDBnavi_name.parent_id=ReplaceDBtext.parent_id
                                 GROUP BY ReplaceDBnavi_name.name;");
@@ -22,7 +22,7 @@
                     if ($stmt->rowCount() > 0) {
                         $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
                         foreach($stmt->fetchAll() as $row) {
-                            echo "<option>".$row['name']."</option>";
+                            echo "<option value='".$row['id']."'>".$row['name']."</option>";
                         }
                     } 
                 ?>
@@ -44,6 +44,7 @@
                     } 
                 ?>
             </select>
+            <input type='hidden' class='form-control' name='content_type' id='content_type' value='page'>
             </div>
                 <button type="submit" class="btn btn-defult">Vælg</button>
     </form>
@@ -75,9 +76,11 @@
                             foreach($stmt->fetchAll() as $row) {
                                 if ($_SESSION['page_content_type'] == "page") {
                                     $text_parant_id = $row['parent_id'];
+                                    $_SESSION['category_type'] = "page";
                                 }
                                 else if ($_SESSION['page_content_type'] == "post") {
                                     $text_parant_id = $row['id'];
+                                    $_SESSION['category_type'] = $row['category'];
                                 }
                                 $text_title = $row['name'];
                                 $text_description = $row['description'];
@@ -86,7 +89,22 @@
                         }
 
                     }
+                    else {
+                        $temp_category_type = clean_input_text($_GET["category_type"]);
+                        if (strlen($temp_category_type) < 32) {
+                            $_SESSION['category_type'] = $temp_category_type;
+                        }
+                        else {
+                            echo '<h2>OBS: Kategori navnet er for langt</h2>';
+                            $_SESSION['category_type'] = "post";
+                            $available_to_edit = false;
+                        }
+                    }
+                    if (($_SESSION['page_parent_id'] == "new" && $_SESSION['page_content_type'] == "page")) {
+                        $available_to_edit = false;
+                    }
 
+                    if ($available_to_edit) {
 
                     echo "<h3>Du er ved at redigere: ".$text_title." Sprog: ".$_SESSION['page_name_lang']."</h3>
                         <form action='/control/content/site_editor/save' method='post'>
@@ -114,8 +132,8 @@
 
 
                         echo "<h3>Tilknyttet billeder:</h3>";
-                        $stmt = $conn->prepare("SELECT * FROM ReplaceDBimages WHERE attached_group = 'page' AND attached_id = ?;");
-                        $stmt->execute(array($text_parant_id));
+                        $stmt = $conn->prepare("SELECT * FROM ReplaceDBimages WHERE attached_group = ? AND attached_id = ?;");
+                        $stmt->execute(array($_SESSION['category_type'], $text_parant_id));
                         // set the resulting array to associative
                         if ($stmt->rowCount() > 0) {
                             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -159,8 +177,18 @@
                         else {
                             echo "Der er ikke nogle billeder tilknyttet";
                         }
-                                // args = Title, mode, attached_group, attached_id
-                        echo "<Hr />" . SCMS_uploade_plugin_get_uploade_form("Tilføj billede", 4, $attached_group = $_SESSION['page_content_type'], $attached_id = $text_parant_id);
+                        if (!($_SESSION['page_parent_id'] == "new")) {
+                            // args = Title, mode, attached_group, attached_id
+                            echo "<Hr />" . SCMS_uploade_plugin_get_uploade_form("Tilføj billede", 
+                                                                                 4, 
+                                                                                 $attached_group = $_SESSION['category_type'], 
+                                                                                 $attached_id = $text_parant_id);
+
+                        }
+                        else {
+                            echo "<Hr /> Du skal gemme inden du kan tilknytte billeder";
+                        }
+                    }
                 ?>
         </div>
     </div>
