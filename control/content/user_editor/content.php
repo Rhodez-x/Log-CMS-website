@@ -31,7 +31,7 @@
                 /* Setup values for the loop
                 *  Deffrent options for deffrend kind of user state
                 */
-                $text_user_active = 'Deactivate';
+                $text_user_active = 'Deaktiver';
                 $value_user_activate = 'deactivate';
 
                 $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
@@ -59,7 +59,8 @@
                           <button type="submit" class="btn btn-danger" name="handel" value="delete">Slet</button>
                           </form>';
                     }
-                    $page_edit_text .= "<h3>Rediger rettigheder for brugeren:</h3>";
+                    $page_edit_text .= "<h3>Rediger rettigheder for brugeren:</h3>
+                    <form action='test.php' method='post'>";
                     $stmt = $conn->prepare("SELECT * FROM ReplaceDBcore_rules;");
                     $stmt->execute();
                     if ($stmt->rowCount() > 0) {
@@ -68,8 +69,13 @@
                             $data_permission_username = $row['name'];
                             //$data_permission_level = $row['permissionlevel'];
                             //$data_permission_is_active = $row['active'];
+                            $permission_checked = "";
                             
-                            $page_edit_text .= "$data_permission_id - $data_permission_username<br>";
+                            if (in_array($row['id'], LOGIN_PERMISSIONS)) {
+                                $permission_checked = "checked='checked'";
+                            }
+
+                            $page_edit_text .= "$data_permission_id - $data_permission_username <input type='checkbox' name='check_list[]' value='value 1' $permission_checked><br>";
                         }
                     }
                 
@@ -84,7 +90,11 @@
             $stmt = null;
             $conn = null;
             
-            echo $page_edit_text;
+            echo $page_edit_text . "<button type='submit' class='btn btn-default' name='handel' value='delete'>Opdater</button></form>";
+
+
+            $permission_list = serialize(array(1,2));
+            echo $permission_list;
         ?>
         <hr />
       </div>
