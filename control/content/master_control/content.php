@@ -19,6 +19,8 @@
         <li><a href="#members">Medlemsoversigt</a></li>
         <li><a href="#sider">Tilføj/fjern sider</a></li>
         <li><a href="#backup">Backup database</a></li>
+        <li><a href="#plugs">Plugin liste</a></li>
+        <li><a href="#edit_a_user">Rediger en bruger</a></li>
       </ul>
     </nav>
     <div class="col-sm-10">
@@ -88,8 +90,6 @@
                 *  Deffrent options for deffrend kind of user state
                 */
                 $admin_or_users = 0;
-                $button_admin_no_admin = '<button type="submit" class="btn btn-default" name="handel" value="noadmin">
-                                          Fjern administrator rettigheder</button>';
                 $text_user_active = 'Deactivate';
                 $value_user_activate = 'deactivate';
 
@@ -111,8 +111,6 @@
                         if ($admin_or_users == 0 && $data_login_level < 49 && $data_login_is_active == 1 ) {
                             // Admins has been printed, now members has to be printet
                             $page_edit_text = $page_edit_text . '<h3>Medlemmer</h3>';
-                            $button_admin_no_admin = '<button type="submit" class="btn btn-default" name="handel" value="admin">
-                                                    Gør til administrator</button>';
                             $admin_or_users = 1;
                         }
                         else if ($data_login_is_active == 0 && $admin_or_users != 2) {
@@ -130,6 +128,8 @@
                             <input type="text" class="form-control" name="username" id="username" readonly value="'.$data_login_username.'">
                           </div>
                           <input type="hidden" class="form-control" name="id" id="id" value="'.$data_login_id.'">
+                          <a href="/control/user_editor?user_id='.$row['id'].'" class="btn btn-default" role="button">Rediger bruger</a>
+
                           '.$button_admin_no_admin.'
                           <button type="submit" class="btn btn" name="handel" value="'.$value_user_activate.'">'.$text_user_active.'</button>
                           <button type="submit" class="btn btn-danger" name="handel" value="delete">Slet</button>
@@ -222,6 +222,39 @@
         <div id="backup" >         
             <h2>Backup database</h2>
             Her kommer der mulighed for at tage backup af databasen
+        </div>
+        <hr />
+        <div id="plugs" >         
+            <h2>Plugin liste</h2>
+            <?php 
+                try {
+                    $plugin_list = "";
+                    $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
+                    $stmt = $conn->prepare("SELECT * FROM ReplaceDBinstalled_plugins;");
+                    $stmt->execute();
+                    if ($stmt->rowCount() > 0) {
+                        foreach($stmt->fetchAll() as $row) {
+                            $data_plugin_id = $row['id'];
+                            $data_plugin_name = $row['name'];
+                            $data_plugin_description = $row['description'];
+                            $data_plugin_is_date = $row['date'];
+                            $data_plugin_version = $row['version'];
+                            
+                            $plugin_list = $plugin_list . "<b>Id:</b> $data_plugin_id <b>name:</b> $data_plugin_name <b>version:</b> $data_plugin_version";
+                        }
+                    }
+                    else {
+                        $plugin_list = "Ingen elementer er fundet";
+                    }
+                }
+                catch(PDOException $e) {
+                    $plugin_list = "Der er sket en fejl.";
+                }
+                $stmt = null;
+                $conn = null;
+                
+                echo $plugin_list;
+            ?>
         </div>
     </div>
   </div>
