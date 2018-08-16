@@ -6,9 +6,6 @@
 *  Full release-notes se the github repository
 */
 function loggetind() {
-    //if (LOGIN_LEVEL > 49) {
-    //    $admin_menu = '<li><a href="/control/index">Kontrolpanel</a></li>';
-    //}
     $navnbar = '
           <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Hi ' . $_SESSION['login_user'] . '
@@ -16,7 +13,7 @@ function loggetind() {
         <ul class="dropdown-menu" style="background-color:black;">
         <li style="color: white;"></li>
         <li><a href="/control/index">Kontrolpanel</a></li>
-          '.$admin_menu.'
+          '.get_special_menu_point().'
         <li><a href="/logout">Log ud</a></li>
         </ul>
       </li>';
@@ -93,8 +90,8 @@ echo '<div class="modal fade" id="myModal" role="dialog" style="z-index: 9999;">
                     ?>
                     <?php
                     if(isset($_SESSION['login_user'])) {
-                    // Hvis man er logget ind
-                    echo loggetind(LOGIN_LEVEL);
+                        // Hvis man er logget ind
+                        echo loggetind();
                     }
                     // Her kommer der en besked om at man er logget ud.
                     if($_SESSION["loggetud"] == 1) {

@@ -7,4 +7,11 @@
 /*
 *  IMPLEMENT THE SPECIFIC FUNCTIONALITY HERE
 */
+function get_special_menu_point() {
+    $menu = "";
+    if (check_permission(1)) {
+        $menu = '<li><a href="/control/master_control">Master Control</a></li>';
+    }
+    return $menu;
+}
 ?>

@@ -3,7 +3,7 @@
 *  Developed by Jørn Guldberg
 *  Copyright (C) Jørn Guldberg - Guld-berg.dk All Rights Reserved. 
 */
-$loginsidelevel = 49; 
+$page_permission = 1; // Only admins
 require_once $_SERVER['DOCUMENT_ROOT']."/core/system_core.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             case 'admin':
                 
                 $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                $stmt = $conn->prepare("UPDATE ReplaceDBusers SET loginlevel = 50 WHERE id = ?;");
+                $stmt = $conn->prepare("UPDATE ReplaceDBusers SET permission_list = 'a:1:{i:0;i:1;}' WHERE id = ?;");
                 $stmt->execute(array($post_id));
                 $stmt2 = $conn->prepare("INSERT INTO ReplaceDBadmin_info (id, priority) VALUES(?, ?);");  
                 $stmt2->execute(array($post_id, $post_id));
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             case 'noadmin':
                 
                 $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                $stmt = $conn->prepare("UPDATE ReplaceDBusers SET loginlevel = 10 WHERE id = ? ;");
+                $stmt = $conn->prepare("UPDATE ReplaceDBusers SET permission_list = 'a:1:{i:0;i:2;}' WHERE id = ? ;");
                 $stmt->execute(array($post_id));
                 $stmt2 = $conn->prepare("DELETE FROM ReplaceDBadmin_info WHERE id = ?;");
                 $stmt2->execute(array($post_id));

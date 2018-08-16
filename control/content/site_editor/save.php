@@ -1,5 +1,5 @@
 <?php
-$loginsidelevel = 49;
+$page_permission = 1; // only admins
 require_once $_SERVER['DOCUMENT_ROOT']."/core/system_core.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {

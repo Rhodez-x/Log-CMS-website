@@ -2,11 +2,11 @@
 /** Sandsized CMS - By Guld-berg.dk software technologies
 *  Developed by Jørn Guldberg
 *  Copyright (C) Jørn Guldberg - Guld-berg.dk All Rights Reserved. 
-*  @version 4.0.0 - Major update, not compatiple with earlier realises. 
+*  @version 5.0.0-a2 - Major update, not compatiple with earlier realises. 
 *  Full release-notes se the github repository
 */
 
-$loginsidelevel = 9; // Aloud for both users and admins
+$page_permission = 4; // Aloud for both users and admins
                      // Allthough be sure that no one else than the img's owner or an admin
                      // are aloud to remove a img.
 
@@ -25,9 +25,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
           foreach($stmt->fetchAll() as $row) {
               $owner_of_img = $row['user_id'];
-              if (LOGIN_LEVEL > 49 || LOGIN_ID == $owner_of_img) {
-                    $stmt_next = $conn->prepare("DELETE FROM ReplaceDBimages WHERE ((user_id = ?) OR (49 < ?)) AND (id = ?) ;");
-                    $stmt_next->execute(array(LOGIN_ID, LOGIN_LEVEL, $post_img_id));
+              if (check_permission(4) || LOGIN_ID == $owner_of_img) {
+                    // Permission 4 is to modify uploads
+                    $stmt_next = $conn->prepare("DELETE FROM ReplaceDBimages WHERE id = ?;");
+                    $stmt_next->execute(array(LOGIN_ID, $post_img_id));
                     $stmt_next = null;
                     unlink($_SERVER['DOCUMENT_ROOT']. '/' .$row['dir']); 
 

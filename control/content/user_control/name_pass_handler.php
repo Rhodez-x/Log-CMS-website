@@ -3,7 +3,7 @@
 *  Developed by Jørn Guldberg
 *  Copyright (C) Jørn Guldberg - Guld-berg.dk All Rights Reserved. 
 */
-$loginsidelevel = 10; // 10 for all users are aloud to use this 
+$page_permission = 2; // all users are alloud to change their password
 require_once $_SERVER['DOCUMENT_ROOT']."/core/system_core.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {

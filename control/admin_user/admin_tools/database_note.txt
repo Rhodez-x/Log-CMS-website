@@ -24,4 +24,4 @@ ALTER TABLE `ReplaceDBpost` ADD `orders` INT NOT NULL AFTER `active`;
 To update the core to the new permissions system use followin instruktions. 
 
 ALTER TABLE `ReplaceDBusers` ADD `permissions_reload` INT NOT NULL AFTER `recoverytime`; 
-ALTER TABLE `permissions_list ` ADD `permissions_reload` TEXT NOT NULL AFTER `permission_group_id`; 
+ALTER TABLE `permission_list ` ADD `permissions_reload` TEXT NOT NULL AFTER `permission_group_id`; 

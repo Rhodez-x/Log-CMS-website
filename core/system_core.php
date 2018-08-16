@@ -53,6 +53,48 @@ function password_crypt($password_crypt, $username_check) {
     return $feedback;
 }
 
+function check_permission($rule_id) {
+    if (($rule_id == 0) || in_array(1, LOGIN_PERMISSIONS) || in_array($rule_id, LOGIN_PERMISSIONS)) {
+        return true;
+    }
+    else {
+        return false;
+    }    
+}
+
+function check_plugin_permission($rule_id, $permission_list) {
+    if (($rule_id == 0) || in_array(1, $permission_list) || in_array($rule_id, $permission_list)) {
+        return true;
+    }
+    else {
+        return false;
+    }    
+}
+
+function get_permission_list_plugin($plugin_id, $user_id) {
+    $list = "false";
+    try {
+        $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
+        $stmt = $conn->prepare('SELECT permission_list FROM ReplaceDBplugs_permissions WHERE plugin_id = ? AND user_id = ?;');
+        $stmt->execute(array($plugin_id, $user_id));
+                // set the resulting array to associative
+        if ($stmt->rowCount() == 1) {
+            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            foreach($stmt->fetchAll() as $row) {
+                $list = unserialize($row['permission_list']);
+            }
+        }
+    
+    }
+    catch(PDOException $e) {
+            return "error";
+    }
+    $stmt = null;
+    $conn = null;   
+
+    return $list;
+}
+
 //siden titel
 $web_page_title = GLOBAL_FIRM_NAME . " - " . $web_page_name;
 
@@ -110,8 +152,7 @@ if (isset($_SESSION['login_user'])) {
                     define('LOGIN_SESSION', $row['username']);
                     define('LOGIN_SESSIONCLEAN', $row['username_clean']);
                     define('LOGIN_MAIL', $row['mail']);
-                    define('LOGIN_LEVEL', $row['loginlevel']);
-                    define('LOGIN_PERMISSIONS', unserialize($row['permissions_list']));
+                    define('LOGIN_PERMISSIONS', unserialize($row['permission_list']));
                     $_SESSION['LOGIN_LAST_ACTIVITY'] = (time() + 900); // 900 sec = 15 minutes - Set a timer for the user, if the user is inactive, the user is logout
                 }
                 else {
@@ -130,10 +171,10 @@ if (isset($_SESSION['login_user'])) {
     $conn = null;   
 }
 
-if ($loginsidelevel != 0 && !isset($_SESSION['login_user'])) {
+if ($page_permission != 0 && !isset($_SESSION['login_user'])) {
     header('Location: /');
 }
-else if ($loginsidelevel > LOGIN_LEVEL && isset($_SESSION['login_user'])) {
+else if (!check_permission($page_permission)) {
     header('Location: /');
 }
 
