@@ -20,7 +20,6 @@
         <li><a href="#sider">Tilføj/fjern sider</a></li>
         <li><a href="#backup">Backup database</a></li>
         <li><a href="#plugs">Plugin liste</a></li>
-        <li><a href="#edit_a_user">Rediger en bruger</a></li>
       </ul>
     </nav>
     <div class="col-sm-10">
@@ -227,7 +226,7 @@
                             $data_plugin_is_date = $row['date'];
                             $data_plugin_version = $row['version'];
                             
-                            $plugin_list = $plugin_list . "<b>Id:</b> $data_plugin_id <b>name:</b> $data_plugin_name <b>version:</b> $data_plugin_version";
+                            $plugin_list = $plugin_list . "<b>Id:</b> $data_plugin_id <b>name:</b> $data_plugin_name <b>version:</b> $data_plugin_version<br>";
                         }
                     }
                     else {
