@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 16, 2018 at 09:08 PM
+-- Generation Time: Aug 22, 2018 at 10:29 AM
 -- Server version: 10.1.26-MariaDB-0+deb9u1
--- PHP Version: 7.0.27-0+deb9u1
+-- PHP Version: 7.0.30-0+deb9u1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -43,6 +43,51 @@ INSERT INTO `ReplaceDBadmin_info` (`id`, `titel`, `description`, `priority`) VAL
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `ReplaceDBcore_groups`
+--
+
+CREATE TABLE `ReplaceDBcore_groups` (
+  `id` int(11) NOT NULL,
+  `name` varchar(64) NOT NULL,
+  `description` text NOT NULL,
+  `rules` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `ReplaceDBcore_groups`
+--
+
+INSERT INTO `ReplaceDBcore_groups` (`id`, `name`, `description`, `rules`) VALUES
+(0, 'Not in a group', 'The user is not in any group', ''),
+(1, 'admin', 'Adminstrators of the site', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ReplaceDBcore_rules`
+--
+
+CREATE TABLE `ReplaceDBcore_rules` (
+  `id` int(11) NOT NULL,
+  `name` varchar(64) NOT NULL,
+  `description` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `ReplaceDBcore_rules`
+--
+
+INSERT INTO `ReplaceDBcore_rules` (`id`, `name`, `description`) VALUES
+(0, 'allow_any', 'This is a rule for a visitor, the visitor does not have to login '),
+(1, 'Master Control Access', 'Have access to enter and modify options in the master control'),
+(2, 'user_control_panel', 'Gain access to the user controlpanel'),
+(3, 'Allow upload', 'The user can upload files '),
+(4, 'Modify uploads', 'The user have the permission to modify/delete uploaded files '),
+(5, 'Site editor', 'The user have the rights to use the site editor');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `ReplaceDBcountry`
 --
 
@@ -59,6 +104,45 @@ CREATE TABLE `ReplaceDBcountry` (
 
 INSERT INTO `ReplaceDBcountry` (`countryID`, `name`, `code`, `active`) VALUES
 (1, 'denmark', 'DK', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ReplaceDBimages`
+--
+
+CREATE TABLE `ReplaceDBimages` (
+  `id` int(11) NOT NULL,
+  `img_text` text NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `dir` varchar(128) NOT NULL,
+  `uploaded` datetime NOT NULL,
+  `is_profile_img` int(11) NOT NULL,
+  `show_order` int(11) NOT NULL,
+  `attached_group` varchar(64) NOT NULL,
+  `attached_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `ReplaceDBimages`
+--
+
+INSERT INTO `ReplaceDBimages` (`id`, `img_text`, `user_id`, `dir`, `uploaded`, `is_profile_img`, `show_order`, `attached_group`, `attached_id`) VALUES
+(1, '', 0, '', '0000-00-00 00:00:00', 0, 0, '', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ReplaceDBinstalled_plugins`
+--
+
+CREATE TABLE `ReplaceDBinstalled_plugins` (
+  `id` int(11) NOT NULL,
+  `name` varchar(64) NOT NULL,
+  `description` text NOT NULL,
+  `date` datetime NOT NULL,
+  `version` varchar(32) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -82,10 +166,10 @@ CREATE TABLE `ReplaceDBnavi` (
 INSERT INTO `ReplaceDBnavi` (`id`, `link`, `required`, `navi_order`, `permission`, `place`) VALUES
 (1, 'index', 1, 1, 0, 'standart'),
 (2, 'page?id=page', 0, 2, 0, 'standart'),
-(3, 'kontakt', 0, 3, 0, 'standart'),
+(3, 'kontakt', 0, 4, 0, 'standart'),
 (4, 'control/index', 1, 1, 2, 'controlpanel'),
 (5, 'control/user_control', 1, 2, 2, 'controlpanel'),
-(6, 'control/master_control', 1, 3, 2, 'controlpanel');
+(6, 'control/master_control', 1, 3, 1, 'controlpanel');
 
 -- --------------------------------------------------------
 
@@ -115,60 +199,61 @@ INSERT INTO `ReplaceDBnavi_name` (`id`, `name`, `language`, `parent_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ReplaceDBpermissions`
+-- Table structure for table `ReplaceDBplugs_group`
 --
 
-CREATE TABLE `ReplaceDBpermissions` (
+CREATE TABLE `ReplaceDBplugs_group` (
   `id` int(11) NOT NULL,
+  `plugin_id` int(11) NOT NULL,
   `name` varchar(64) NOT NULL,
-  `description` text NOT NULL
+  `description` text NOT NULL,
+  `rules` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `ReplaceDBpermissions`
---
-
-INSERT INTO `ReplaceDBpermissions` (`id`, `name`, `description`) VALUES
-(0, 'allow_any', 'This is a rule for a visitor, the visitor does not have to login '),
-(1, 'create_user', 'Allowed to create a new user'),
-(2, 'user_control_panel', 'Gain access to the user controlpanel');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ReplaceDBpermission_groups`
+-- Table structure for table `ReplaceDBplugs_permissions`
 --
 
-CREATE TABLE `ReplaceDBpermission_groups` (
-  `id` int(11) NOT NULL,
-  `name` varchar(64) NOT NULL,
-  `description` text NOT NULL
+CREATE TABLE `ReplaceDBplugs_permissions` (
+  `plugin_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `permission_list` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `ReplaceDBpermission_groups`
---
-
-INSERT INTO `ReplaceDBpermission_groups` (`id`, `name`, `description`) VALUES
-(1, 'admin', 'Adminstrators of the site');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ReplaceDBpermission_group_relation`
+-- Table structure for table `ReplaceDBplugs_rule`
 --
 
-CREATE TABLE `ReplaceDBpermission_group_relation` (
-  `permission_id` int(11) NOT NULL,
-  `permission_group_id` int(11) NOT NULL
+CREATE TABLE `ReplaceDBplugs_rule` (
+  `id` int(11) NOT NULL,
+  `plugin_id` int(11) NOT NULL,
+  `name` varchar(64) NOT NULL,
+  `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `ReplaceDBpermission_group_relation`
+-- Table structure for table `ReplaceDBpost`
 --
 
-INSERT INTO `ReplaceDBpermission_group_relation` (`permission_id`, `permission_group_id`) VALUES
-(1, 1);
+CREATE TABLE `ReplaceDBpost` (
+  `id` int(11) NOT NULL,
+  `name` varchar(256) NOT NULL,
+  `description` text NOT NULL,
+  `text` mediumtext NOT NULL,
+  `thumbnail` varchar(256) NOT NULL,
+  `link` varchar(64) NOT NULL,
+  `category` varchar(32) NOT NULL,
+  `date` datetime NOT NULL,
+  `language` varchar(16) NOT NULL,
+  `active` int(11) NOT NULL,
+  `orders` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -178,8 +263,10 @@ INSERT INTO `ReplaceDBpermission_group_relation` (`permission_id`, `permission_g
 
 CREATE TABLE `ReplaceDBtext` (
   `id` int(11) NOT NULL,
+  `description` text NOT NULL,
   `text` longtext NOT NULL,
   `language` varchar(8) NOT NULL,
+  `content_group` varchar(64) NOT NULL,
   `parent_id` int(11) NOT NULL,
   `required` int(11) NOT NULL,
   `bgimg` varchar(64) NOT NULL
@@ -189,10 +276,10 @@ CREATE TABLE `ReplaceDBtext` (
 -- Dumping data for table `ReplaceDBtext`
 --
 
-INSERT INTO `ReplaceDBtext` (`id`, `text`, `language`, `parent_id`, `required`, `bgimg`) VALUES
-(2, '<p>Standart forside</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Dette er version rtm5.0.0a0</p>\r\n', 'DK', 1, 1, ''),
-(3, 'Brug formularen', 'DK', 3, 0, ''),
-(4, 'Det er en side', 'DK', 2, 0, '');
+INSERT INTO `ReplaceDBtext` (`id`, `description`, `text`, `language`, `content_group`, `parent_id`, `required`, `bgimg`) VALUES
+(2, '', '<p>Standart forside</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Dette er version rtm5.0.0a0</p>\r\n', 'DK', 'page', 1, 1, ''),
+(3, '', 'Brug formularen', 'DK', 'page', 3, 0, ''),
+(4, '', '<p>Det er en side v2</p>\r\n', 'DK', 'page', 2, 0, '');
 
 -- --------------------------------------------------------
 
@@ -206,20 +293,21 @@ CREATE TABLE `ReplaceDBusers` (
   `username_clean` varchar(40) NOT NULL,
   `mail` varchar(64) NOT NULL,
   `mobile` varchar(16) NOT NULL,
-  `loginlevel` int(2) NOT NULL,
   `permission_group_id` int(11) NOT NULL,
+  `permission_list` text NOT NULL,
   `password` varchar(128) NOT NULL,
   `active` int(11) NOT NULL,
   `recoverycode` varchar(16) NOT NULL,
-  `recoverytime` varchar(16) NOT NULL
+  `recoverytime` varchar(16) NOT NULL,
+  `permissions_reload` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `ReplaceDBusers`
 --
 
-INSERT INTO `ReplaceDBusers` (`id`, `username`, `username_clean`, `mail`, `mobile`, `loginlevel`, `permission_group_id`, `password`, `active`, `recoverycode`, `recoverytime`) VALUES
-(1, 'Rhodez', 'rhodez', 'jorn@guld-berg.dk', '25336607', 50, 1, '4069599633d6afb2ca255bbc4f871e2f08dff2e17a58f0e8273af4bf0975bcf5', 1, '', '');
+INSERT INTO `ReplaceDBusers` (`id`, `username`, `username_clean`, `mail`, `mobile`, `permission_group_id`, `permission_list`, `password`, `active`, `recoverycode`, `recoverytime`, `permissions_reload`) VALUES
+(1, 'Rhodez', 'rhodez', 'jorn@guld-berg.dk', '25336607', 1, 'a:1:{i:0;i:1;}', '4069599633d6afb2ca255bbc4f871e2f08dff2e17a58f0e8273af4bf0975bcf5', 1, '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -254,11 +342,39 @@ ALTER TABLE `ReplaceDBadmin_info`
   ADD UNIQUE KEY `id` (`id`);
 
 --
+-- Indexes for table `ReplaceDBcore_groups`
+--
+ALTER TABLE `ReplaceDBcore_groups`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
+
+--
+-- Indexes for table `ReplaceDBcore_rules`
+--
+ALTER TABLE `ReplaceDBcore_rules`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
+
+--
 -- Indexes for table `ReplaceDBcountry`
 --
 ALTER TABLE `ReplaceDBcountry`
   ADD PRIMARY KEY (`countryID`),
   ADD UNIQUE KEY `countryID` (`countryID`);
+
+--
+-- Indexes for table `ReplaceDBimages`
+--
+ALTER TABLE `ReplaceDBimages`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
+
+--
+-- Indexes for table `ReplaceDBinstalled_plugins`
+--
+ALTER TABLE `ReplaceDBinstalled_plugins`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
 
 --
 -- Indexes for table `ReplaceDBnavi`
@@ -275,18 +391,30 @@ ALTER TABLE `ReplaceDBnavi_name`
   ADD UNIQUE KEY `id` (`id`);
 
 --
--- Indexes for table `ReplaceDBpermissions`
+-- Indexes for table `ReplaceDBplugs_group`
 --
-ALTER TABLE `ReplaceDBpermissions`
+ALTER TABLE `ReplaceDBplugs_group`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`);
 
 --
--- Indexes for table `ReplaceDBpermission_groups`
+-- Indexes for table `ReplaceDBplugs_permissions`
 --
-ALTER TABLE `ReplaceDBpermission_groups`
+ALTER TABLE `ReplaceDBplugs_permissions`
+  ADD PRIMARY KEY (`plugin_id`,`user_id`);
+
+--
+-- Indexes for table `ReplaceDBplugs_rule`
+--
+ALTER TABLE `ReplaceDBplugs_rule`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`);
+
+--
+-- Indexes for table `ReplaceDBpost`
+--
+ALTER TABLE `ReplaceDBpost`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `ReplaceDBtext`
@@ -313,10 +441,30 @@ ALTER TABLE `ReplaceDBuser_info`
 --
 
 --
+-- AUTO_INCREMENT for table `ReplaceDBcore_groups`
+--
+ALTER TABLE `ReplaceDBcore_groups`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `ReplaceDBcore_rules`
+--
+ALTER TABLE `ReplaceDBcore_rules`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
 -- AUTO_INCREMENT for table `ReplaceDBcountry`
 --
 ALTER TABLE `ReplaceDBcountry`
   MODIFY `countryID` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `ReplaceDBimages`
+--
+ALTER TABLE `ReplaceDBimages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+--
+-- AUTO_INCREMENT for table `ReplaceDBinstalled_plugins`
+--
+ALTER TABLE `ReplaceDBinstalled_plugins`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `ReplaceDBnavi`
 --
@@ -328,15 +476,20 @@ ALTER TABLE `ReplaceDBnavi`
 ALTER TABLE `ReplaceDBnavi_name`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
--- AUTO_INCREMENT for table `ReplaceDBpermissions`
+-- AUTO_INCREMENT for table `ReplaceDBplugs_group`
 --
-ALTER TABLE `ReplaceDBpermissions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `ReplaceDBplugs_group`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `ReplaceDBpermission_groups`
+-- AUTO_INCREMENT for table `ReplaceDBplugs_rule`
 --
-ALTER TABLE `ReplaceDBpermission_groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `ReplaceDBplugs_rule`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `ReplaceDBpost`
+--
+ALTER TABLE `ReplaceDBpost`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `ReplaceDBtext`
 --
@@ -346,7 +499,7 @@ ALTER TABLE `ReplaceDBtext`
 -- AUTO_INCREMENT for table `ReplaceDBusers`
 --
 ALTER TABLE `ReplaceDBusers`
-  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
