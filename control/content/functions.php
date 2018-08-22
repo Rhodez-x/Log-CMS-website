@@ -7,7 +7,7 @@ function menu_line($active){
     $return_string = '<ul class="nav nav-tabs">';
     try {
         $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-        $stmt = $conn->prepare("SELECT ReplaceDBnavi.link, ReplaceDBnavi_name.name
+        $stmt = $conn->prepare("SELECT ReplaceDBnavi.link, ReplaceDBnavi.permission, ReplaceDBnavi_name.name
                                 FROM ReplaceDBnavi
                                 INNER JOIN ReplaceDBnavi_name ON ReplaceDBnavi.id=ReplaceDBnavi_name.parent_id 
                                 WHERE ReplaceDBnavi.place = 'controlpanel'
@@ -15,12 +15,13 @@ function menu_line($active){
         $stmt->execute(array($_SESSION['session_language']));
         if ($stmt->rowCount() > 0) {
             foreach($stmt->fetchAll() as $row) {
-                if ($row['name'] == $active) {
-                    $return_string = $return_string . '<li class="active"><a href="/'.$row['link'].'">'.$row['name'].'</a></li>' ;
-                } else {
-                    $return_string = $return_string . '<li><a href="/'.$row['link'].'">'.$row['name'].'</a></li>' ;
+                if (check_permission($row['permission'])) {
+                    if ($row['name'] == $active) {
+                        $return_string = $return_string . '<li class="active"><a href="/'.$row['link'].'">'.$row['name'].'</a></li>' ;
+                    } else {
+                        $return_string = $return_string . '<li><a href="/'.$row['link'].'">'.$row['name'].'</a></li>' ;
+                    }    
                 }
-            
             }
         }
     }

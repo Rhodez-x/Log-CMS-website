@@ -2,11 +2,11 @@
 /** Sandsized CMS - By Guld-berg.dk software technologies
 *  Developed by Jørn Guldberg
 *  Copyright (C) Jørn Guldberg - Guld-berg.dk All Rights Reserved. 
-*  @version 4.0.0 - Major update, not compatiple with earlier realises. 
+*  @version 5.0.0-a2 - Major update, not compatiple with earlier realises. 
 *  Full release-notes se the github repository
 */
 
-$loginsidelevel = 0; // sidens login level 0 for ikke at skulle være logget ind og 1 for at skulle være logget ind. 
+$page_permission = 0; // This is the permission, the user need to have, to get access to this page 
 $web_page_name = "Recover login"; // Sidens navn, dette navn afgører hvilken fane i menuen der er aktiv. (Skal være identisk med det i Mysql)
 $sidenssti = "content/user-recovery"; // Dette er stien til hvor filerne ligger
 $overmodule = "/overmodule.php"; // Dette er overmoduleet, det jeg kalder for behandlingsfiler

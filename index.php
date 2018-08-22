@@ -6,7 +6,7 @@
 *  Full release-notes se the github repository
 */
 
-$loginsidelevel = 0; // sidens login level 0 for ikke at skulle være logget ind og 1 for at skulle være logget ind. 
+$page_permission = 0; // This is the permission, the user need to have, to get access to this page 
 $web_page_name = "Index"; // Sidens navn, dette navn afgører hvilken fane i menuen der er aktiv. (Skal være identisk med det i Mysql)
 $sidenssti = "content/index"; // Dette er stien til hvor filerne ligger
 $overmodule = "/overmodule.php"; // Dette er overmoduleet, det jeg kalder for behandlingsfiler

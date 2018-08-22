@@ -2,11 +2,11 @@
 /** Sandsized CMS - By Guld-berg.dk software technologies
 *  Developed by Jørn Guldberg
 *  Copyright (C) Jørn Guldberg - Guld-berg.dk All Rights Reserved. 
-*  @version 4.0.0 - Major update, not compatiple with earlier realises. 
+*  @version 5.0.0-a2 - Major update, not compatiple with earlier realises. 
 *  Full release-notes se the github repository
 */
 
-$loginsidelevel = 9; // Aloud for both users and admins
+$page_permission = 4; // Aloud for both users and admins
                      // Allthough be sure that no one else than the img's owner or an admin
                      // are aloud to remove a img.
 

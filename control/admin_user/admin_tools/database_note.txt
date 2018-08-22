@@ -18,3 +18,186 @@ ReplaceDBpost v.1.1 updates:
 ALTER TABLE `ReplaceDBpost` ADD `link` VARCHAR(64) NOT NULL AFTER `thumbnail`;
 ALTER TABLE `ReplaceDBpost` ADD `category` VARCHAR(32) NOT NULL AFTER `link`;
 ALTER TABLE `ReplaceDBpost` ADD `orders` INT NOT NULL AFTER `active`;
+
+
+
+To update the core to the new permissions system use followin instruktions. 
+
+DROP TABLE `ReplaceDBpermissions`, `ReplaceDBpermission_groups`, `ReplaceDBpermission_group_relation`;
+ALTER TABLE `ReplaceDBusers` ADD `permissions_reload` INT NOT NULL AFTER `recoverytime`; 
+ALTER TABLE `ReplaceDBusers` ADD `permission_group_id` INT NOT NULL AFTER `mobile`; 
+ALTER TABLE `ReplaceDBusers` ADD `permission_list` INT NOT NULL AFTER `permission_group_id`; 
+
+--
+-- Table structure for table `ReplaceDBcore_groups`
+--
+
+CREATE TABLE `ReplaceDBcore_groups` (
+  `id` int(11) NOT NULL,
+  `name` varchar(64) NOT NULL,
+  `description` text NOT NULL,
+  `rules` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `ReplaceDBcore_groups`
+--
+
+INSERT INTO `ReplaceDBcore_groups` (`id`, `name`, `description`, `rules`) VALUES
+(0, 'Not in a group', 'The user is not in any group', ''),
+(1, 'admin', 'Adminstrators of the site', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ReplaceDBcore_rules`
+--
+
+CREATE TABLE `ReplaceDBcore_rules` (
+  `id` int(11) NOT NULL,
+  `name` varchar(64) NOT NULL,
+  `description` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `ReplaceDBcore_rules`
+--
+
+INSERT INTO `ReplaceDBcore_rules` (`id`, `name`, `description`) VALUES
+(0, 'allow_any', 'This is a rule for a visitor, the visitor does not have to login '),
+(1, 'Master Control Access', 'Have access to enter and modify options in the master control'),
+(2, 'user_control_panel', 'Gain access to the user controlpanel'),
+(3, 'Allow upload', 'The user can upload files '),
+(4, 'Modify uploads', 'The user have the permission to modify/delete uploaded files '),
+(5, 'Site editor', 'The user have the rights to use the site editor');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ReplaceDBinstalled_plugins`
+--
+
+CREATE TABLE `ReplaceDBinstalled_plugins` (
+  `id` int(11) NOT NULL,
+  `name` varchar(64) NOT NULL,
+  `description` text NOT NULL,
+  `date` datetime NOT NULL,
+  `version` varchar(32) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ReplaceDBplugs_group`
+--
+
+CREATE TABLE `ReplaceDBplugs_group` (
+  `id` int(11) NOT NULL,
+  `plugin_id` int(11) NOT NULL,
+  `name` varchar(64) NOT NULL,
+  `description` text NOT NULL,
+  `rules` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ReplaceDBplugs_permissions`
+--
+
+CREATE TABLE `ReplaceDBplugs_permissions` (
+  `plugin_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `permission_list` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ReplaceDBplugs_rule`
+--
+
+CREATE TABLE `ReplaceDBplugs_rule` (
+  `id` int(11) NOT NULL,
+  `plugin_id` int(11) NOT NULL,
+  `name` varchar(64) NOT NULL,
+  `description` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `ReplaceDBcore_groups`
+--
+ALTER TABLE `ReplaceDBcore_groups`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
+
+--
+-- Indexes for table `ReplaceDBcore_rules`
+--
+ALTER TABLE `ReplaceDBcore_rules`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
+
+--
+-- Indexes for table `ReplaceDBinstalled_plugins`
+--
+ALTER TABLE `ReplaceDBinstalled_plugins`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
+
+--
+-- Indexes for table `ReplaceDBplugs_group`
+--
+ALTER TABLE `ReplaceDBplugs_group`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
+
+--
+-- Indexes for table `ReplaceDBplugs_permissions`
+--
+ALTER TABLE `ReplaceDBplugs_permissions`
+  ADD PRIMARY KEY (`plugin_id`,`user_id`);
+
+--
+-- Indexes for table `ReplaceDBplugs_rule`
+--
+ALTER TABLE `ReplaceDBplugs_rule`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `ReplaceDBcore_groups`
+--
+ALTER TABLE `ReplaceDBcore_groups`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `ReplaceDBcore_rules`
+--
+ALTER TABLE `ReplaceDBcore_rules`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `ReplaceDBinstalled_plugins`
+--
+ALTER TABLE `ReplaceDBinstalled_plugins`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `ReplaceDBplugs_group`
+--
+ALTER TABLE `ReplaceDBplugs_group`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `ReplaceDBplugs_rule`
+--
+ALTER TABLE `ReplaceDBplugs_rule`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

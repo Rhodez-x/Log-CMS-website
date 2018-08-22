@@ -1,5 +1,5 @@
 <?php
-$loginsidelevel = 49;
+$page_permission = 1; // only admins
 require_once $_SERVER['DOCUMENT_ROOT']."/core/system_core.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -12,8 +12,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             
             if($_SESSION['page_content_type'] == "post") {
                 if ($_SESSION['page_parent_id'] == "new") {
-                    $stmt = $conn->prepare("INSERT INTO ReplaceDBpost (name, description, text, language, category, date, active) VALUES (?, ?, ?, ?, ?, ?, ?) ");
-                    $stmt->execute(array($edited_title, $edited_comment, $edited_text, $_SESSION['page_name_lang'], $_SESSION['category_type'], DATE_AND_TIME, 1));
+                    $stmt = $conn->prepare("SELECT @total := IFNULL((SELECT max(orders) FROM ReplaceDBpost) + 1,1);
+                                            INSERT INTO ReplaceDBpost (name, description, text, language, category, date, active, orders) VALUES (?, ?, ?, ?, ?, ?, 1, @total);");
+                    $stmt->execute(array($edited_title, $edited_comment, $edited_text, $_SESSION['page_name_lang'], $_SESSION['category_type'], DATE_AND_TIME));
                     $_SESSION['page_parent_id'] = $conn->lastInsertId();
                     $stmt = null;
                     $conn = null;

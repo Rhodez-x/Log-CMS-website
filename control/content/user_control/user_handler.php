@@ -2,11 +2,11 @@
 /** Sandsized CMS - By Guld-berg.dk software technologies
 *  Developed by Jørn Guldberg
 *  Copyright (C) Jørn Guldberg - Guld-berg.dk All Rights Reserved. 
-*  @version 4.0.0 - Major update, not compatiple with earlier realises. 
+*  @version 5.0.0-a2 - Major update, not compatiple with earlier realises. 
 *  Full release-notes se the github repository
 */
 
-$loginsidelevel = 10; // 10 for all users are aloud to use this 
+$page_permission = 2; // all users are aloud to use this 
 require_once $_SERVER['DOCUMENT_ROOT']."/core/system_core.php";
 require_once $_SERVER['DOCUMENT_ROOT']."/core/validation_functions.php"; // validation functions used to validate the input
 

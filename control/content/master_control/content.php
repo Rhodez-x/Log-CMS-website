@@ -19,6 +19,7 @@
         <li><a href="#members">Medlemsoversigt</a></li>
         <li><a href="#sider">Tilføj/fjern sider</a></li>
         <li><a href="#backup">Backup database</a></li>
+        <li><a href="#plugs">Plugin liste</a></li>
       </ul>
     </nav>
     <div class="col-sm-10">
@@ -87,51 +88,36 @@
                 /* Setup values for the loop
                 *  Deffrent options for deffrend kind of user state
                 */
-                $admin_or_users = 0;
-                $button_admin_no_admin = '<button type="submit" class="btn btn-default" name="handel" value="noadmin">
-                                          Fjern administrator rettigheder</button>';
-                $text_user_active = 'Deactivate';
-                $value_user_activate = 'deactivate';
-
-                $page_edit_text = $page_edit_text . '<h3>Administratorer</h3>';
+                $page_edit_text = $page_edit_text . '<h3>Medlemmer</h3>';
                 $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                /* The order of the finding members, is first those whom is active = 1
-                *  They are ordered by the loginlevel, so that the adminstrators is listed first, the the regular members
-                *  When this is finnsihed the members with active 0 is listed, this is the members which is deactivated.
-                */
-                $stmt = $conn->prepare("SELECT * FROM ReplaceDBusers ORDER BY active DESC, loginlevel DESC, username;");
+                $stmt = $conn->prepare("SELECT * FROM ReplaceDBusers ORDER BY active DESC, username;");
                 $stmt->execute();
                 if ($stmt->rowCount() > 0) {
                     foreach($stmt->fetchAll() as $row) {
+                        $text_user_active = 'Deactivate';
+                        $value_user_activate = 'deactivate';
+                        
                         $data_login_id = $row['id'];
                         $data_login_username = $row['username'];
-                        $data_login_level = $row['loginlevel'];
                         $data_login_is_active = $row['active'];
                         
-                        if ($admin_or_users == 0 && $data_login_level < 49 && $data_login_is_active == 1 ) {
-                            // Admins has been printed, now members has to be printet
-                            $page_edit_text = $page_edit_text . '<h3>Medlemmer</h3>';
-                            $button_admin_no_admin = '<button type="submit" class="btn btn-default" name="handel" value="admin">
-                                                    Gør til administrator</button>';
-                            $admin_or_users = 1;
-                        }
-                        else if ($data_login_is_active == 0 && $admin_or_users != 2) {
+                        if ($data_login_is_active == 0) {
                             // $data_login_is_active = 0 is deactivated
-                            $page_edit_text = $page_edit_text . '<h3>Deaktiver Medlem</h3>';
+                            $page_edit_text = $page_edit_text . '<h3>Deactivated Members</h3>';
                             $text_user_active = 'Activate';
                             $value_user_activate = 'activate';
-                            $button_admin_no_admin = ''; // No button to make the user admin while deactiveted, then first activate and then promote to admin
-                            $admin_or_users = 2;
                         }
-
+                        
                         $page_edit_text = $page_edit_text . '<form class="form-inline" onsubmit="return confirmDelete()" action="/control/content/master_control/member_handler" method="post">
                         <div class="form-group">
                         <label for="page_name">'.$edit_page_lang.'</label>
                             <input type="text" class="form-control" name="username" id="username" readonly value="'.$data_login_username.'">
                           </div>
                           <input type="hidden" class="form-control" name="id" id="id" value="'.$data_login_id.'">
+                          <a href="/control/user_editor?user_id='.$row['id'].'" class="btn btn-default" role="button">Rediger bruger</a>
+
                           '.$button_admin_no_admin.'
-                          <button type="submit" class="btn btn" name="handel" value="'.$value_user_activate.'">'.$text_user_active.'</button>
+                          <button type="submit" class="btn btn-default" name="handel" value="'.$value_user_activate.'">'.$text_user_active.'</button>
                           <button type="submit" class="btn btn-danger" name="handel" value="delete">Slet</button>
                           </form>';
                     }
@@ -222,6 +208,39 @@
         <div id="backup" >         
             <h2>Backup database</h2>
             Her kommer der mulighed for at tage backup af databasen
+        </div>
+        <hr />
+        <div id="plugs" >         
+            <h2>Plugin liste</h2>
+            <?php 
+                try {
+                    $plugin_list = "";
+                    $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
+                    $stmt = $conn->prepare("SELECT * FROM ReplaceDBinstalled_plugins;");
+                    $stmt->execute();
+                    if ($stmt->rowCount() > 0) {
+                        foreach($stmt->fetchAll() as $row) {
+                            $data_plugin_id = $row['id'];
+                            $data_plugin_name = $row['name'];
+                            $data_plugin_description = $row['description'];
+                            $data_plugin_is_date = $row['date'];
+                            $data_plugin_version = $row['version'];
+                            
+                            $plugin_list = $plugin_list . "<b>Id:</b> $data_plugin_id <b>name:</b> $data_plugin_name <b>version:</b> $data_plugin_version<br>";
+                        }
+                    }
+                    else {
+                        $plugin_list = "Ingen elementer er fundet";
+                    }
+                }
+                catch(PDOException $e) {
+                    $plugin_list = "Der er sket en fejl.";
+                }
+                $stmt = null;
+                $conn = null;
+                
+                echo $plugin_list;
+            ?>
         </div>
     </div>
   </div>
