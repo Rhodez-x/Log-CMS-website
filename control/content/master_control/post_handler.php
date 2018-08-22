@@ -38,13 +38,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $stmt = null;
                 $conn = null;
             }
-            else if ($post_handel == "mv_dw") {
+            else if ($post_handel == "rm") {
                 $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
                 $stmt = $conn->prepare("DELETE FROM ReplaceDBpost WHERE id = ?;");
-                $stmt->execute(array($post_appointment_id));
+                $stmt->execute(array($post_post_id));
 
                 $stmt2 = $conn->prepare("SELECT * FROM ReplaceDBimages WHERE attached_group = 'post' AND attached_id = ?;");
-                $stmt2->execute(array($post_appointment_id));
+                $stmt2->execute(array($post_post_id));
                     // set the resulting array to associative
                 if ($stmt2->rowCount() > 0) {
                     $result = $stmt2->setFetchMode(PDO::FETCH_ASSOC);
@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 } 
 
                 $stmt3 = $conn->prepare("DELETE FROM ReplaceDBimages WHERE attached_group = 'post' AND attached_id = ?;");
-                $stmt3->execute(array($post_appointment_id));
+                $stmt3->execute(array($post_post_id));
             }
 
             $_SESSION["uploade_feedback"] = '<div class="row">
