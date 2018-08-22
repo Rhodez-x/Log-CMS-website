@@ -27,6 +27,21 @@
       font-family: Montserrat, sans-serif;
   }
 
+
+.navbar-inner {
+    background:transparent;
+
+}
+
+.navbar-brand {
+    color: white !important;
+
+}
+
+.navi-link {
+    color: white !important;  
+}
+
 .navbar-toggle {
   z-index: 9998;
 }

@@ -12,9 +12,9 @@ function loggetind() {
         <span class="caret"></span></a>
         <ul class="dropdown-menu" style="background-color:black;">
         <li style="color: white;"></li>
-        <li><a href="/control/index">Kontrolpanel</a></li>
+        <li><a class="navi-link" href="/control/index">Kontrolpanel</a></li>
           '.get_special_menu_point().'
-        <li><a href="/logout">Log ud</a></li>
+        <li><a class="navi-link" href="/logout">Log ud</a></li>
         </ul>
       </li>';
     return $navnbar;
@@ -54,7 +54,7 @@ echo '<div class="modal fade" id="myModal" role="dialog" style="z-index: 9999;">
 
 <div class="container">
     
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-inverse navbar-fixed-top navbar-inner">
         <div class="container-fluid">
                 <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#myNavbar">
@@ -78,7 +78,7 @@ echo '<div class="modal fade" id="myModal" role="dialog" style="z-index: 9999;">
                             $stmt->execute(array($_SESSION['session_language']));
                             if ($stmt->rowCount() > 0) {
                                 foreach($stmt->fetchAll() as $row) {
-                                    echo '<li><a href="/'.$row['link'].'">'.$row['name'].'</a></li>';
+                                    echo '<li><a class="navi-link" href="/'.$row['link'].'">'.$row['name'].'</a></li>';
                                 }
                             }
                         }
