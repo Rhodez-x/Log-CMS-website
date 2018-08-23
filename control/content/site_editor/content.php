@@ -49,11 +49,57 @@
                 <button type="submit" class="btn btn-defult">Vælg</button>
     </form>
       <div class="well well-sm" style="color:black; margin-top:20px;">
+                
                 <?php
                     /* NOTE FOR THE SCRIPT
                     *  Replace the <textarea id="editor1"> with a CKEditor
                     *  instance, using default configuration.
                     */
+                    
+                    
+                    $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
+                    $stmt = $conn->prepare("SELECT ReplaceDBnavi_name.id, ReplaceDBnavi_name.name, ReplaceDBtext.text
+                                FROM ReplaceDBnavi_name 
+                                INNER JOIN ReplaceDBtext ON ReplaceDBnavi_name.parent_id=ReplaceDBtext.parent_id
+                                GROUP BY ReplaceDBnavi_name.name;");
+                    $stmt->execute();
+                            // set the resulting array to associative
+                    if ($stmt->rowCount() > 0) {
+                        $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                        foreach($stmt->fetchAll() as $row) {
+                            echo "<option value='".$row['id']."'>".$row['name']."</option>";
+                        }
+                    } 
+                                                
+                    $make_page_subpage = '<form action="/control/site_editor" method="get" class="form-inline">
+                                            <div class="input-group">
+                                                <select class="form-control" name="id" id="id">
+                                                    <option disabled selected>Vælg hvilken side</option>
+                                                    
+                                                </select>
+                                            </div>
+            <div class="input-group">
+            <select class="form-control" name="edit_page_lang" id="edit_page_lang">
+                <option disabled selected>Vælg hvilket sprog:</option>
+                <?php
+                    $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
+                    $stmt = $conn->prepare("SELECT * FROM ReplaceDBcountry WHERE active = 1;");
+                    $stmt->execute();
+                            // set the resulting array to associative
+                    if ($stmt->rowCount() > 0) {
+                        $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                        foreach($stmt->fetchAll() as $row) {
+                            echo "<option value='".$row['code']."'>".$row['name']."</option>";
+                        }
+                    } 
+                ?>
+            </select>
+            <input type='hidden' class='form-control' name='content_type' id='content_type' value='page'>
+            </div>
+                <button type="submit" class="btn btn-defult">Vælg</button>
+    </form>';
+
+
                     $text_title = $text_description = $text_thumbnail = "";
                     if (!($_SESSION['page_parent_id'] == "new" && $_SESSION['page_content_type'] == "post")) {
                         $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);

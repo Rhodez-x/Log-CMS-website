@@ -182,7 +182,7 @@
                               <button type="submit" class="btn btn-default" name="handel" value="mv_dw"><span class="glyphicon glyphicon-arrow-down"></span></button></form>';
 
                             // Check if there is pages under this menu point
-                            $stmt2 = $conn->prepare("SELECT ReplaceDBnavi.link, ReplaceDBnavi_name.name
+                            $stmt2 = $conn->prepare("SELECT ReplaceDBnavi.*, ReplaceDBnavi_name.*
                                                         FROM ReplaceDBnavi
                                                         INNER JOIN ReplaceDBnavi_name ON ReplaceDBnavi.id=ReplaceDBnavi_name.parent_id 
                                                         WHERE ReplaceDBnavi.place = ?
@@ -207,9 +207,9 @@
                                         $edit_page_required_disable = 'disabled';
                                     }
 
-                                    $page_edit_text = $page_edit_text . '<form class="form-inline" onsubmit="return confirmDelete()" action="/control/content/master_control/page_handler" method="post">
+                                    $page_edit_text = $page_edit_text . '<form style="padding-left:20px;" class="form-inline" onsubmit="return confirmDelete()" action="/control/content/master_control/page_handler" method="post">
                                         <div class="form-group">
-                                        <label for="page_name">'.$edit_page_lang.'</label>
+                                        <label for="page_name"><span class="glyphicon glyphicon-arrow-right"> </span> '.$edit_page_lang.'</label>
                                             <input type="text" class="form-control" name="page_name" id="page_name" readonly value="'.$edit_page_name.'">
                                           </div>
                                           <input type="hidden" class="form-control" name="navi_order" id="navi_order" value="'.$edit_page_navi_order.'">

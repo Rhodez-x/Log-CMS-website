@@ -153,7 +153,7 @@ if (isset($_SESSION['login_user'])) {
                     define('LOGIN_SESSIONCLEAN', $row['username_clean']);
                     define('LOGIN_MAIL', $row['mail']);
                     define('LOGIN_PERMISSIONS', unserialize($row['permission_list']));
-                    $_SESSION['LOGIN_LAST_ACTIVITY'] = (time() + 900); // 900 sec = 15 minutes - Set a timer for the user, if the user is inactive, the user is logout
+                    $_SESSION['LOGIN_LAST_ACTIVITY'] = (time() + 86400); // 900 sec = 15 minutes - Set a timer for the user, if the user is inactive, the user is logout - is set to 24h
                 }
                 else {
                     header('Location: /logout');
