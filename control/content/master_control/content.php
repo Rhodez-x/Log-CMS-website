@@ -166,20 +166,66 @@
                             */
                             $edit_page_required_disable = 'disabled';
                         }
+                            
+                            $page_edit_text = $page_edit_text . '<form class="form-inline" onsubmit="return confirmDelete()" action="/control/content/master_control/page_handler" method="post">
+                            <div class="form-group">
+                            <label for="page_name">'.$edit_page_lang.'</label>
+                                <input type="text" class="form-control" name="page_name" id="page_name" readonly value="'.$edit_page_name.'">
+                              </div>
+                              <input type="hidden" class="form-control" name="navi_order" id="navi_order" value="'.$edit_page_navi_order.'">
+                              <input type="hidden" class="form-control" name="link" id="link" value="'.$edit_page_link.'">
+                              <input type="hidden" class="form-control" name="id" id="id" value="'.$edit_page_id.'">
+                              <input type="hidden" class="form-control" name="parent_id" id="parent_id" value="'.$edit_page_parent_id.'">
+                              <a href="/control/site_editor?content_type=page&id='.$edit_page_parent_id.'" class="btn btn-default" role="button">Rediger side</a>
+                              <button type="submit" class="btn btn-danger" '.$edit_page_required_disable.' name="handel" value="rm">Fjern</button>
+                              <button type="submit" class="btn btn-default" name="handel" value="mv_up"><span class="glyphicon glyphicon-arrow-up"></span></button>
+                              <button type="submit" class="btn btn-default" name="handel" value="mv_dw"><span class="glyphicon glyphicon-arrow-down"></span></button></form>';
+
+                            // Check if there is pages under this menu point
+                            $stmt2 = $conn->prepare("SELECT ReplaceDBnavi.link, ReplaceDBnavi_name.name
+                                                        FROM ReplaceDBnavi
+                                                        INNER JOIN ReplaceDBnavi_name ON ReplaceDBnavi.id=ReplaceDBnavi_name.parent_id 
+                                                        WHERE ReplaceDBnavi.place = ?
+                                                        ORDER BY navi_order;");
+                            $stmt2->execute(array($row['name']));
+                            if ($stmt2->rowCount() > 0) {                                
+                                foreach($stmt2->fetchAll() as $row2) {
+                                    $edit_page_id = $row2['id'];
+                                    $edit_page_parent_id = $row2['parent_id'];
+                                    $edit_page_name = $row2['name'];
+                                    $edit_page_lang = $row2['language'];
+                                    $edit_page_required = $row2['required'];
+                                    $edit_page_navi_order = $row2['navi_order'];
+                                    $edit_page_link = $row2['link'];
+                                    if ($edit_page_navi_order_temp != $edit_page_navi_order) {
+                                        $page_edit_text = $page_edit_text .'<br>';
+                                    }
+                                    
+                                    if ($edit_page_required == '1') {
+                                        /* if the page is required the user cannot edit this
+                                        */
+                                        $edit_page_required_disable = 'disabled';
+                                    }
+
+                                    $page_edit_text = $page_edit_text . '<form class="form-inline" onsubmit="return confirmDelete()" action="/control/content/master_control/page_handler" method="post">
+                                        <div class="form-group">
+                                        <label for="page_name">'.$edit_page_lang.'</label>
+                                            <input type="text" class="form-control" name="page_name" id="page_name" readonly value="'.$edit_page_name.'">
+                                          </div>
+                                          <input type="hidden" class="form-control" name="navi_order" id="navi_order" value="'.$edit_page_navi_order.'">
+                                          <input type="hidden" class="form-control" name="link" id="link" value="'.$edit_page_link.'">
+                                          <input type="hidden" class="form-control" name="id" id="id" value="'.$edit_page_id.'">
+                                          <input type="hidden" class="form-control" name="parent_id" id="parent_id" value="'.$edit_page_parent_id.'">
+                                          <a href="/control/site_editor?content_type=page&id='.$edit_page_parent_id.'" class="btn btn-default" role="button">Rediger side</a>
+                                          <button type="submit" class="btn btn-danger" '.$edit_page_required_disable.' name="handel" value="rm">Fjern</button>
+                                          <button type="submit" class="btn btn-default" name="handel" value="mv_up"><span class="glyphicon glyphicon-arrow-up"></span></button>
+                                          <button type="submit" class="btn btn-default" name="handel" value="mv_dw"><span class="glyphicon glyphicon-arrow-down"></span></button></form>';
+                                }
+                            }
+                            else {
+                                
+                            }
                         
-                        $page_edit_text = $page_edit_text . '<form class="form-inline" onsubmit="return confirmDelete()" action="/control/content/master_control/page_handler" method="post">
-                        <div class="form-group">
-                        <label for="page_name">'.$edit_page_lang.'</label>
-                            <input type="text" class="form-control" name="page_name" id="page_name" readonly value="'.$edit_page_name.'">
-                          </div>
-                          <input type="hidden" class="form-control" name="navi_order" id="navi_order" value="'.$edit_page_navi_order.'">
-                          <input type="hidden" class="form-control" name="link" id="link" value="'.$edit_page_link.'">
-                          <input type="hidden" class="form-control" name="id" id="id" value="'.$edit_page_id.'">
-                          <input type="hidden" class="form-control" name="parent_id" id="parent_id" value="'.$edit_page_parent_id.'">
-                          <a href="/control/site_editor?content_type=page&id='.$edit_page_parent_id.'" class="btn btn-default" role="button">Rediger side</a>
-                          <button type="submit" class="btn btn-danger" '.$edit_page_required_disable.' name="handel" value="rm">Fjern</button>
-                          <button type="submit" class="btn btn-default" name="handel" value="mv_up"><span class="glyphicon glyphicon-arrow-up"></span></button>
-                          <button type="submit" class="btn btn-default" name="handel" value="mv_dw"><span class="glyphicon glyphicon-arrow-down"></span></button></form>';
 
                         $edit_page_navi_order_temp = $edit_page_navi_order;
                         $edit_page_required_disable = '';

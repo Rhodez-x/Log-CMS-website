@@ -45,3 +45,11 @@
 .navbar-toggle {
   z-index: 9998;
 }
+
+.dropdown-menu {
+  background-color:black;
+}
+
+.drop_menu_link:hover {
+  color:black !important;
+}

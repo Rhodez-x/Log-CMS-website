@@ -8,13 +8,13 @@
 function loggetind() {
     $navnbar = '
           <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Hi ' . $_SESSION['login_user'] . '
+        <a class="dropdown-toggle navi-link" data-toggle="dropdown" href="#">Hi ' . $_SESSION['login_user'] . '
         <span class="caret"></span></a>
-        <ul class="dropdown-menu" style="background-color:black;">
+        <ul class="dropdown-menu">
         <li style="color: white;"></li>
-        <li><a class="navi-link" href="/control/index">Kontrolpanel</a></li>
+        <li><a class="navi-link drop_menu_link" href="/control/index">Kontrolpanel</a></li>
           '.get_special_menu_point().'
-        <li><a class="navi-link" href="/logout">Log ud</a></li>
+        <li><a class="navi-link drop_menu_link" href="/logout">Log ud</a></li>
         </ul>
       </li>';
     return $navnbar;
@@ -75,10 +75,31 @@ echo '<div class="modal fade" id="myModal" role="dialog" style="z-index: 9999;">
                                                     INNER JOIN ReplaceDBnavi_name ON ReplaceDBnavi.id=ReplaceDBnavi_name.parent_id 
                                                     WHERE ReplaceDBnavi.place = 'standart'
                                                     ORDER BY navi_order;");
-                            $stmt->execute(array($_SESSION['session_language']));
+                            $stmt->execute();
                             if ($stmt->rowCount() > 0) {
-                                foreach($stmt->fetchAll() as $row) {
-                                    echo '<li><a class="navi-link" href="/'.$row['link'].'">'.$row['name'].'</a></li>';
+                                foreach($stmt->fetchAll() as $row) {  
+                                    // Check if we have to make a dropdown menu for the menu
+                                    $stmt2 = $conn->prepare("SELECT ReplaceDBnavi.link, ReplaceDBnavi_name.name
+                                                        FROM ReplaceDBnavi
+                                                        INNER JOIN ReplaceDBnavi_name ON ReplaceDBnavi.id=ReplaceDBnavi_name.parent_id 
+                                                        WHERE ReplaceDBnavi.place = ?
+                                                        ORDER BY navi_order;");
+                                    $stmt2->execute(array($row['name']));
+                                    if ($stmt2->rowCount() > 0) {
+                                        $generated_dropdown_menu = '<li class="dropdown">
+                                            <a class="dropdown-toggle navi-link" data-toggle="dropdown" href="#">'.$row['name'].'<span class="caret"></span></a>
+                                            <ul class="dropdown-menu">';
+                                        
+                                        foreach($stmt2->fetchAll() as $row2) {
+                                            $generated_dropdown_menu .= '<li><a class="navi-link drop_menu_link" href="/'.$row2['link'].'">'.$row2['name'].'</a></li>';
+                                        }
+                                        $generated_dropdown_menu .= '</ul><li>';
+                                        echo $generated_dropdown_menu;
+
+                                    }
+                                    else {
+                                        echo '<li><a class="navi-link" href="/'.$row['link'].'">'.$row['name'].'</a></li>';
+                                    }
                                 }
                             }
                         }
