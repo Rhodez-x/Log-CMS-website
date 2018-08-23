@@ -21,4 +21,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     }
 
 }
+
+function get_sub_page_menu($pagename) {
+    /*
+     * This fuction is returning the selector for a page to be a sub page under som page
+     * It detedcts if the page is already a subpage for a page. 
+     */
+    $feedback = "";
+    
+    return $feedback;
+
+}
 ?>

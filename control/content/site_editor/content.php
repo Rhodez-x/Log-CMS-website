@@ -56,45 +56,41 @@
                     *  instance, using default configuration.
                     */
                     
-                    
+                    $make_page_subpage_pages = "";
+                    $is_already_subpage = false;
                     $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                    $stmt = $conn->prepare("SELECT ReplaceDBnavi_name.id, ReplaceDBnavi_name.name, ReplaceDBtext.text
+                    $stmt = $conn->prepare("SELECT ReplaceDBnavi_name.id, ReplaceDBnavi_name.name, ReplaceDBtext.text, ReplaceDBnavi.place
                                 FROM ReplaceDBnavi_name 
                                 INNER JOIN ReplaceDBtext ON ReplaceDBnavi_name.parent_id=ReplaceDBtext.parent_id
+                                INNER JOIN ReplaceDBnavi ON ReplaceDBnavi.id=ReplaceDBtext.parent_id
                                 GROUP BY ReplaceDBnavi_name.name;");
                     $stmt->execute();
                             // set the resulting array to associative
                     if ($stmt->rowCount() > 0) {
                         $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
                         foreach($stmt->fetchAll() as $row) {
-                            echo "<option value='".$row['id']."'>".$row['name']."</option>";
+                            if ($_SESSION['page_parent_id'] == $row['id']) {
+                                $make_page_subpage_pages .= "<option value='".$row['id']."' selected>".$row['name']."</option>";
+                                $is_already_subpage = true;
+                            }
+                            else if ($row['place'] == 'standart'){
+                                $make_page_subpage_pages .= "<option value='".$row['id']."'>".$row['name']."</option>";
+                            }
                         }
-                    } 
-                                                
+                        if (!$is_already_subpage) {
+                            $make_page_subpage_pages = '<option disabled selected>Vælg hvilken side</option>'.$make_page_subpage_pages;
+                        }
+
+                    }                                                
+                    
                     $make_page_subpage = '<form action="/control/site_editor" method="get" class="form-inline">
                                             <div class="input-group">
                                                 <select class="form-control" name="id" id="id">
-                                                    <option disabled selected>Vælg hvilken side</option>
-                                                    
+                                                    '.$make_page_subpage_pages.'
                                                 </select>
                                             </div>
             <div class="input-group">
-            <select class="form-control" name="edit_page_lang" id="edit_page_lang">
-                <option disabled selected>Vælg hvilket sprog:</option>
-                <?php
-                    $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                    $stmt = $conn->prepare("SELECT * FROM ReplaceDBcountry WHERE active = 1;");
-                    $stmt->execute();
-                            // set the resulting array to associative
-                    if ($stmt->rowCount() > 0) {
-                        $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-                        foreach($stmt->fetchAll() as $row) {
-                            echo "<option value='".$row['code']."'>".$row['name']."</option>";
-                        }
-                    } 
-                ?>
-            </select>
-            <input type='hidden' class='form-control' name='content_type' id='content_type' value='page'>
+            <input type="hidden" class="form-control" name="content_type" id="content_type" value="page">
             </div>
                 <button type="submit" class="btn btn-defult">Vælg</button>
     </form>';
@@ -153,6 +149,9 @@
                     if ($available_to_edit) {
 
                     echo "<h3>Du er ved at redigere: ".$text_title." Sprog: ".$_SESSION['page_name_lang']."</h3>
+                        <h4>Læg denne siden under menuen:</h4> 
+                        $make_page_subpage
+                        <br>
                         <form action='/control/content/site_editor/save' method='post'>
                         <button class='btn btn-success' type='submit'>Gem</button>
                         <div class='form-group'>
