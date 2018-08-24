@@ -1,6 +1,6 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    $get_page_name = htmlspecialchars($_GET["id"]);
+    $get_page_name = htmlspecialchars(chop($_GET["req"],".php"));
     try {
         $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
         $stmt = $conn->prepare("SELECT ReplaceDBnavi_name.name, ReplaceDBtext.text
@@ -17,7 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $web_page_name = $date_from_db_page_name; // Sidens navn, dette navn afgører hvilken fane i menuen der er aktiv. (Skal være identisk med det i Mysql)
         }
         else {
-            $date_from_db_page_text = "Page not found";
+            $web_page_name = "Siden ikke fundet";
+            $date_from_db_page_text = "<h2>Error 404</h2> Siden er ikke fundet";
             //header('Location: /');
         }
     }

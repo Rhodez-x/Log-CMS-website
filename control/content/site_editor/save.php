@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 
             }
             else if ($_SESSION['page_content_type'] == "page") {
-                $new_page_name_link = 'page?id='.urlencode($edited_title);
+                $new_page_name_link = urlencode($edited_title);
                 $stmt = $conn->prepare("UPDATE ReplaceDBtext SET description  = ?,  text = ? WHERE parent_id = ? AND language = ?;
                                         UPDATE ReplaceDBnavi_name SET name  = ? WHERE parent_id = ?;
                                         UPDATE ReplaceDBnavi SET link = ?, place = ? WHERE id = ?;");
