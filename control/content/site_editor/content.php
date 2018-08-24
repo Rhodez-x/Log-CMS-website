@@ -56,53 +56,14 @@
                     *  instance, using default configuration.
                     */
                     
-                    $make_page_subpage_pages = "";
-                    $is_already_subpage = false;
-                    $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                    $stmt = $conn->prepare("SELECT ReplaceDBnavi_name.id, ReplaceDBnavi_name.name, ReplaceDBtext.text, ReplaceDBnavi.place
-                                FROM ReplaceDBnavi_name 
-                                INNER JOIN ReplaceDBtext ON ReplaceDBnavi_name.parent_id=ReplaceDBtext.parent_id
-                                INNER JOIN ReplaceDBnavi ON ReplaceDBnavi.id=ReplaceDBtext.parent_id
-                                GROUP BY ReplaceDBnavi_name.name;");
-                    $stmt->execute();
-                            // set the resulting array to associative
-                    if ($stmt->rowCount() > 0) {
-                        $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-                        foreach($stmt->fetchAll() as $row) {
-                            if ($_SESSION['page_parent_id'] == $row['id']) {
-                                $make_page_subpage_pages .= "<option value='".$row['id']."' selected>".$row['name']."</option>";
-                                $is_already_subpage = true;
-                            }
-                            else if ($row['place'] == 'standart'){
-                                $make_page_subpage_pages .= "<option value='".$row['id']."'>".$row['name']."</option>";
-                            }
-                        }
-                        if (!$is_already_subpage) {
-                            $make_page_subpage_pages = '<option disabled selected>Vælg hvilken side</option>'.$make_page_subpage_pages;
-                        }
-
-                    }                                                
-                    
-                    $make_page_subpage = '<form action="/control/site_editor" method="get" class="form-inline">
-                                            <div class="input-group">
-                                                <select class="form-control" name="id" id="id">
-                                                    '.$make_page_subpage_pages.'
-                                                </select>
-                                            </div>
-            <div class="input-group">
-            <input type="hidden" class="form-control" name="content_type" id="content_type" value="page">
-            </div>
-                <button type="submit" class="btn btn-defult">Vælg</button>
-    </form>';
-
-
                     $text_title = $text_description = $text_thumbnail = "";
                     if (!($_SESSION['page_parent_id'] == "new" && $_SESSION['page_content_type'] == "post")) {
                         $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
                         if ($_SESSION['page_content_type'] == "page") {
-                            $stmt = $conn->prepare("SELECT ReplaceDBnavi_name.name, ReplaceDBtext.text, ReplaceDBtext.parent_id, ReplaceDBtext.description
+                            $stmt = $conn->prepare("SELECT ReplaceDBnavi_name.name, ReplaceDBtext.text, ReplaceDBtext.parent_id, ReplaceDBtext.description, ReplaceDBnavi.place
                                     FROM ReplaceDBnavi_name 
                                     INNER JOIN ReplaceDBtext ON ReplaceDBnavi_name.parent_id=ReplaceDBtext.parent_id
+                                    INNER JOIN ReplaceDBnavi ON ReplaceDBnavi.id=ReplaceDBtext.parent_id
                                     WHERE ReplaceDBnavi_name.parent_id = ? AND ReplaceDBnavi_name.language = ? AND ReplaceDBtext.content_group = ?;");
                             $stmt->execute(array($_SESSION['page_parent_id'], $_SESSION['page_name_lang'], $_SESSION['page_content_type']));
                             
@@ -119,6 +80,8 @@
                                 if ($_SESSION['page_content_type'] == "page") {
                                     $text_parant_id = $row['parent_id'];
                                     $_SESSION['category_type'] = "page";
+                                    $make_page_subpage = get_sub_page_menu($row['place']);
+
                                 }
                                 else if ($_SESSION['page_content_type'] == "post") {
                                     $text_parant_id = $row['id'];
@@ -149,11 +112,13 @@
                     if ($available_to_edit) {
 
                     echo "<h3>Du er ved at redigere: ".$text_title." Sprog: ".$_SESSION['page_name_lang']."</h3>
-                        <h4>Læg denne siden under menuen:</h4> 
-                        $make_page_subpage
                         <br>
                         <form action='/control/content/site_editor/save' method='post'>
+                        <label for='titel'>Læg denne siden under menuen:</label>
+                        $make_page_subpage
+                        <div class='form-group'>
                         <button class='btn btn-success' type='submit'>Gem</button>
+                        </div>
                         <div class='form-group'>
                         <label for='titel'>Title:</label>
                         <input type='text' class='form-control' name='text_title' id='text_title' value='".$text_title."'>
