@@ -1,6 +1,6 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    $get_page_name = htmlspecialchars(chop($_GET["req"],".php"));
+    $get_page_name = htmlspecialchars(str_replace(".php", "",$_GET["req"]));
     try {
         $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
         $stmt = $conn->prepare("SELECT ReplaceDBnavi_name.name, ReplaceDBtext.text
