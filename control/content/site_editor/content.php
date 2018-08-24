@@ -49,18 +49,21 @@
                 <button type="submit" class="btn btn-defult">Vælg</button>
     </form>
       <div class="well well-sm" style="color:black; margin-top:20px;">
+                
                 <?php
                     /* NOTE FOR THE SCRIPT
                     *  Replace the <textarea id="editor1"> with a CKEditor
                     *  instance, using default configuration.
                     */
+                    
                     $text_title = $text_description = $text_thumbnail = "";
                     if (!($_SESSION['page_parent_id'] == "new" && $_SESSION['page_content_type'] == "post")) {
                         $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
                         if ($_SESSION['page_content_type'] == "page") {
-                            $stmt = $conn->prepare("SELECT ReplaceDBnavi_name.name, ReplaceDBtext.text, ReplaceDBtext.parent_id, ReplaceDBtext.description
+                            $stmt = $conn->prepare("SELECT ReplaceDBnavi_name.name, ReplaceDBtext.text, ReplaceDBtext.parent_id, ReplaceDBtext.description, ReplaceDBnavi.place
                                     FROM ReplaceDBnavi_name 
                                     INNER JOIN ReplaceDBtext ON ReplaceDBnavi_name.parent_id=ReplaceDBtext.parent_id
+                                    INNER JOIN ReplaceDBnavi ON ReplaceDBnavi.id=ReplaceDBtext.parent_id
                                     WHERE ReplaceDBnavi_name.parent_id = ? AND ReplaceDBnavi_name.language = ? AND ReplaceDBtext.content_group = ?;");
                             $stmt->execute(array($_SESSION['page_parent_id'], $_SESSION['page_name_lang'], $_SESSION['page_content_type']));
                             
@@ -77,6 +80,8 @@
                                 if ($_SESSION['page_content_type'] == "page") {
                                     $text_parant_id = $row['parent_id'];
                                     $_SESSION['category_type'] = "page";
+                                    $make_page_subpage = get_sub_page_menu($row['place']);
+
                                 }
                                 else if ($_SESSION['page_content_type'] == "post") {
                                     $text_parant_id = $row['id'];
@@ -107,8 +112,13 @@
                     if ($available_to_edit) {
 
                     echo "<h3>Du er ved at redigere: ".$text_title." Sprog: ".$_SESSION['page_name_lang']."</h3>
+                        <br>
                         <form action='/control/content/site_editor/save' method='post'>
+                        <label for='titel'>Læg denne siden under menuen:</label>
+                        $make_page_subpage
+                        <div class='form-group'>
                         <button class='btn btn-success' type='submit'>Gem</button>
+                        </div>
                         <div class='form-group'>
                         <label for='titel'>Title:</label>
                         <input type='text' class='form-control' name='text_title' id='text_title' value='".$text_title."'>

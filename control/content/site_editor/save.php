@@ -3,7 +3,7 @@ $page_permission = 1; // only admins
 require_once $_SERVER['DOCUMENT_ROOT']."/core/system_core.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    
+    $edited_sub_page = clean_input_text($_POST["sub_page"]);
     $edited_title = clean_input_text($_POST["text_title"]);
     $edited_comment = clean_input_text($_POST["comment"]);
     $edited_text = $_POST["editor1"]; // This is cleaned by the plugin
@@ -28,11 +28,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 
             }
             else if ($_SESSION['page_content_type'] == "page") {
-                $new_page_name_link = 'page?id='.urlencode($edited_title);
+                $new_page_name_link = urlencode($edited_title);
                 $stmt = $conn->prepare("UPDATE ReplaceDBtext SET description  = ?,  text = ? WHERE parent_id = ? AND language = ?;
                                         UPDATE ReplaceDBnavi_name SET name  = ? WHERE parent_id = ?;
-                                        UPDATE ReplaceDBnavi SET link  = ? WHERE id = ?;");
-                $stmt->execute(array($edited_comment, $edited_text, $_SESSION['page_parent_id'], $_SESSION['page_name_lang'], $edited_title, $_SESSION['page_parent_id'], $new_page_name_link, $_SESSION['page_parent_id']));
+                                        UPDATE ReplaceDBnavi SET link = ?, place = ? WHERE id = ?;");
+                $stmt->execute(array($edited_comment, $edited_text, $_SESSION['page_parent_id'], $_SESSION['page_name_lang'], $edited_title, $_SESSION['page_parent_id'], $new_page_name_link, $edited_sub_page, $_SESSION['page_parent_id']));
                 $stmt = null;
                 $conn = null;
             }
