@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             /*
                 Create a new page and put it in the menu. 
             */
-            $new_post_page_name_link = 'page?id='.urlencode($post_page_name);
+            $new_post_page_name_link = urlencode($post_page_name);
             $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
             $stmt = $conn->prepare("SELECT @order_id := (1 + max(navi_order)) FROM ReplaceDBnavi WHERE place='standart';
                 INSERT INTO ReplaceDBnavi (link, navi_order, permission, place) VALUES (?, @order_id, 0, 'standart');

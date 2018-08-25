@@ -1,32 +1,49 @@
 <?php
-if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    $get_page_name = htmlspecialchars(str_replace(".php", "",$_GET["req"]));
-    try {
-        $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-        $stmt = $conn->prepare("SELECT ReplaceDBnavi_name.name, ReplaceDBtext.text
-                                FROM ReplaceDBnavi_name 
-                                INNER JOIN ReplaceDBtext ON ReplaceDBnavi_name.parent_id=ReplaceDBtext.parent_id
-                                WHERE ReplaceDBnavi_name.name = ? AND ReplaceDBnavi_name.language = ?;");
-        $stmt->execute(array($get_page_name, $_SESSION['session_language']));
-        if ($stmt->rowCount() == 1) {
-            foreach($stmt->fetchAll() as $row) {
-                $date_from_db_page_name = $row['name'];
-                $date_from_db_page_text = $row['text'];
-            }
+$get_req_string = "";
+if (strlen($_GET["req"]) <= 4096) {
+    $req_array = explode('/', $_GET["req"]);
+}
+else {
+    $req_array = array("Error");
+}
 
-            $web_page_name = $date_from_db_page_name; // Sidens navn, dette navn afgører hvilken fane i menuen der er aktiv. (Skal være identisk med det i Mysql)
+if (count($req_array) == 1) {
+    $get_page_name = htmlspecialchars(str_replace(".php", "",$req_array[0]));
+    $get_req_string = count($req_array);
+}
+else if (count($req_array) > 1) {
+    $get_page_name = htmlspecialchars($req_array[0]);
+    $get_req_string = htmlspecialchars(str_replace(".php", "",$req_array[1]));
+}
+else {
+    $get_page_name = "error";
+}
+
+try {
+    $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
+    $stmt = $conn->prepare("SELECT ReplaceDBnavi_name.name, ReplaceDBtext.text
+                            FROM ReplaceDBnavi_name 
+                            INNER JOIN ReplaceDBtext ON ReplaceDBnavi_name.parent_id=ReplaceDBtext.parent_id
+                            WHERE ReplaceDBnavi_name.name = ? AND ReplaceDBnavi_name.language = ?;");
+    $stmt->execute(array($get_page_name, $_SESSION['session_language']));
+    if ($stmt->rowCount() == 1) {
+        foreach($stmt->fetchAll() as $row) {
+            $date_from_db_page_name = $row['name'];
+            $date_from_db_page_text = $row['text'];
         }
-        else {
-            $web_page_name = "Siden ikke fundet";
-            $date_from_db_page_text = "<h2>Error 404</h2> Siden er ikke fundet";
-            //header('Location: /');
-        }
+
+        $web_page_name = $date_from_db_page_name; // Sidens navn, dette navn afgører hvilken fane i menuen der er aktiv. (Skal være identisk med det i Mysql)
     }
-    catch(PDOException $e) {
-        $date_from_db_page_text = "Error";
+    else {
+        $web_page_name = "Siden ikke fundet";
+        $date_from_db_page_text = "<h2>Error 404</h2> Siden er ikke fundet";
         //header('Location: /');
     }
-    $stmt = null;
-    $conn = null;
 }
+catch(PDOException $e) {
+    $date_from_db_page_text = "Error";
+    //header('Location: /');
+}
+$stmt = null;
+$conn = null;
 ?>
