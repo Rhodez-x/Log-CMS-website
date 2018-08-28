@@ -60,7 +60,7 @@
                     if (!($_SESSION['page_parent_id'] == "new" && $_SESSION['page_content_type'] == "post")) {
                         $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
                         if ($_SESSION['page_content_type'] == "page") {
-                            $stmt = $conn->prepare("SELECT ReplaceDBnavi_name.name, ReplaceDBtext.text, ReplaceDBtext.parent_id, ReplaceDBtext.description, ReplaceDBnavi.place
+                            $stmt = $conn->prepare("SELECT ReplaceDBnavi_name.name, ReplaceDBtext.text, ReplaceDBtext.parent_id, ReplaceDBtext.description, ReplaceDBnavi.place, ReplaceDBnavi.link
                                     FROM ReplaceDBnavi_name 
                                     INNER JOIN ReplaceDBtext ON ReplaceDBnavi_name.parent_id=ReplaceDBtext.parent_id
                                     INNER JOIN ReplaceDBnavi ON ReplaceDBnavi.id=ReplaceDBtext.parent_id
@@ -79,6 +79,7 @@
                             foreach($stmt->fetchAll() as $row) {
                                 if ($_SESSION['page_content_type'] == "page") {
                                     $text_parant_id = $row['parent_id'];
+                                    $text_link = $row['link'];
                                     $_SESSION['category_type'] = "page";
                                     $make_page_subpage = get_sub_page_menu($row['place']);
 
@@ -116,6 +117,11 @@
                         <form action='/control/content/site_editor/save' method='post'>
                         <label for='titel'>Læg denne siden under menuen:</label>
                         $make_page_subpage
+                        <div class='form-group'>
+                            <label for='link'>Link:</label>
+                            <input type='text' class='form-control' name='link' id='link' value='".$text_link."'>
+                        </div>
+
                         <div class='form-group'>
                         <button class='btn btn-success' type='submit'>Gem</button>
                         </div>

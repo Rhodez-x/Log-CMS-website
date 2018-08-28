@@ -6,6 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $edited_sub_page = clean_input_text($_POST["sub_page"]);
     $edited_title = clean_input_text($_POST["text_title"]);
     $edited_comment = clean_input_text($_POST["comment"]);
+    $edited_link = clean_input_text($_POST["link"]);
     $edited_text = $_POST["editor1"]; // This is cleaned by the plugin
         try {
             $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
@@ -28,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 
             }
             else if ($_SESSION['page_content_type'] == "page") {
-                $new_page_name_link = urlencode($edited_title);
+                $new_page_name_link = urlencode($edited_link);
                 $stmt = $conn->prepare("UPDATE ReplaceDBtext SET description  = ?,  text = ? WHERE parent_id = ? AND language = ?;
                                         UPDATE ReplaceDBnavi_name SET name  = ? WHERE parent_id = ?;
                                         UPDATE ReplaceDBnavi SET link = ?, place = ? WHERE id = ?;");

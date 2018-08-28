@@ -8,12 +8,12 @@ else {
 }
 
 if (count($req_array) == 1) {
-    $get_page_name = htmlspecialchars(str_replace(".php", "",$req_array[0]));
+    $get_page_name = urlencode((str_replace(".php", "",$req_array[0])));
     $get_req_string = count($req_array);
 }
 else if (count($req_array) > 1) {
-    $get_page_name = htmlspecialchars($req_array[0]);
-    $get_req_string = htmlspecialchars(str_replace(".php", "",$req_array[1]));
+    $get_page_name = urlencode($req_array[0]);
+    $get_req_string = urlencode(str_replace(".php", "",$req_array[1]));
 }
 else {
     $get_page_name = "error";
@@ -24,7 +24,8 @@ try {
     $stmt = $conn->prepare("SELECT ReplaceDBnavi_name.name, ReplaceDBtext.text
                             FROM ReplaceDBnavi_name 
                             INNER JOIN ReplaceDBtext ON ReplaceDBnavi_name.parent_id=ReplaceDBtext.parent_id
-                            WHERE ReplaceDBnavi_name.name = ? AND ReplaceDBnavi_name.language = ?;");
+                            INNER JOIN ReplaceDBnavi ON ReplaceDBnavi.id=ReplaceDBnavi_name.parent_id
+                            WHERE ReplaceDBnavi.link = ? AND ReplaceDBnavi_name.language = ?;");
     $stmt->execute(array($get_page_name, $_SESSION['session_language']));
     if ($stmt->rowCount() == 1) {
         foreach($stmt->fetchAll() as $row) {

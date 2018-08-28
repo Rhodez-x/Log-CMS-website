@@ -53,7 +53,7 @@ function get_sub_page_menu($pagename) {
             $make_page_subpage_pages = '<option value="standart" selected>Hoved menu</option>'.$make_page_subpage_pages;
         }
         else {
-            $make_page_subpage_pages = '<option value="standart">Hoved menu</option>'.$make_page_subpage_pages;
+            $make_page_subpage_pages = '<option value="standart">Hovedmenu</option>'.$make_page_subpage_pages;
         }
 
     }                                                
