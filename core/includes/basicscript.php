@@ -41,4 +41,17 @@ $(document).ready(function(){
 <?php
     }
 ?>
+$(document).ready(function(){
+    $(window).load(function(){
+        calc_window();
+    });
+    
+    window.onresize = calc_window;
+    
+    function calc_window() {
+        var logo_height = $('#navi-inner').height() + 10;
+        $("#navi").css("margin-bottom", logo_height );
+    }
+    
+});
 </script>

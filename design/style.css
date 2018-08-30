@@ -7,8 +7,11 @@
     border-color: black;
   }
 
+  footer {
+    background-color: #bbb1a9;
+  }
+  
   .GLOBALdesign {
-    margin-top: 60px;
     margin-bottom: -2px;
     padding:20px;
     padding-top:2px;

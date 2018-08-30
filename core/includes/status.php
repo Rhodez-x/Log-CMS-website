@@ -1,4 +1,4 @@
-<div style="margin-top: 100px;">
+<div>
 <?php
 // It's posible to make a msg on all pages if somethin is insert here
 
