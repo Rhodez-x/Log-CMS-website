@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
               if (check_permission(4) || LOGIN_ID == $owner_of_img) {
                     // Permission 4 is to modify uploads
                     $stmt_next = $conn->prepare("DELETE FROM ReplaceDBimages WHERE id = ?;");
-                    $stmt_next->execute(array(LOGIN_ID, $post_img_id));
+                    $stmt_next->execute(array($post_img_id));
                     $stmt_next = null;
                     unlink($_SERVER['DOCUMENT_ROOT']. '/' .$row['dir']); 
 
