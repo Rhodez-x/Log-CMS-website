@@ -1,3 +1,6 @@
+Database notes of MaincoreDBdev5v1-0-1.sql
+All deafualt values has been set. 
+
 Database notes of MaincoreDBdev5v1-0-0.sql
 This is the first clean database of Sandsized-CMS verison 5.0.0 
 

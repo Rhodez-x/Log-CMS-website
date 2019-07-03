@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jul 03, 2019 at 12:26 PM
+-- Generation Time: Jul 03, 2019 at 08:53 PM
 -- Server version: 10.1.38-MariaDB-0+deb9u1
 -- PHP Version: 7.0.33-0+deb9u3
 
@@ -28,9 +28,9 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `ReplaceDBadmin_info` (
   `id` int(11) NOT NULL,
-  `titel` varchar(64) NOT NULL,
+  `titel` varchar(64) NOT NULL DEFAULT '',
   `description` text NOT NULL,
-  `priority` int(11) NOT NULL
+  `priority` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -41,7 +41,7 @@ CREATE TABLE `ReplaceDBadmin_info` (
 
 CREATE TABLE `ReplaceDBcore_groups` (
   `id` int(11) NOT NULL,
-  `name` varchar(64) NOT NULL,
+  `name` varchar(64) NOT NULL DEFAULT '',
   `description` text NOT NULL,
   `rules` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -62,7 +62,7 @@ INSERT INTO `ReplaceDBcore_groups` (`id`, `name`, `description`, `rules`) VALUES
 
 CREATE TABLE `ReplaceDBcore_rules` (
   `id` int(11) NOT NULL,
-  `name` varchar(64) NOT NULL,
+  `name` varchar(64) NOT NULL DEFAULT '',
   `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -86,9 +86,9 @@ INSERT INTO `ReplaceDBcore_rules` (`id`, `name`, `description`) VALUES
 
 CREATE TABLE `ReplaceDBcountry` (
   `countryID` int(8) NOT NULL,
-  `name` varchar(16) NOT NULL,
-  `code` varchar(4) NOT NULL,
-  `active` int(11) NOT NULL
+  `name` varchar(16) NOT NULL DEFAULT '',
+  `code` varchar(4) NOT NULL DEFAULT '',
+  `active` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -107,13 +107,13 @@ INSERT INTO `ReplaceDBcountry` (`countryID`, `name`, `code`, `active`) VALUES
 CREATE TABLE `ReplaceDBimages` (
   `id` int(11) NOT NULL,
   `img_text` text NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `dir` varchar(128) NOT NULL,
-  `uploaded` datetime NOT NULL,
-  `is_profile_img` int(11) NOT NULL,
-  `show_order` int(11) NOT NULL,
-  `attached_group` varchar(64) NOT NULL,
-  `attached_id` int(11) NOT NULL
+  `user_id` int(11) NOT NULL DEFAULT '0',
+  `dir` varchar(128) NOT NULL DEFAULT '',
+  `uploaded` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `is_profile_img` int(11) NOT NULL DEFAULT '0',
+  `show_order` int(11) NOT NULL DEFAULT '0',
+  `attached_group` varchar(64) NOT NULL DEFAULT '',
+  `attached_id` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -131,10 +131,10 @@ INSERT INTO `ReplaceDBimages` (`id`, `img_text`, `user_id`, `dir`, `uploaded`, `
 
 CREATE TABLE `ReplaceDBinstalled_plugins` (
   `id` int(11) NOT NULL,
-  `name` varchar(64) NOT NULL,
+  `name` varchar(64) NOT NULL DEFAULT '',
   `description` text NOT NULL,
-  `date` datetime NOT NULL,
-  `version` varchar(32) NOT NULL
+  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `version` varchar(32) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -145,11 +145,11 @@ CREATE TABLE `ReplaceDBinstalled_plugins` (
 
 CREATE TABLE `ReplaceDBnavi` (
   `id` int(11) NOT NULL,
-  `link` varchar(40) NOT NULL,
-  `required` int(11) NOT NULL,
-  `navi_order` int(11) NOT NULL,
-  `permission` int(11) NOT NULL,
-  `place` varchar(32) NOT NULL
+  `link` varchar(40) NOT NULL DEFAULT '',
+  `required` int(11) NOT NULL DEFAULT '0',
+  `navi_order` int(11) NOT NULL DEFAULT '0',
+  `permission` int(11) NOT NULL DEFAULT '0',
+  `place` varchar(32) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -172,9 +172,9 @@ INSERT INTO `ReplaceDBnavi` (`id`, `link`, `required`, `navi_order`, `permission
 
 CREATE TABLE `ReplaceDBnavi_name` (
   `id` int(11) NOT NULL,
-  `name` varchar(32) NOT NULL,
-  `language` varchar(8) NOT NULL,
-  `parent_id` int(11) NOT NULL
+  `name` varchar(32) NOT NULL DEFAULT '',
+  `language` varchar(8) NOT NULL DEFAULT '',
+  `parent_id` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -197,8 +197,8 @@ INSERT INTO `ReplaceDBnavi_name` (`id`, `name`, `language`, `parent_id`) VALUES
 
 CREATE TABLE `ReplaceDBplugs_group` (
   `id` int(11) NOT NULL,
-  `plugin_id` int(11) NOT NULL,
-  `name` varchar(64) NOT NULL,
+  `plugin_id` int(11) NOT NULL DEFAULT '0',
+  `name` varchar(64) NOT NULL DEFAULT '',
   `description` text NOT NULL,
   `rules` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -211,7 +211,7 @@ CREATE TABLE `ReplaceDBplugs_group` (
 
 CREATE TABLE `ReplaceDBplugs_permissions` (
   `plugin_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL DEFAULT '0',
   `permission_list` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -223,8 +223,8 @@ CREATE TABLE `ReplaceDBplugs_permissions` (
 
 CREATE TABLE `ReplaceDBplugs_rule` (
   `id` int(11) NOT NULL,
-  `plugin_id` int(11) NOT NULL,
-  `name` varchar(64) NOT NULL,
+  `plugin_id` int(11) NOT NULL DEFAULT '0',
+  `name` varchar(64) NOT NULL DEFAULT '',
   `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -236,16 +236,16 @@ CREATE TABLE `ReplaceDBplugs_rule` (
 
 CREATE TABLE `ReplaceDBpost` (
   `id` int(11) NOT NULL,
-  `name` varchar(256) NOT NULL,
+  `name` varchar(256) NOT NULL DEFAULT '',
   `description` text NOT NULL,
   `text` mediumtext NOT NULL,
-  `thumbnail` varchar(256) NOT NULL,
-  `link` varchar(64) NOT NULL,
-  `category` varchar(32) NOT NULL,
-  `date` datetime NOT NULL,
-  `language` varchar(16) NOT NULL,
-  `active` int(11) NOT NULL,
-  `orders` int(11) NOT NULL
+  `thumbnail` varchar(256) NOT NULL DEFAULT '',
+  `link` varchar(64) NOT NULL DEFAULT '',
+  `category` varchar(32) NOT NULL DEFAULT '',
+  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `language` varchar(16) NOT NULL DEFAULT '',
+  `active` int(11) NOT NULL DEFAULT '0',
+  `orders` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -258,11 +258,11 @@ CREATE TABLE `ReplaceDBtext` (
   `id` int(11) NOT NULL,
   `description` text NOT NULL,
   `text` longtext NOT NULL,
-  `language` varchar(8) NOT NULL,
-  `content_group` varchar(64) NOT NULL,
-  `parent_id` int(11) NOT NULL,
-  `required` int(11) NOT NULL,
-  `bgimg` varchar(64) NOT NULL
+  `language` varchar(8) NOT NULL DEFAULT '',
+  `content_group` varchar(64) NOT NULL DEFAULT '',
+  `parent_id` int(11) NOT NULL DEFAULT '0',
+  `required` int(11) NOT NULL DEFAULT '0',
+  `bgimg` varchar(64) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -281,18 +281,18 @@ INSERT INTO `ReplaceDBtext` (`id`, `description`, `text`, `language`, `content_g
 --
 
 CREATE TABLE `ReplaceDBusers` (
-  `id` int(2) NOT NULL,
-  `username` varchar(40) NOT NULL,
-  `username_clean` varchar(40) NOT NULL,
-  `mail` varchar(64) NOT NULL,
-  `mobile` varchar(16) NOT NULL,
-  `permission_group_id` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
+  `username` varchar(40) NOT NULL DEFAULT '',
+  `username_clean` varchar(40) NOT NULL DEFAULT '',
+  `mail` varchar(64) NOT NULL DEFAULT '',
+  `mobile` varchar(16) NOT NULL DEFAULT '',
+  `permission_group_id` int(11) NOT NULL DEFAULT '0',
   `permission_list` text NOT NULL,
-  `password` varchar(128) NOT NULL,
-  `active` int(11) NOT NULL,
-  `recoverycode` varchar(16) NOT NULL,
-  `recoverytime` varchar(16) NOT NULL,
-  `permissions_reload` int(11) NOT NULL
+  `password` varchar(128) NOT NULL DEFAULT '',
+  `active` int(11) NOT NULL DEFAULT '0',
+  `recoverycode` varchar(16) NOT NULL DEFAULT '',
+  `recoverytime` varchar(16) NOT NULL DEFAULT '',
+  `permissions_reload` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -310,11 +310,11 @@ INSERT INTO `ReplaceDBusers` (`id`, `username`, `username_clean`, `mail`, `mobil
 
 CREATE TABLE `ReplaceDBuser_info` (
   `id` int(11) NOT NULL,
-  `firstname` varchar(64) NOT NULL,
-  `lastname` varchar(64) NOT NULL,
+  `firstname` varchar(64) NOT NULL DEFAULT '',
+  `lastname` varchar(64) NOT NULL DEFAULT '',
   `profile_text` text NOT NULL,
-  `profile_img` varchar(128) NOT NULL,
-  `hidden` int(11) NOT NULL
+  `profile_img` varchar(128) NOT NULL DEFAULT '',
+  `hidden` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -493,7 +493,7 @@ ALTER TABLE `ReplaceDBtext`
 -- AUTO_INCREMENT for table `ReplaceDBusers`
 --
 ALTER TABLE `ReplaceDBusers`
-  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
