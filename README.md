@@ -22,7 +22,7 @@ ReplaceDB -> this is the prefix for databasenames
   
 Make new Repo and add this an upstream:   
   
-git remote add upstream https://github.com/Rhodez-x/sandsized-CMS.git  
+git remote add upstream git@git.imada.sdu.dk:Sandsized/Sandsized-CMS.git  
 
 When the upsteam is set, get the core by typing:  
 git pull upstream master  
