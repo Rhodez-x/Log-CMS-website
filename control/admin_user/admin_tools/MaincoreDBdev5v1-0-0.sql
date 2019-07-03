@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 22, 2018 at 10:29 AM
--- Server version: 10.1.26-MariaDB-0+deb9u1
--- PHP Version: 7.0.30-0+deb9u1
+-- Generation Time: Jul 03, 2019 at 12:26 PM
+-- Server version: 10.1.38-MariaDB-0+deb9u1
+-- PHP Version: 7.0.33-0+deb9u3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -32,13 +32,6 @@ CREATE TABLE `ReplaceDBadmin_info` (
   `description` text NOT NULL,
   `priority` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `ReplaceDBadmin_info`
---
-
-INSERT INTO `ReplaceDBadmin_info` (`id`, `titel`, `description`, `priority`) VALUES
-(1, 'Devoloper', 'Devoloper', -100);
 
 -- --------------------------------------------------------
 
@@ -165,11 +158,11 @@ CREATE TABLE `ReplaceDBnavi` (
 
 INSERT INTO `ReplaceDBnavi` (`id`, `link`, `required`, `navi_order`, `permission`, `place`) VALUES
 (1, 'index', 1, 1, 0, 'standart'),
-(2, 'page?id=page', 0, 2, 0, 'standart'),
-(3, 'kontakt', 0, 4, 0, 'standart'),
+(3, 'kontakt', 0, 6, 0, 'standart'),
 (4, 'control/index', 1, 1, 2, 'controlpanel'),
 (5, 'control/user_control', 1, 2, 2, 'controlpanel'),
-(6, 'control/master_control', 1, 3, 1, 'controlpanel');
+(6, 'control/master_control', 1, 3, 1, 'controlpanel'),
+(13, 'NewPage', 0, 5, 0, 'standart');
 
 -- --------------------------------------------------------
 
@@ -190,11 +183,11 @@ CREATE TABLE `ReplaceDBnavi_name` (
 
 INSERT INTO `ReplaceDBnavi_name` (`id`, `name`, `language`, `parent_id`) VALUES
 (1, 'Forside', 'DK', 1),
-(2, 'Page', 'DK', 2),
 (3, 'Kontakt', 'DK', 3),
 (4, 'Min side', 'DK', 4),
 (5, 'Mine instillinger', 'DK', 5),
-(6, 'Master control', 'DK', 6);
+(6, 'Master control', 'DK', 6),
+(13, 'NewPage', 'DK', 13);
 
 -- --------------------------------------------------------
 
@@ -277,9 +270,9 @@ CREATE TABLE `ReplaceDBtext` (
 --
 
 INSERT INTO `ReplaceDBtext` (`id`, `description`, `text`, `language`, `content_group`, `parent_id`, `required`, `bgimg`) VALUES
-(2, '', '<p>Standart forside</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Dette er version rtm5.0.0a0</p>\r\n', 'DK', 'page', 1, 1, ''),
-(3, '', 'Brug formularen', 'DK', 'page', 3, 0, ''),
-(4, '', '<p>Det er en side v2</p>\r\n', 'DK', 'page', 2, 0, '');
+(2, '', '<p>Standart forside</p>\n\n<p>&nbsp;</p>\n\n<p>Dette er version rt5.0.0a0</p>\n', 'DK', 'page', 1, 1, ''),
+(3, '', '<p>Kontakt:</p>\r\n\r\n<p>mail: kontakt@guld-berg.dk</p>\r\n', 'DK', 'page', 3, 0, ''),
+(11, '', 'NewPage', 'DK', 'page', 13, 0, '');
 
 -- --------------------------------------------------------
 
@@ -307,7 +300,7 @@ CREATE TABLE `ReplaceDBusers` (
 --
 
 INSERT INTO `ReplaceDBusers` (`id`, `username`, `username_clean`, `mail`, `mobile`, `permission_group_id`, `permission_list`, `password`, `active`, `recoverycode`, `recoverytime`, `permissions_reload`) VALUES
-(1, 'Rhodez', 'rhodez', 'jorn@guld-berg.dk', '25336607', 1, 'a:1:{i:0;i:1;}', '4069599633d6afb2ca255bbc4f871e2f08dff2e17a58f0e8273af4bf0975bcf5', 1, '', '', 0);
+(2, 'Sandsized_admin', 'sandsized_admin', 'contact@sandsized.com', '', 0, 'a:1:{i:0;i:1;}', 'eccbbb9d8d23af67ae68c9ef2919a356884365473ee6dbfa0778a7b798902173', 1, '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -329,7 +322,7 @@ CREATE TABLE `ReplaceDBuser_info` (
 --
 
 INSERT INTO `ReplaceDBuser_info` (`id`, `firstname`, `lastname`, `profile_text`, `profile_img`, `hidden`) VALUES
-(1, 'Jørn', 'Guldberg', 'Devoloper', '/570404v/1/0309b3fe35ae9c7442950812ab2f35531511732371.png', 1);
+(2, '', '', '', '/design/default-profile.png', 0);
 
 --
 -- Indexes for dumped tables
@@ -381,7 +374,8 @@ ALTER TABLE `ReplaceDBinstalled_plugins`
 --
 ALTER TABLE `ReplaceDBnavi`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id` (`id`);
+  ADD UNIQUE KEY `id` (`id`),
+  ADD UNIQUE KEY `link` (`link`);
 
 --
 -- Indexes for table `ReplaceDBnavi_name`
@@ -459,22 +453,22 @@ ALTER TABLE `ReplaceDBcountry`
 -- AUTO_INCREMENT for table `ReplaceDBimages`
 --
 ALTER TABLE `ReplaceDBimages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `ReplaceDBinstalled_plugins`
 --
 ALTER TABLE `ReplaceDBinstalled_plugins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `ReplaceDBnavi`
 --
 ALTER TABLE `ReplaceDBnavi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `ReplaceDBnavi_name`
 --
 ALTER TABLE `ReplaceDBnavi_name`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `ReplaceDBplugs_group`
 --
@@ -484,22 +478,22 @@ ALTER TABLE `ReplaceDBplugs_group`
 -- AUTO_INCREMENT for table `ReplaceDBplugs_rule`
 --
 ALTER TABLE `ReplaceDBplugs_rule`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `ReplaceDBpost`
 --
 ALTER TABLE `ReplaceDBpost`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `ReplaceDBtext`
 --
 ALTER TABLE `ReplaceDBtext`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `ReplaceDBusers`
 --
 ALTER TABLE `ReplaceDBusers`
-  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

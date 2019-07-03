@@ -15,12 +15,11 @@
     <nav class="col-sm-2" id="myScrollspy">
       <ul class="nav nav-pills nav-stacked">
         <li><h3>Oversigt</h3></li>
-        <li><a href="#user">Tilføj bruger</a></li>
-        <li><a href="#members">Medlemsoversigt</a></li>
-        <li><a href="#sider">Tilføj/fjern sider</a></li>
-        <li><a href="#backup">Backup database</a></li>
-        <li><a href="#plugs">Plugin liste</a></li>
-        <li><a href="#edit_a_user">Rediger en bruger</a></li>
+        <li><a href="/control/master_control#user">Tilføj bruger</a></li>
+        <li><a href="/control/master_control#members">Medlemsoversigt</a></li>
+        <li><a href="/control/master_control#sider">Tilføj/fjern sider</a></li>
+        <li><a href="/control/master_control#backup">Backup database</a></li>
+        <li><a href="/control/master_control#plugs">Plugin liste</a></li>
       </ul>
     </nav>
     <div class="col-sm-10">

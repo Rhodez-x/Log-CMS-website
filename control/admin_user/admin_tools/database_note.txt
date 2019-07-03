@@ -1,3 +1,8 @@
+Database notes of MaincoreDBdev5v1-0-0.sql
+This is the first clean database of Sandsized-CMS verison 5.0.0 
+
+
+
 Database notes of v5.0.0 of the main-core Sandsized CMS 
 by Jørn Guldberg. 
 

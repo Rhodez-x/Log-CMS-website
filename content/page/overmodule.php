@@ -25,7 +25,7 @@ try {
                             FROM ReplaceDBnavi_name 
                             INNER JOIN ReplaceDBtext ON ReplaceDBnavi_name.parent_id=ReplaceDBtext.parent_id
                             INNER JOIN ReplaceDBnavi ON ReplaceDBnavi.id=ReplaceDBnavi_name.parent_id
-                            WHERE ReplaceDBnavi.link = ? AND ReplaceDBnavi_name.language = ?;");
+                            WHERE ReplaceDBnavi.link = ? AND ReplaceDBnavi_name.language = ? AND link != place;");
     $stmt->execute(array($get_page_name, $_SESSION['session_language']));
     if ($stmt->rowCount() == 1) {
         foreach($stmt->fetchAll() as $row) {

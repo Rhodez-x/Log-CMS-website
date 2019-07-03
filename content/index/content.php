@@ -7,7 +7,7 @@
                                             FROM ReplaceDBnavi_name 
                                             INNER JOIN ReplaceDBtext ON 
                                             ReplaceDBnavi_name.parent_id=ReplaceDBtext.parent_id
-                                            WHERE ReplaceDBnavi_name.name = 'forside' 
+                                            WHERE ReplaceDBnavi_name.name = 'Forside' 
                                             AND ReplaceDBnavi_name.language = ?");
                     $stmt->execute(array($_SESSION['session_language']));
                             // set the resulting array to associative

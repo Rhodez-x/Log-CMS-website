@@ -8,7 +8,7 @@
                     $stmt = $conn->prepare("SELECT ReplaceDBnavi_name.name, ReplaceDBtext.text
                                             FROM ReplaceDBnavi_name 
                                             INNER JOIN ReplaceDBtext ON ReplaceDBnavi_name.parent_id=ReplaceDBtext.parent_id
-                                            WHERE ReplaceDBnavi_name.name = 'contact' AND ReplaceDBnavi_name.language = ?");
+                                            WHERE ReplaceDBnavi_name.name = 'Kontakt' AND ReplaceDBnavi_name.language = ?");
                     $stmt->execute(array($_SESSION['session_language']));
                             // set the resulting array to associative
                     if ($stmt->rowCount() == 1) {
