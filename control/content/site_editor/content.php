@@ -148,7 +148,18 @@
 
 
                         echo "<h3>Tilknyttet billeder:</h3>";
-                        $stmt = $conn->prepare("SELECT * FROM ReplaceDBimages WHERE attached_group = ? AND attached_id = ?;");
+                        
+                        if (isset($_SESSION[selected_img_id])) 
+                        {
+                            echo "<br><form class='form-inline' action='/plugins/SCMS-uploade-plugin/core/request_move_image' onsubmit='return confirmAction()' method='post'>
+                                    <input type='hidden' class='form-control' name='parent_id' id='parent_id' value='".$text_parant_id."'>
+                                    <input type='hidden' class='form-control' name='position' id='position' value='0'>
+                                    <button type='submit' class='btn btn-block btn-warning'>Placer billedet først</button>
+                                    </form><br>";
+                        }
+                        
+                        $image_position = 1;
+                        $stmt = $conn->prepare("SELECT * FROM ReplaceDBimages WHERE attached_group = ? AND attached_id = ? ORDER BY show_order;");
                         $stmt->execute(array($_SESSION['category_type'], $text_parant_id));
                         // set the resulting array to associative
                         if ($stmt->rowCount() > 0) {
@@ -156,38 +167,83 @@
                             foreach($stmt->fetchAll() as $row) {
                                 
                                 $button_thumbnail = "";
+                                
 
                                 if ($text_thumbnail == $row['dir']) {
-                                    $button_thumbnail = "Billede er thumbnail";
+                                    $button_thumbnail = "<button type='submit' class='btn btn-block btn-info'>Billede er thumbnail</button>";
                                 } 
                                 else if ($_SESSION['page_content_type'] == "post") {
                                     $button_thumbnail = "<form class='form-inline' action='/plugins/SCMS-uploade-plugin/core/update_use_of_image' onsubmit='return confirmAction()' method='post'>
                                     <input type='hidden' class='form-control' name='id' id='id' value='".$text_parant_id."'>
                                     <input type='hidden' class='form-control' name='dir' id='dir' value='".$row['dir']."'>
-                                    <button type='submit' class='btn btn-default'>Brug som thumbnail</button>
+                                    <button type='submit' class='btn btn-block btn-default'>Brug som thumbnail</button>
                                     </form>";
                                 }
                                         
+                                if ($row['img_text'] != "") 
+                                {
+                                    $img_text_from_db = '<strong>Billede tekst:</strong><br>'.nl2br($row['img_text']).'<br><br>';
+                                }   
+                                else 
+                                {
+                                    $img_text_from_db = "";
+                                }
 
-                                echo "<div class='row'>
+                                if ($_SESSION[selected_img_id] == $row['id']) 
+                                {
+                                    $button_move_image = "<form class='form-inline' action='/plugins/SCMS-uploade-plugin/core/select_img_for_move' onsubmit='return confirmAction()' method='post'>
+                                    <input type='hidden' class='form-control' name='id' id='id' value='-1'>
+                                    <button type='submit' class='btn btn-block btn-primary'>Billede valgt (annullere)</button>
+                                    </form>";
+                                }
+                                else 
+                                {
+                                    $button_move_image = "<form class='form-inline' action='/plugins/SCMS-uploade-plugin/core/select_img_for_move' onsubmit='return confirmAction()' method='post'>
+                                    <input type='hidden' class='form-control' name='id' id='id' value='".$row['id']."'>
+                                    <button type='submit' class='btn btn-block btn-default'>Flyt position</button>
+                                    </form>";
+
+                                }
+
+                                if (isset($_SESSION[selected_img_id])) 
+                                {
+                                    $place_img_here = "<br><form class='form-inline' action='/plugins/SCMS-uploade-plugin/core/request_move_image' onsubmit='return confirmAction()' method='post'>
+                                            <input type='hidden' class='form-control' name='parent_id' id='parent_id' value='".$text_parant_id."'>
+                                            <input type='hidden' class='form-control' name='position' id='position' value='".$image_position."'>
+                                            <button type='submit' class='btn btn-block btn-warning'>Placer billedet her</button>
+                                            </form><br>";
+                                    $image_position++;
+                                }
+                                
+
+                                echo "<div class='row' style='padding-bottom: 20px;'>
                                         <div class='col-sm-2'> 
                                             <a href='".$row['dir']."' target='_blank'>
                                                 <img class='img-responsive'  style='padding-bottom:6px;' src='".$row['dir']."' alt='".$row['img_text']."' style='max-height:150px;'>
                                             </a> 
                                         </div>
-                                        <div class='col-sm-6'>
-                                            <strong>URL:</strong><br>".$row['dir']. "
+                                        <div class='col-sm-7'>
+                                            <strong>URL:</strong><br>".$row['dir']. "<br><br>
+                                            $img_text_from_db
                                         </div>
-                                        <div class='col-sm-2'>
+                                        <div class='col-sm-3'>
+
+                                            $button_move_image
                                             $button_thumbnail
-                                        </div>
-                                        <div class='col-sm-2'>
                                             <form class='form-inline' action='/plugins/SCMS-uploade-plugin/core/remove_img' onsubmit='return confirmAction()' method='post'>
                                             <input type='hidden' class='form-control' name='id' id='id' value='".$row['id']."'>
-                                            <button type='submit' class='btn btn-danger'>Fjern</button>
+                                            <button type='submit' class='btn btn-block btn-default'>Tilføj tekst</button>
+                                            </form>
+                                            <form class='form-inline' action='/plugins/SCMS-uploade-plugin/core/remove_img' onsubmit='return confirmAction()' method='post'>
+                                            <input type='hidden' class='form-control' name='id' id='id' value='".$row['id']."'>
+                                            <button type='submit' class='btn btn-block btn-default'>Tilføj kopi i høj opløsning</button>
+                                            </form>
+                                            <form class='form-inline' action='/plugins/SCMS-uploade-plugin/core/remove_img' onsubmit='return confirmAction()' method='post'>
+                                            <input type='hidden' class='form-control' name='id' id='id' value='".$row['id']."'>
+                                            <button type='submit' class='btn btn-block btn-danger'>Fjern</button>
                                             </form>
                                         </div>
-                                    </div>";
+                                    </div>$place_img_here";
                             }
                         }
                         else {
