@@ -231,8 +231,7 @@
                                             $button_move_image
                                             $button_thumbnail
                                             <form class='form-inline' action='/plugins/SCMS-uploade-plugin/core/remove_img' onsubmit='return confirmAction()' method='post'>
-                                            <input type='hidden' class='form-control' name='id' id='id' value='".$row['id']."'>
-                                            <button type='submit' class='btn btn-block btn-default'>Tilføj tekst</button>
+                                            <button type='button' class='btn btn-default btn-block' data-toggle='modal' data-target='#myModal' onclick='set_image_id(".$row['id'].")'>Tilføj tekst</button>
                                             </form>
                                             <form class='form-inline' action='/plugins/SCMS-uploade-plugin/core/remove_img' onsubmit='return confirmAction()' method='post'>
                                             <input type='hidden' class='form-control' name='id' id='id' value='".$row['id']."'>
@@ -266,3 +265,39 @@
     </div>
   </div>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+<div class="modal-dialog">
+
+  <!-- Modal content-->
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <h4 class="modal-title">Tilføj billedetekst:</h4>
+    </div>
+    <div class="modal-body">
+      <form class='form' action='/plugins/SCMS-uploade-plugin/core/remove_img' onsubmit='return confirmAction()' method='post'>
+         <div class="form-group">
+          <label for="image_text_comment">Text:</label>
+          <textarea class="form-control" rows="5" style="resize:none;" id="image_text_comment"></textarea>
+        </div> 
+        <input type='hidden' class='form-control' name='set_image_id_input' id='set_image_id_input' value=''>
+        <button type='submit' class='btn btn-block btn-default'>Tilføj tekst</button>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+  
+</div>
+</div>
+<script>
+
+function set_image_id(id) 
+{
+    $("#set_image_id_input").val(id);
+    var hh = $("#set_image_id_input").val();
+    $("#image_text_comment").text(hh);
+}
+</script>
