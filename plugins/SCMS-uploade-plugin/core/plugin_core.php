@@ -17,16 +17,16 @@
  *   3 = New background image
  *   4 = attach to page or post. 
  */
-function SCMS_uploade_plugin_get_uploade_form($title, $mode, $attached_group = "" , $attached_id = 0, $post_handler = "/plugins/SCMS-uploade-plugin/core/validate_uploade") {
+function SCMS_uploade_plugin_get_uploade_form($title, $mode, $attached_group = "" , $attached_id = 0, $identifier = "", $post_handler = "/plugins/SCMS-uploade-plugin/core/validate_uploade") {
     return '<div id="change_profile_img" class="user_control">
         <h3>'.$title.':</h3>
             <form role="form" name="opretEventForm" action="'.$post_handler.'" 
                 method="post" enctype="multipart/form-data"><div class="form-group">
-                <input type="text" class="form-control sr-only" id="attached_id" name="attached_id" value="'.$attached_id.'">
-                <input type="text" class="form-control sr-only" id="attached_group" name="attached_group" value="'.$attached_group.'">
-                <input type="text" class="form-control sr-only" id="mode" name="mode" value="'.$mode.'">
+                <input type="text" class="form-control sr-only" id="'.$identifier.'SCMS-uploade-attached_id" name="SCMS-uploade-attached_id" value="'.$attached_id.'">
+                <input type="text" class="form-control sr-only" id="'.$identifier.'SCMS-uploade-attached_group" name="SCMS-uploade-attached_group" value="'.$attached_group.'">
+                <input type="text" class="form-control sr-only" id="'.$identifier.'SCMS-uploade-mode" name="SCMS-uploade-mode" value="'.$mode.'">
                 <label for="upload">Vælg billeder:</label>
-                <input class="btn btn-default" name="upload[]" type="file" multiple="multiple" required />
+                <input class="btn btn-default" name="SCMS-uploade-upload[]" type="file" multiple="multiple" required />
                 </div>
                 <button type="submit" class="btn btn-primary">Uploade billeder</button>
             </form>

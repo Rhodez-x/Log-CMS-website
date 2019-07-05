@@ -2,7 +2,7 @@
 /** Sandsized CMS - By Guld-berg.dk software technologies
 *  Developed by Jørn Guldberg
 *  Copyright (C) Jørn Guldberg - Guld-berg.dk All Rights Reserved. 
-*  @version 5.0.0 - Major update, not compatiple with earlier realises. 
+*  Version 5.1.0: Release of major, not compatiple with earlier realises. 
 *  Full release-notes se the git repository
 */
 
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         
                         $_SESSION['selected_img_owner'] = $owner_of_img;
                         $_SESSION['selected_img_id'] = $post_img_id;
-                        header("location: /control/site_editor");
+                        header("location: /control/site_editor#image".$post_img_id);
                     }
                     else {
                         $_SESSION["uploade_feedback"] = '<div class="row">
