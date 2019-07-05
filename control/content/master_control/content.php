@@ -161,6 +161,17 @@
                             $page_edit_text = $page_edit_text .'<br>';
                         }
                         
+                        if ($row['permission'] == 0)
+                        {
+                            // It is public
+                            $activate_page = '<button type="submit" class="btn btn-default" name="handel" value="deactivate">Deaktiver</button>';
+                        }
+                        else 
+                        {
+                            //  It is not public
+                            $activate_page = '<button type="submit" class="btn btn-warning" name="handel" value="activate">Aktiver</button>';
+                        }
+
                         if ($edit_page_required == '1') {
                             /* if the page is required the user cannot edit this
                             */
@@ -177,6 +188,7 @@
                               <input type="hidden" class="form-control" name="id" id="id" value="'.$edit_page_id.'">
                               <input type="hidden" class="form-control" name="parent_id" id="parent_id" value="'.$edit_page_parent_id.'">
                               <a href="/control/site_editor?content_type=page&id='.$edit_page_parent_id.'" class="btn btn-default" role="button">Rediger side</a>
+                              '.$activate_page.'
                               <button type="submit" class="btn btn-danger" '.$edit_page_required_disable.' name="handel" value="rm">Fjern</button>
                               <button type="submit" class="btn btn-default" name="handel" value="mv_up"><span class="glyphicon glyphicon-arrow-up"></span></button>
                               <button type="submit" class="btn btn-default" name="handel" value="mv_dw"><span class="glyphicon glyphicon-arrow-down"></span></button></form>';
