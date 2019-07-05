@@ -2,7 +2,7 @@
 /** Sandsized CMS - By Guld-berg.dk software technologies
 *  Developed by Jørn Guldberg
 *  Copyright (C) Jørn Guldberg - Guld-berg.dk All Rights Reserved. 
-*  @version 5.0.0 - Major update, not compatiple with earlier realises. 
+*  Version 5.1.0: Release of major, not compatiple with earlier realises. 
 *  Full release-notes se the git repository
 */
 
@@ -66,10 +66,10 @@ function domath($ma) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $datomedtid = DATE_AND_TIME;
     $_SESSION['uploade_feedback'] = '';                     // Sørger for at feddbacken er tom.
-    $post_attached_id = clean_input_text($_POST["attached_id"]);
-    $post_attached_group = clean_input_text($_POST["attached_group"]);
+    $post_attached_id = clean_input_text($_POST["SCMS-uploade-attached_id"]);
+    $post_attached_group = clean_input_text($_POST["SCMS-uploade-attached_group"]);
 
-    $total = count($_FILES['upload']['name']);              // Count # of uploaded files in array
+    $total = count($_FILES['SCMS-uploade-upload']['name']);              // Count # of uploaded files in array
     
     // Loop through each file
     for($i=0; $i<$total; $i++) {
@@ -78,18 +78,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
         // Her starter upload scriptet.        
         $target_dir = '/user_content/'.LOGIN_ID.'/';
-        $target_file = $target_dir . basename($_FILES["upload"]["name"][$i]);
+        $target_file = $target_dir . basename($_FILES["SCMS-uploade-upload"]["name"][$i]);
         $uploadOk = 1;
         $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
         // Check if image file is a actual image or fake image
         
-        $check = getimagesize($_FILES["upload"]["tmp_name"][$i]);
+        $check = getimagesize($_FILES["SCMS-uploade-upload"]["tmp_name"][$i]);
         if($check !== false) {
             //echo "File is an image - " . $check["mime"] . ".";
             $uploadOk = 1;
         } else {
             // echo "File is not an image.";
-            $uploadbilledeErr = $_FILES["upload"]["name"][$i];
+            $uploadbilledeErr = $_FILES["SCMS-uploade-upload"]["name"][$i];
             $uploadOk = 0;
         }
 
@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $uploadOk = 0;
         }
         // Check file size
-        if ($_FILES["upload"]["name"][$i]["size"] > 25000000) {
+        if ($_FILES["SCMS-uploade-upload"]["name"][$i]["size"] > 25000000) {
             $uploadbilledeErr = "Billedet er for stort. Det må maks fylde 25 MB.";
             $uploadOk = 0;
         }
@@ -119,19 +119,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // if everything is ok, try to upload file
         } 
         else {
-            $newnamebillede = $_FILES["upload"]["tmp_name"][$i].$datomedtid;
+            $newnamebillede = $_FILES["SCMS-uploade-upload"]["tmp_name"][$i].$datomedtid;
             $newnamebillede = md5($newnamebillede).time();
             $newnamefinish = '/user_content/'.LOGIN_ID."/".$newnamebillede.'.'.$imageFileType;
             
             // Create dir if it does not exist (if user uploade its first image)
             
             if(!file_exists(($_SERVER['DOCUMENT_ROOT'].'/user_content/'.LOGIN_ID))) {
-                mkdir(($_SERVER['DOCUMENT_ROOT'].'/user_content/'.LOGIN_ID), 0770, true);
+                mkdir(($_SERVER['DOCUMENT_ROOT'].'/user_content/'.LOGIN_ID), 0775, true);
                 // Set the gruop write acces. 
-                //chmod(($_SERVER['DOCUMENT_ROOT'].'/user_content/'.LOGIN_ID), 0770);
+                //chmod(($_SERVER['DOCUMENT_ROOT'].'/user_content/'.LOGIN_ID), 0775);
             }
 
-            if (move_uploaded_file($_FILES["upload"]["tmp_name"][$i], $_SERVER['DOCUMENT_ROOT'].$newnamefinish)) {
+            if (move_uploaded_file($_FILES["SCMS-uploade-upload"]["tmp_name"][$i], $_SERVER['DOCUMENT_ROOT'].$newnamefinish)) {
                 $_SESSION['uploade_feedback'] = "<div class='row'>
                             <div class='col-sm-12 alert alert-success'>
                             <h4>Billederne er uploadet</h4>
@@ -146,7 +146,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     *   3 = New background image
                     */
 
-                    if ($_POST["mode"] == 1) {
+                    if ($_POST["SCMS-uploade-mode"] == 1) {
 
                         $stmt = $conn->prepare("SELECT @this_show_order := (SELECT max(show_order) FROM ReplaceDBimages WHERE (user_id = :user_id) OR (user_id = 0)) + 1;
                                                 INSERT INTO ReplaceDBimages (user_id, dir, uploaded, show_order)
@@ -158,7 +158,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                         $stmt->execute();
                     }
-                    else if ($_POST["mode"] == 2) {
+                    else if ($_POST["SCMS-uploade-mode"] == 2) {
 
                         $stmt_check = $conn->prepare("SELECT profile_img FROM ReplaceDBuser_info WHERE (id = ?) AND (profile_img != '/design/default_profile_img.png'); ");
                         $stmt_check->execute(array(LOGIN_ID));
@@ -176,8 +176,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         $stmt->bindParam(':user_id', $int_id, PDO::PARAM_INT);
                         $stmt->execute();
                     }
-                    else if ($_POST["mode"] == 3) {
-                        $page_name = $_POST['page_id'];
+                    else if ($_POST["SCMS-uploade-mode"] == 3) {
+                        $page_name = $_POST['SCMS-uploade-page_id'];
                         try {
                             $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
                             $stmt = $conn->prepare("SELECT bgimg FROM ReplaceDBtext WHERE page_name = :page_id;");
@@ -215,7 +215,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         $stmt->bindParam(':page_id', $page_name);
                         $stmt->execute();
                     }
-                    else if ($_POST["mode"] == 4) { 
+                    else if ($_POST["SCMS-uploade-mode"] == 4) { 
                         // attach image to page or post (or somthing else)
                         $stmt = $conn->prepare("SELECT @this_show_order := (SELECT max(show_order) FROM ReplaceDBimages WHERE (user_id = :user_id) OR (user_id = 0)) + 1;
                                                 INSERT INTO ReplaceDBimages (user_id, dir, uploaded, show_order, attached_group, attached_id)
@@ -252,14 +252,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $_SESSION['uploade_feedback'] = "<div class='row'>
                             <div class='col-sm-12 alert alert-danger'>
                                 <h4>Billedet er ikke uploaded</h4>
-                                Der er desværre opstået en fejl. ".basename($_FILES["upload"]["tmp_name"][$i]) ." new: ". $newnamefinish ." 
+                                Der er desværre opstået en fejl. ".basename($_FILES["SCMS-uploade-upload"]["tmp_name"][$i]) ." new: ". $newnamefinish ." 
                             </div>
                             </div>";
                 header('Location: /control/index');
             }
         }
     }
-    if($_POST["mode"] == 4) {
+    if($_POST["SCMS-uploade-mode"] == 4) {
         header('Location: /control/site_editor?content_type='.$_SESSION["page_content_type"].'&id='.$_SESSION['page_parent_id']);
     }
     else {
