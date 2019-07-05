@@ -70,35 +70,43 @@ echo '<div class="modal fade" id="myModal" role="dialog" style="z-index: 9999;">
                     <?php
                         try {
                             $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                            $stmt = $conn->prepare("SELECT ReplaceDBnavi.link, ReplaceDBnavi_name.name
+                            $stmt = $conn->prepare("SELECT ReplaceDBnavi.link, ReplaceDBnavi_name.name, ReplaceDBnavi.permission
                                                     FROM ReplaceDBnavi
                                                     INNER JOIN ReplaceDBnavi_name ON ReplaceDBnavi.id=ReplaceDBnavi_name.parent_id 
                                                     WHERE ReplaceDBnavi.place = 'standart'
                                                     ORDER BY navi_order;");
                             $stmt->execute();
                             if ($stmt->rowCount() > 0) {
-                                foreach($stmt->fetchAll() as $row) {  
-                                    // Check if we have to make a dropdown menu for the menu
-                                    $stmt2 = $conn->prepare("SELECT ReplaceDBnavi.link, ReplaceDBnavi_name.name
-                                                        FROM ReplaceDBnavi
-                                                        INNER JOIN ReplaceDBnavi_name ON ReplaceDBnavi.id=ReplaceDBnavi_name.parent_id 
-                                                        WHERE ReplaceDBnavi.place = ?
-                                                        ORDER BY navi_order;");
-                                    $stmt2->execute(array($row['name']));
-                                    if ($stmt2->rowCount() > 0) {
-                                        $generated_dropdown_menu = '<li class="dropdown">
-                                            <a class="dropdown-toggle navi-link" data-toggle="dropdown" href="#">'.$row['name'].'<span class="caret"></span></a>
-                                            <ul class="dropdown-menu">';
-                                        
-                                        foreach($stmt2->fetchAll() as $row2) {
-                                            $generated_dropdown_menu .= '<li><a class="navi-link drop_menu_link" href="/'.$row2['link'].'">'.$row2['name'].'</a></li>';
-                                        }
-                                        $generated_dropdown_menu .= '</ul><li>';
-                                        echo $generated_dropdown_menu;
+                                foreach($stmt->fetchAll() as $row) 
+                                {  
+                                    if(check_permission($row['permission'])) 
+                                    {
+                                        // Check if we have to make a dropdown menu for the menu
+                                        $stmt2 = $conn->prepare("SELECT ReplaceDBnavi.link, ReplaceDBnavi_name.name, ReplaceDBnavi.permission
+                                                            FROM ReplaceDBnavi
+                                                            INNER JOIN ReplaceDBnavi_name ON ReplaceDBnavi.id=ReplaceDBnavi_name.parent_id 
+                                                            WHERE ReplaceDBnavi.place = ?
+                                                            ORDER BY navi_order;");
+                                        $stmt2->execute(array($row['name']));
+                                        if ($stmt2->rowCount() > 0) {
+                                            $generated_dropdown_menu = '<li class="dropdown">
+                                                <a class="dropdown-toggle navi-link" data-toggle="dropdown" href="#">'.$row['name'].'<span class="caret"></span></a>
+                                                <ul class="dropdown-menu">';
+                                            
+                                            foreach($stmt2->fetchAll() as $row2) 
+                                            {
+                                                if(check_permission($row_2['permission'])) 
+                                                {
+                                                    $generated_dropdown_menu .= '<li><a class="navi-link drop_menu_link" href="/'.$row2['link'].'">'.$row2['name'].'</a></li>';
+                                                }
+                                            }
+                                            $generated_dropdown_menu .= '</ul><li>';
+                                            echo $generated_dropdown_menu;
 
-                                    }
-                                    else {
-                                        echo '<li><a class="navi-link" href="/'.$row['link'].'">'.$row['name'].'</a></li>';
+                                        }
+                                        else {
+                                            echo '<li><a class="navi-link" href="/'.$row['link'].'">'.$row['name'].'</a></li>';
+                                        }
                                     }
                                 }
                             }

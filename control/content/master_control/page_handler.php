@@ -52,6 +52,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $stmt = null;
                 $conn = null;
             }
+            else if ($post_handel == "activate") 
+            {
+                $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
+                $stmt = $conn->prepare("UPDATE ReplaceDBnavi SET permission = 0 WHERE id = ?;");
+                $stmt->execute(array($post_id));
+                $stmt = null;
+                $conn = null;
+            }
+            else if ($post_handel == "deactivate") 
+            {
+                $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
+                $stmt = $conn->prepare("UPDATE ReplaceDBnavi SET permission = 1 WHERE id = ?;");
+                $stmt->execute(array($post_id));
+                $stmt = null;
+                $conn = null;
+            }
             else if ($post_handel == "rm") {
                 $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
                 $stmt = $conn->prepare("DELETE FROM ReplaceDBnavi WHERE link = ? AND required = 0;
