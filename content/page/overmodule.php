@@ -8,12 +8,12 @@ else {
 }
 
 if (count($req_array) == 1) {
-    $get_page_name = urlencode((str_replace(".php", "",$req_array[0])));
+    $get_page_name = rawurlencode((str_replace(".php", "",$req_array[0])));
     $get_req_string = count($req_array);
 }
 else if (count($req_array) > 1) {
-    $get_page_name = urlencode($req_array[0]);
-    $get_req_string = urlencode(str_replace(".php", "",$req_array[1]));
+    $get_page_name = rawurlencode($req_array[0]);
+    $get_req_string = rawurlencode(str_replace(".php", "",$req_array[1]));
 }
 else {
     $get_page_name = "error";
