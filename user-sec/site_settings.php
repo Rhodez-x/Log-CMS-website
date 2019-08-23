@@ -23,6 +23,7 @@ define('GLOBAL_META_LOCAL', 'da-DK');
 define('GLOBAL_CONTACT_EMAIL', "kontakt@guld-berg.dk");
 define('GLOBAL_FIRM_NAME', "Sandsized Maincore-dev");
 define('GLOBAL_FIRM_DESCRIPTION', "Sandsized CMS");
+define('GLOBAL_BACKUP_FILE_NAME', "Sandsized_CMS");
 
 define('GLOBAL_FIRM_IMAGE_META', "Sandsized CMS");
 define('GLOBAL_URL', "https://guld-berg.dk");

@@ -1,4 +1,10 @@
 <?php
+/** Sandsized CMS - By Guld-berg.dk software technologies
+*  Developed by Jørn Guldberg
+*  Copyright (C) Jørn Guldberg - Guld-berg.dk All Rights Reserved. 
+*  Version 5.2.0: Release of major, not compatiple with earlier realises. 
+*  Full release-notes se the git repository
+*/
 $page_permission = 1; // only admins
 require_once $_SERVER['DOCUMENT_ROOT']."/core/system_core.php";
 
@@ -28,7 +34,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 }
                 
             }
-            else if ($_SESSION['page_content_type'] == "page") {
+            else if ($_SESSION['page_content_type'] == "page") 
+            {
+                // Check if there is submenus, and place them under the new name: 
+                $conn_hq = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
+                $stmt_hq = $conn_hq->prepare("SELECT name FROM ReplaceDBnavi_name WHERE parent_id = :id;");
+                $stmt_hq->bindParam(':id', $_SESSION['page_parent_id'], PDO::PARAM_INT);
+                $stmt_hq->execute();
+                if ($stmt_hq->rowCount() > 0) {
+                  $result_hq = $stmt_hq->setFetchMode(PDO::FETCH_ASSOC);
+                  foreach($stmt_hq->fetchAll() as $row_hq) {
+                        $stmt_next = $conn_hq->prepare("UPDATE ReplaceDBnavi SET place = ? WHERE place = ?;");
+                        $stmt_next->execute(array($edited_title, $row_hq['name']));
+                        $stmt_next = null;
+                    }
+                }
+
                 $new_page_name_link = urlencode($edited_link);
                 $stmt = $conn->prepare("UPDATE ReplaceDBtext SET description  = ?,  text = ? WHERE parent_id = ? AND language = ?;
                                         UPDATE ReplaceDBnavi_name SET name  = ? WHERE parent_id = ?;
@@ -37,7 +58,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $stmt = null;
                 $conn = null;
             }
-            else {
+            else 
+            {
                 throw new Exception("Not known content type"); 
             }
 

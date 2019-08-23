@@ -2,7 +2,7 @@
 /** Sandsized CMS - By Guld-berg.dk software technologies
 *  Developed by Jørn Guldberg
 *  Copyright (C) Jørn Guldberg - Guld-berg.dk All Rights Reserved. 
-*  Version 5.1.0: Release of major, not compatiple with earlier realises. 
+*  Version 5.2.0: Release of major, not compatiple with earlier realises. 
 *  Full release-notes se the git repository
 */
 
@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             /*
                 Create a new page and put it in the menu. 
             */
-            $new_post_page_name_link = urlencode($post_page_name);
+            $new_post_page_name_link = rawurlencode(str_replace(" ", "_",$post_page_name));
             $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
             $stmt = $conn->prepare("SELECT @order_id := (1 + max(navi_order)) FROM ReplaceDBnavi WHERE place='standart';
                 INSERT INTO ReplaceDBnavi (link, navi_order, permission, place) VALUES (?, @order_id, 0, 'standart');
@@ -69,6 +69,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $conn = null;
             }
             else if ($post_handel == "rm") {
+                // Check if there is submenus, and place them in the standard menu: 
+                $conn_hq = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
+                $stmt_hq = $conn_hq->prepare("SELECT name FROM ReplaceDBnavi_name WHERE parent_id = :id;");
+                $stmt_hq->bindParam(':id', $post_parent_id, PDO::PARAM_INT);
+                $stmt_hq->execute();
+                if ($stmt_hq->rowCount() > 0) {
+                  $result_hq = $stmt_hq->setFetchMode(PDO::FETCH_ASSOC);
+                  foreach($stmt_hq->fetchAll() as $row_hq) {
+                        $stmt_next = $conn_hq->prepare("UPDATE ReplaceDBnavi SET place = 'standart' WHERE place = ?;");
+                        $stmt_next->execute(array($row_hq['name']));
+                        $stmt_next = null;
+                    }
+                }
+
                 $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
                 $stmt = $conn->prepare("DELETE FROM ReplaceDBnavi WHERE link = ? AND required = 0;
                                         DELETE FROM ReplaceDBtext WHERE parent_id = ? AND content_group = 'page';
