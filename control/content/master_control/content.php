@@ -265,7 +265,9 @@
       </div>
         <div id="backup" >         
             <h2>Backup database</h2>
-            Her kommer der mulighed for at tage backup af databasen
+            <form class="form-inline" action="/control/content/master_control/create_backup" method="post">
+                <button type="submit" class="btn btn-default">Hent backup</button>
+            </form>
         </div>
         <hr />
         <div id="plugs" >         
