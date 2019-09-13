@@ -13,7 +13,7 @@
                 <option disabled selected>Vælg hvilken side</option>
                 <?php
                     $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                    $stmt = $conn->prepare("SELECT ReplaceDBnavi_name.id, ReplaceDBnavi_name.name, ReplaceDBtext.text
+                    $stmt = $conn->prepare("SELECT ReplaceDBnavi_name.id, ReplaceDBnavi_name.parent_id, ReplaceDBnavi_name.name, ReplaceDBtext.text
                                 FROM ReplaceDBnavi_name 
                                 INNER JOIN ReplaceDBtext ON ReplaceDBnavi_name.parent_id=ReplaceDBtext.parent_id
                                 GROUP BY ReplaceDBnavi_name.name;");
@@ -22,7 +22,7 @@
                     if ($stmt->rowCount() > 0) {
                         $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
                         foreach($stmt->fetchAll() as $row) {
-                            echo "<option value='".$row['id']."'>".$row['name']."</option>";
+                            echo "<option value='".$row['parent_id']."'>".$row['name']."</option>";
                         }
                     } 
                 ?>
