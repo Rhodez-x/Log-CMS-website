@@ -26,7 +26,7 @@
         <?php 
         try {
             $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-            $stmt = $conn->prepare("SELECT * FROM ReplaceDBcountry WHERE active = 1 ORDER BY name;");
+            $stmt = $conn->prepare("SELECT * FROM ".MAIN_DB_PREFIX."country WHERE active = 1 ORDER BY name;");
             $stmt->execute();
             if ($stmt->rowCount() > 1) {
                 foreach($stmt->fetchAll() as $row) {
@@ -90,7 +90,7 @@
                 */
                 $page_edit_text = $page_edit_text . '<h3>Medlemmer</h3>';
                 $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                $stmt = $conn->prepare("SELECT * FROM ReplaceDBusers ORDER BY active DESC, username;");
+                $stmt = $conn->prepare("SELECT * FROM ".MAIN_DB_PREFIX."users ORDER BY active DESC, username;");
                 $stmt->execute();
                 if ($stmt->rowCount() > 0) {
                     foreach($stmt->fetchAll() as $row) {
@@ -143,9 +143,9 @@
                 $page_edit_text = '';
                 $edit_page_navi_order_temp = "1";
                 $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                $stmt = $conn->prepare("SELECT ReplaceDBnavi.*, ReplaceDBnavi_name.* 
-                                        FROM ReplaceDBnavi 
-                                        INNER JOIN ReplaceDBnavi_name ON ReplaceDBnavi.id=ReplaceDBnavi_name.parent_id
+                $stmt = $conn->prepare("SELECT ".MAIN_DB_PREFIX."navi.*, ".MAIN_DB_PREFIX."navi_name.* 
+                                        FROM ".MAIN_DB_PREFIX."navi 
+                                        INNER JOIN ".MAIN_DB_PREFIX."navi_name ON ".MAIN_DB_PREFIX."navi.id=".MAIN_DB_PREFIX."navi_name.parent_id
                                          WHERE language = ? AND place = 'standart' ORDER BY navi_order, language;");
                 $stmt->execute(array($_SESSION['master_control_edit_lang']));
                 if ($stmt->rowCount() > 0) {
@@ -194,10 +194,10 @@
                               <button type="submit" class="btn btn-default" name="handel" value="mv_dw"><span class="glyphicon glyphicon-arrow-down"></span></button></form>';
 
                             // Check if there is pages under this menu point
-                            $stmt2 = $conn->prepare("SELECT ReplaceDBnavi.*, ReplaceDBnavi_name.*
-                                                        FROM ReplaceDBnavi
-                                                        INNER JOIN ReplaceDBnavi_name ON ReplaceDBnavi.id=ReplaceDBnavi_name.parent_id 
-                                                        WHERE ReplaceDBnavi.place = ?
+                            $stmt2 = $conn->prepare("SELECT ".MAIN_DB_PREFIX."navi.*, ".MAIN_DB_PREFIX."navi_name.*
+                                                        FROM ".MAIN_DB_PREFIX."navi
+                                                        INNER JOIN ".MAIN_DB_PREFIX."navi_name ON ".MAIN_DB_PREFIX."navi.id=".MAIN_DB_PREFIX."navi_name.parent_id 
+                                                        WHERE ".MAIN_DB_PREFIX."navi.place = ?
                                                         ORDER BY navi_order;");
                             $stmt2->execute(array($row['name']));
                             if ($stmt2->rowCount() > 0) {                                
@@ -276,7 +276,7 @@
                 try {
                     $plugin_list = "";
                     $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                    $stmt = $conn->prepare("SELECT * FROM ReplaceDBinstalled_plugins;");
+                    $stmt = $conn->prepare("SELECT * FROM ".MAIN_DB_PREFIX."installed_plugins;");
                     $stmt->execute();
                     if ($stmt->rowCount() > 0) {
                         foreach($stmt->fetchAll() as $row) {

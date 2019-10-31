@@ -13,6 +13,7 @@ define('MAIN_DB_HOST', 'localhost'); // host
 define('MAIN_DB_USER', 'webedit_sql'); // user
 define('MAIN_DB_PASS', 'webmysql'); // pw
 define('MAIN_DB_DATABASE_NAME', 'MaincoreDBdev5'); // Database name
+define('MAIN_DB_PREFIX', 'ReplaceDB');
 
 /*
 *  Constants maybe have to be loaded from the DB 

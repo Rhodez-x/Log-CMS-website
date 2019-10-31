@@ -21,11 +21,11 @@ else {
 
 try {
     $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-    $stmt = $conn->prepare("SELECT ReplaceDBnavi_name.name, ReplaceDBtext.text, ReplaceDBnavi.permission
-                            FROM ReplaceDBnavi_name 
-                            INNER JOIN ReplaceDBtext ON ReplaceDBnavi_name.parent_id=ReplaceDBtext.parent_id
-                            INNER JOIN ReplaceDBnavi ON ReplaceDBnavi.id=ReplaceDBnavi_name.parent_id
-                            WHERE ReplaceDBnavi.link = ? AND ReplaceDBnavi_name.language = ? AND link != place;");
+    $stmt = $conn->prepare("SELECT ".MAIN_DB_PREFIX."navi_name.name, ".MAIN_DB_PREFIX."text.text, ".MAIN_DB_PREFIX."navi.permission
+                            FROM ".MAIN_DB_PREFIX."navi_name 
+                            INNER JOIN ".MAIN_DB_PREFIX."text ON ".MAIN_DB_PREFIX."navi_name.parent_id=".MAIN_DB_PREFIX."text.parent_id
+                            INNER JOIN ".MAIN_DB_PREFIX."navi ON ".MAIN_DB_PREFIX."navi.id=".MAIN_DB_PREFIX."navi_name.parent_id
+                            WHERE ".MAIN_DB_PREFIX."navi.link = ? AND ".MAIN_DB_PREFIX."navi_name.language = ? AND link != place;");
     $stmt->execute(array($get_page_name, $_SESSION['session_language']));
     if ($stmt->rowCount() == 1) 
     {

@@ -16,9 +16,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             case 'admin':
                 
                 $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                $stmt = $conn->prepare("UPDATE ReplaceDBusers SET permission_list = 'a:1:{i:0;i:1;}' WHERE id = ?;");
+                $stmt = $conn->prepare("UPDATE ".MAIN_DB_PREFIX."users SET permission_list = 'a:1:{i:0;i:1;}' WHERE id = ?;");
                 $stmt->execute(array($post_id));
-                $stmt2 = $conn->prepare("INSERT INTO ReplaceDBadmin_info (id, priority) VALUES(?, ?);");  
+                $stmt2 = $conn->prepare("INSERT INTO ".MAIN_DB_PREFIX."admin_info (id, priority) VALUES(?, ?);");  
                 $stmt2->execute(array($post_id, $post_id));
                 $stmt = null;
                 $stmt2 = null;
@@ -28,9 +28,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             case 'noadmin':
                 
                 $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                $stmt = $conn->prepare("UPDATE ReplaceDBusers SET permission_list = 'a:1:{i:0;i:2;}' WHERE id = ? ;");
+                $stmt = $conn->prepare("UPDATE ".MAIN_DB_PREFIX."users SET permission_list = 'a:1:{i:0;i:2;}' WHERE id = ? ;");
                 $stmt->execute(array($post_id));
-                $stmt2 = $conn->prepare("DELETE FROM ReplaceDBadmin_info WHERE id = ?;");
+                $stmt2 = $conn->prepare("DELETE FROM ".MAIN_DB_PREFIX."admin_info WHERE id = ?;");
                 $stmt2->execute(array($post_id));
                 $stmt = null;
                 $stmt2 = null;
@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             case 'deactivate':
                 
                 $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                $stmt = $conn->prepare("UPDATE ReplaceDBusers SET active = 0 WHERE id = ? ;");
+                $stmt = $conn->prepare("UPDATE ".MAIN_DB_PREFIX."users SET active = 0 WHERE id = ? ;");
                 $stmt->execute(array($post_id));
                 $stmt = null;
                 $conn = null;
@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             case 'activate':
                 
                 $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                $stmt = $conn->prepare("UPDATE ReplaceDBusers SET active = 1 WHERE id = ? ;");
+                $stmt = $conn->prepare("UPDATE ".MAIN_DB_PREFIX."users SET active = 1 WHERE id = ? ;");
                 $stmt->execute(array($post_id));
                 $stmt = null;
                 $conn = null;
@@ -58,9 +58,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             case 'delete':
                 
                 $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                $stmt = $conn->prepare("DELETE FROM ReplaceDBusers WHERE id = ? ;
-                                        DELETE FROM ReplaceDBuser_info WHERE id = ?;
-                                        DELETE FROM ReplaceDBadmin_info WHERE id = ?;");
+                $stmt = $conn->prepare("DELETE FROM ".MAIN_DB_PREFIX."users WHERE id = ? ;
+                                        DELETE FROM ".MAIN_DB_PREFIX."user_info WHERE id = ?;
+                                        DELETE FROM ".MAIN_DB_PREFIX."admin_info WHERE id = ?;");
                 $stmt->execute(array($post_id, $post_id, $post_id));
                 $stmt = null;
                 $conn = null;

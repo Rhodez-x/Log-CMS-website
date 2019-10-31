@@ -33,7 +33,7 @@
 
                 
                 $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                $stmt = $conn->prepare("SELECT * FROM ReplaceDBusers WHERE id = ?;");
+                $stmt = $conn->prepare("SELECT * FROM ".MAIN_DB_PREFIX."users WHERE id = ?;");
                 $stmt->execute(array($GET_edit_user_id));
                 if ($stmt->rowCount() == 1) {
                     foreach($stmt->fetchAll() as $row) {
@@ -66,7 +66,7 @@
                     }
                     $page_edit_text .= "<h3>Rediger rettigheder for brugeren:</h3>
                     <form class='form-inline' onsubmit='return confirmDelete()' action='/control/content/user_editor/update_user_permissions' method='post'><input type='hidden' class='form-control' name='user_id' id='user_id' value='".$data_login_id."'>";
-                    $stmt = $conn->prepare("SELECT * FROM ReplaceDBcore_rules;");
+                    $stmt = $conn->prepare("SELECT * FROM ".MAIN_DB_PREFIX."core_rules;");
                     $stmt->execute();
                     if ($stmt->rowCount() > 0) {
                         foreach($stmt->fetchAll() as $row) {
@@ -98,7 +98,7 @@
             try {
                 $plugin_list = "";
                 $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                $stmt = $conn->prepare("SELECT * FROM ReplaceDBinstalled_plugins;");
+                $stmt = $conn->prepare("SELECT * FROM ".MAIN_DB_PREFIX."installed_plugins;");
                 $stmt->execute();
                 if ($stmt->rowCount() > 0) {
                     foreach($stmt->fetchAll() as $row) {
@@ -121,7 +121,7 @@
                         <input type='hidden' class='form-control' name='plugin_id' id='plugin_id' value='".$data_plugin_id."'>
                         <input type='hidden' class='form-control' name='first_time' id='first_time' value='".$first_time."'>";
                     
-                        $stmt2 = $conn->prepare("SELECT * FROM ReplaceDBplugs_rule where plugin_id = ?;");
+                        $stmt2 = $conn->prepare("SELECT * FROM ".MAIN_DB_PREFIX."plugs_rule where plugin_id = ?;");
                         $stmt2->execute(array($data_plugin_id));
                         if ($stmt2->rowCount() > 0) {
                             foreach($stmt2->fetchAll() as $row2) {

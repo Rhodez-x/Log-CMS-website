@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     try {
         $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-        $stmt = $conn->prepare("SELECT user_id, dir FROM ReplaceDBimages WHERE id = :id;");
+        $stmt = $conn->prepare("SELECT user_id, dir FROM ".MAIN_DB_PREFIX."images WHERE id = :id;");
         $stmt->bindParam(':id', $post_img_id, PDO::PARAM_INT);
         $stmt->execute();
           // set the resulting array to associative
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
               $owner_of_img = $row['user_id'];
               if (check_permission(4) || LOGIN_ID == $owner_of_img) {
                     // Permission 4 is to modify uploads
-                    $stmt_next = $conn->prepare("DELETE FROM ReplaceDBimages WHERE id = ?;");
+                    $stmt_next = $conn->prepare("DELETE FROM ".MAIN_DB_PREFIX."images WHERE id = ?;");
                     $stmt_next->execute(array($post_img_id));
                     $stmt_next = null;
                     unlink($_SERVER['DOCUMENT_ROOT']. '/' .$row['dir']); 

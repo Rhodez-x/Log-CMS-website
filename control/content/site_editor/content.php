@@ -13,10 +13,10 @@
                 <option disabled selected>Vælg hvilken side</option>
                 <?php
                     $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                    $stmt = $conn->prepare("SELECT ReplaceDBnavi_name.id, ReplaceDBnavi_name.parent_id, ReplaceDBnavi_name.name, ReplaceDBtext.text
-                                FROM ReplaceDBnavi_name 
-                                INNER JOIN ReplaceDBtext ON ReplaceDBnavi_name.parent_id=ReplaceDBtext.parent_id
-                                GROUP BY ReplaceDBnavi_name.name;");
+                    $stmt = $conn->prepare("SELECT ".MAIN_DB_PREFIX."navi_name.id, ".MAIN_DB_PREFIX."navi_name.parent_id, ".MAIN_DB_PREFIX."navi_name.name, ".MAIN_DB_PREFIX."text.text
+                                FROM ".MAIN_DB_PREFIX."navi_name 
+                                INNER JOIN ".MAIN_DB_PREFIX."text ON ".MAIN_DB_PREFIX."navi_name.parent_id=".MAIN_DB_PREFIX."text.parent_id
+                                GROUP BY ".MAIN_DB_PREFIX."navi_name.name;");
                     $stmt->execute();
                             // set the resulting array to associative
                     if ($stmt->rowCount() > 0) {
@@ -33,7 +33,7 @@
                 <option disabled selected>Vælg hvilket sprog:</option>
                 <?php
                     $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                    $stmt = $conn->prepare("SELECT * FROM ReplaceDBcountry WHERE active = 1;");
+                    $stmt = $conn->prepare("SELECT * FROM ".MAIN_DB_PREFIX."country WHERE active = 1;");
                     $stmt->execute();
                             // set the resulting array to associative
                     if ($stmt->rowCount() > 0) {
@@ -60,16 +60,16 @@
                     if (!($_SESSION['page_parent_id'] == "new" && $_SESSION['page_content_type'] == "post")) {
                         $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
                         if ($_SESSION['page_content_type'] == "page") {
-                            $stmt = $conn->prepare("SELECT ReplaceDBnavi_name.name, ReplaceDBtext.text, ReplaceDBtext.parent_id, ReplaceDBtext.description, ReplaceDBnavi.place, ReplaceDBnavi.link
-                                    FROM ReplaceDBnavi_name 
-                                    INNER JOIN ReplaceDBtext ON ReplaceDBnavi_name.parent_id=ReplaceDBtext.parent_id
-                                    INNER JOIN ReplaceDBnavi ON ReplaceDBnavi.id=ReplaceDBtext.parent_id
-                                    WHERE ReplaceDBnavi_name.parent_id = ? AND ReplaceDBnavi_name.language = ? AND ReplaceDBtext.content_group = ?;");
+                            $stmt = $conn->prepare("SELECT ".MAIN_DB_PREFIX."navi_name.name, ".MAIN_DB_PREFIX."text.text, ".MAIN_DB_PREFIX."text.parent_id, ".MAIN_DB_PREFIX."text.description, ".MAIN_DB_PREFIX."navi.place, ".MAIN_DB_PREFIX."navi.link
+                                    FROM ".MAIN_DB_PREFIX."navi_name 
+                                    INNER JOIN ".MAIN_DB_PREFIX."text ON ".MAIN_DB_PREFIX."navi_name.parent_id=".MAIN_DB_PREFIX."text.parent_id
+                                    INNER JOIN ".MAIN_DB_PREFIX."navi ON ".MAIN_DB_PREFIX."navi.id=".MAIN_DB_PREFIX."text.parent_id
+                                    WHERE ".MAIN_DB_PREFIX."navi_name.parent_id = ? AND ".MAIN_DB_PREFIX."navi_name.language = ? AND ".MAIN_DB_PREFIX."text.content_group = ?;");
                             $stmt->execute(array($_SESSION['page_parent_id'], $_SESSION['page_name_lang'], $_SESSION['page_content_type']));
                             
                         }
                         else if ($_SESSION['page_content_type'] == "post") {
-                            $stmt = $conn->prepare("SELECT * FROM ReplaceDBpost WHERE id = ? AND language = ?;");
+                            $stmt = $conn->prepare("SELECT * FROM ".MAIN_DB_PREFIX."post WHERE id = ? AND language = ?;");
                             $stmt->execute(array($_SESSION['page_parent_id'], $_SESSION['page_name_lang']));
 
                         }
@@ -159,7 +159,7 @@
                         }
                         
                         $image_position = 1;
-                        $stmt = $conn->prepare("SELECT * FROM ReplaceDBimages WHERE attached_group = ? AND attached_id = ? ORDER BY show_order;");
+                        $stmt = $conn->prepare("SELECT * FROM ".MAIN_DB_PREFIX."images WHERE attached_group = ? AND attached_id = ? ORDER BY show_order;");
                         $stmt->execute(array($_SESSION['category_type'], $text_parant_id));
                         // set the resulting array to associative
                         if ($stmt->rowCount() > 0) {
@@ -220,7 +220,7 @@
 
                                 $HQ_representant = "";
                                 $conn_2 = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                                $stmt_2 = $conn_2->prepare("SELECT * FROM ReplaceDBimages WHERE attached_group = 'HQ' AND attached_id = ?;");
+                                $stmt_2 = $conn_2->prepare("SELECT * FROM ".MAIN_DB_PREFIX."images WHERE attached_group = 'HQ' AND attached_id = ?;");
                                 $stmt_2->execute(array($row['id']));
                                 // set the resulting array to associative
                                 if ($stmt_2->rowCount() > 0) {

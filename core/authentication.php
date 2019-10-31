@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Her tjekkes det om oplysningerne findes i systemet.
             try {
                 $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                $stmt = $conn->prepare("SELECT id, username, active FROM ReplaceDBusers WHERE username_clean = ? AND password = ? ");
+                $stmt = $conn->prepare("SELECT id, username, active FROM ".MAIN_DB_PREFIX."users WHERE username_clean = ? AND password = ? ");
                 $stmt->execute(array($tjekBrugernavn, $tjekPassword));
                         // set the resulting array to associative
                 $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $_SESSION['LOGIN_LAST_ACTIVITY'] = (time() + 900); // Set a timer for the user, if the user is inactive, the user is logout
                             
                             // for safty reason we reset rocoverycode and recoverytime, so that no hanging code can be used. 
-                            $stmt_set = $conn->prepare("UPDATE ReplaceDBusers SET recoverycode = '', recoverytime = '' WHERE id = ?;");
+                            $stmt_set = $conn->prepare("UPDATE ".MAIN_DB_PREFIX."users SET recoverycode = '', recoverytime = '' WHERE id = ?;");
                             $stmt_set->execute(array($row['id']));
                             $stmt_set = null;
                         

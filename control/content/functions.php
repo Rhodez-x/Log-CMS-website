@@ -7,10 +7,10 @@ function menu_line($active){
     $return_string = '<ul class="nav nav-tabs">';
     try {
         $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-        $stmt = $conn->prepare("SELECT ReplaceDBnavi.link, ReplaceDBnavi.permission, ReplaceDBnavi_name.name
-                                FROM ReplaceDBnavi
-                                INNER JOIN ReplaceDBnavi_name ON ReplaceDBnavi.id=ReplaceDBnavi_name.parent_id 
-                                WHERE ReplaceDBnavi.place = 'controlpanel'
+        $stmt = $conn->prepare("SELECT ".MAIN_DB_PREFIX."navi.link, ".MAIN_DB_PREFIX."navi.permission, ".MAIN_DB_PREFIX."navi_name.name
+                                FROM ".MAIN_DB_PREFIX."navi
+                                INNER JOIN ".MAIN_DB_PREFIX."navi_name ON ".MAIN_DB_PREFIX."navi.id=".MAIN_DB_PREFIX."navi_name.parent_id 
+                                WHERE ".MAIN_DB_PREFIX."navi.place = 'controlpanel'
                                 ORDER BY navi_order;");
         $stmt->execute(array($_SESSION['session_language']));
         if ($stmt->rowCount() > 0) {

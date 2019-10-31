@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     try {
         $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-        $stmt = $conn->prepare("UPDATE ReplaceDBpost SET thumbnail = :dir WHERE id = :id;");
+        $stmt = $conn->prepare("UPDATE ".MAIN_DB_PREFIX."post SET thumbnail = :dir WHERE id = :id;");
         $stmt->bindParam(':id', $post_img_id, PDO::PARAM_INT);
         $stmt->bindParam(':dir', $post_dir);
         $stmt->execute();

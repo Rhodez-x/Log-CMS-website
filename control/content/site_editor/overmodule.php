@@ -31,11 +31,11 @@ function get_sub_page_menu($pagename) {
     $make_page_subpage_pages = "";
     $is_already_subpage = false;
     $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-    $stmt = $conn->prepare("SELECT ReplaceDBnavi_name.id, ReplaceDBnavi_name.name, ReplaceDBtext.text, ReplaceDBnavi.place
-                FROM ReplaceDBnavi_name 
-                INNER JOIN ReplaceDBtext ON ReplaceDBnavi_name.parent_id=ReplaceDBtext.parent_id
-                INNER JOIN ReplaceDBnavi ON ReplaceDBnavi.id=ReplaceDBtext.parent_id
-                WHERE ReplaceDBnavi.place = 'standart' GROUP BY ReplaceDBnavi_name.name;");
+    $stmt = $conn->prepare("SELECT ".MAIN_DB_PREFIX."navi_name.id, ".MAIN_DB_PREFIX."navi_name.name, ".MAIN_DB_PREFIX."text.text, ".MAIN_DB_PREFIX."navi.place
+                FROM ".MAIN_DB_PREFIX."navi_name 
+                INNER JOIN ".MAIN_DB_PREFIX."text ON ".MAIN_DB_PREFIX."navi_name.parent_id=".MAIN_DB_PREFIX."text.parent_id
+                INNER JOIN ".MAIN_DB_PREFIX."navi ON ".MAIN_DB_PREFIX."navi.id=".MAIN_DB_PREFIX."text.parent_id
+                WHERE ".MAIN_DB_PREFIX."navi.place = 'standart' GROUP BY ".MAIN_DB_PREFIX."navi_name.name;");
     $stmt->execute();
             // set the resulting array to associative
     if ($stmt->rowCount() > 0) {

@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 
     $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-    $stmt = $conn->prepare("SELECT * FROM ReplaceDBimages WHERE id = ?;");
+    $stmt = $conn->prepare("SELECT * FROM ".MAIN_DB_PREFIX."images WHERE id = ?;");
     $stmt->execute(array($post_image_id));
     // set the resulting array to associative
     if ($stmt->rowCount() > 0) {
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             if (check_permission(4) || LOGIN_ID == $owner_of_img) {
                     
                 $conn_2 = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                $stmt_2 = $conn_2->prepare("UPDATE ReplaceDBimages SET img_text = :img_text WHERE id = :id;");
+                $stmt_2 = $conn_2->prepare("UPDATE ".MAIN_DB_PREFIX."images SET img_text = :img_text WHERE id = :id;");
                 $stmt_2->bindParam(':img_text', $post_img_text);
                 $stmt_2->bindParam(':id', $post_image_id, PDO::PARAM_INT);
                 $stmt_2->execute();

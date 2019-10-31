@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     $new_position_counter = 0;
 
     $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-    $stmt = $conn->prepare("SELECT * FROM ReplaceDBimages WHERE attached_group = ? AND attached_id = ? ORDER BY show_order;");
+    $stmt = $conn->prepare("SELECT * FROM ".MAIN_DB_PREFIX."images WHERE attached_group = ? AND attached_id = ? ORDER BY show_order;");
     $stmt->execute(array($_SESSION['category_type'], $post_parant_id));
     // set the resulting array to associative
     if ($stmt->rowCount() > 0) {
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                 {
                     
                     $conn_2 = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                    $stmt_2 = $conn_2->prepare("UPDATE ReplaceDBimages SET show_order = :show_order WHERE id = :id;");
+                    $stmt_2 = $conn_2->prepare("UPDATE ".MAIN_DB_PREFIX."images SET show_order = :show_order WHERE id = :id;");
                     $stmt_2->bindParam(':show_order', $new_position_counter, PDO::PARAM_INT);
                     $stmt_2->bindParam(':id', $_SESSION['selected_img_id'], PDO::PARAM_INT);
                     $stmt_2->execute();
@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                     if ($id_of_img != $_SESSION['selected_img_id'])
                     {
                         $conn_2 = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                        $stmt_2 = $conn_2->prepare("UPDATE ReplaceDBimages SET show_order = :show_order WHERE id = :id;");
+                        $stmt_2 = $conn_2->prepare("UPDATE ".MAIN_DB_PREFIX."images SET show_order = :show_order WHERE id = :id;");
                         $stmt_2->bindParam(':show_order', $new_position_counter, PDO::PARAM_INT);
                         $stmt_2->bindParam(':id', $id_of_img, PDO::PARAM_INT);
                         $stmt_2->execute();
@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                 else if ($id_of_img != $_SESSION['selected_img_id'])
                 {
                     $conn_2 = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                    $stmt_2 = $conn_2->prepare("UPDATE ReplaceDBimages SET show_order = :show_order WHERE id = :id;");
+                    $stmt_2 = $conn_2->prepare("UPDATE ".MAIN_DB_PREFIX."images SET show_order = :show_order WHERE id = :id;");
                     $stmt_2->bindParam(':show_order', $new_position_counter, PDO::PARAM_INT);
                     $stmt_2->bindParam(':id', $id_of_img, PDO::PARAM_INT);
                     $stmt_2->execute();
@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                     if (mysqli_num_rows($stmt) < $post_position) 
                     {
                         $conn_2 = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                        $stmt_2 = $conn_2->prepare("UPDATE ReplaceDBimages SET show_order = :show_order WHERE id = :id;");
+                        $stmt_2 = $conn_2->prepare("UPDATE ".MAIN_DB_PREFIX."images SET show_order = :show_order WHERE id = :id;");
                         $stmt_2->bindParam(':show_order', $post_position, PDO::PARAM_INT);
                         $stmt_2->bindParam(':id', $_SESSION['selected_img_id'], PDO::PARAM_INT);
                         $stmt_2->execute();

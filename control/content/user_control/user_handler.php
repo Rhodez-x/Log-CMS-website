@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($ok) {
         try {
             $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-            $stmt = $conn->prepare("UPDATE ReplaceDBusers SET mail = ? WHERE id = ? ;");
+            $stmt = $conn->prepare("UPDATE ".MAIN_DB_PREFIX."users SET mail = ? WHERE id = ? ;");
             $stmt->execute(array($_SESSION["new_user_mail"], LOGIN_ID));
             $stmt = null;
             $conn = null;

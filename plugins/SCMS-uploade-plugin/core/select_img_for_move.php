@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     {
         try {
             $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-            $stmt = $conn->prepare("SELECT user_id, dir FROM ReplaceDBimages WHERE id = :id;");
+            $stmt = $conn->prepare("SELECT user_id, dir FROM ".MAIN_DB_PREFIX."images WHERE id = :id;");
             $stmt->bindParam(':id', $post_img_id, PDO::PARAM_INT);
             $stmt->execute();
               // set the resulting array to associative

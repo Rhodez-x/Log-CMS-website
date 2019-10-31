@@ -70,10 +70,10 @@ echo '<div class="modal fade" id="myModal" role="dialog" style="z-index: 9999;">
                     <?php
                         try {
                             $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                            $stmt = $conn->prepare("SELECT ReplaceDBnavi.link, ReplaceDBnavi_name.name, ReplaceDBnavi.permission
-                                                    FROM ReplaceDBnavi
-                                                    INNER JOIN ReplaceDBnavi_name ON ReplaceDBnavi.id=ReplaceDBnavi_name.parent_id 
-                                                    WHERE ReplaceDBnavi.place = 'standart'
+                            $stmt = $conn->prepare("SELECT ".MAIN_DB_PREFIX."navi.link, ".MAIN_DB_PREFIX."navi_name.name, ".MAIN_DB_PREFIX."navi.permission
+                                                    FROM ".MAIN_DB_PREFIX."navi
+                                                    INNER JOIN ".MAIN_DB_PREFIX."navi_name ON ".MAIN_DB_PREFIX."navi.id=".MAIN_DB_PREFIX."navi_name.parent_id 
+                                                    WHERE ".MAIN_DB_PREFIX."navi.place = 'standart'
                                                     ORDER BY navi_order;");
                             $stmt->execute();
                             if ($stmt->rowCount() > 0) {
@@ -82,10 +82,10 @@ echo '<div class="modal fade" id="myModal" role="dialog" style="z-index: 9999;">
                                     if(check_permission($row['permission'])) 
                                     {
                                         // Check if we have to make a dropdown menu for the menu
-                                        $stmt2 = $conn->prepare("SELECT ReplaceDBnavi.link, ReplaceDBnavi_name.name, ReplaceDBnavi.permission
-                                                            FROM ReplaceDBnavi
-                                                            INNER JOIN ReplaceDBnavi_name ON ReplaceDBnavi.id=ReplaceDBnavi_name.parent_id 
-                                                            WHERE ReplaceDBnavi.place = ?
+                                        $stmt2 = $conn->prepare("SELECT ".MAIN_DB_PREFIX."navi.link, ".MAIN_DB_PREFIX."navi_name.name, ".MAIN_DB_PREFIX."navi.permission
+                                                            FROM ".MAIN_DB_PREFIX."navi
+                                                            INNER JOIN ".MAIN_DB_PREFIX."navi_name ON ".MAIN_DB_PREFIX."navi.id=".MAIN_DB_PREFIX."navi_name.parent_id 
+                                                            WHERE ".MAIN_DB_PREFIX."navi.place = ?
                                                             ORDER BY navi_order;");
                                         $stmt2->execute(array($row['name']));
                                         if ($stmt2->rowCount() > 0) {

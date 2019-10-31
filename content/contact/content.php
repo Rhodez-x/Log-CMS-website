@@ -5,10 +5,10 @@
                 echo $_SESSION["contact_send"];
                 unset($_SESSION["contact_send"]);
                     $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                    $stmt = $conn->prepare("SELECT ReplaceDBnavi_name.name, ReplaceDBtext.text
-                                            FROM ReplaceDBnavi_name 
-                                            INNER JOIN ReplaceDBtext ON ReplaceDBnavi_name.parent_id=ReplaceDBtext.parent_id
-                                            WHERE ReplaceDBnavi_name.name = 'Kontakt' AND ReplaceDBnavi_name.language = ?");
+                    $stmt = $conn->prepare("SELECT ".MAIN_DB_PREFIX."navi_name.name, ".MAIN_DB_PREFIX."text.text
+                                            FROM ".MAIN_DB_PREFIX."navi_name 
+                                            INNER JOIN ".MAIN_DB_PREFIX."text ON ".MAIN_DB_PREFIX."navi_name.parent_id=".MAIN_DB_PREFIX."text.parent_id
+                                            WHERE ".MAIN_DB_PREFIX."navi_name.name = 'Kontakt' AND ".MAIN_DB_PREFIX."navi_name.language = ?");
                     $stmt->execute(array($_SESSION['session_language']));
                             // set the resulting array to associative
                     if ($stmt->rowCount() == 1) {

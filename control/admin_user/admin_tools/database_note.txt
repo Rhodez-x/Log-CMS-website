@@ -21,26 +21,26 @@ Database updates:
 #3	.
 
 
-ReplaceDBpost v.1.1 updates: 
+".MAIN_DB_PREFIX."post v.1.1 updates: 
 
-ALTER TABLE `ReplaceDBpost` ADD `link` VARCHAR(64) NOT NULL AFTER `thumbnail`;
-ALTER TABLE `ReplaceDBpost` ADD `category` VARCHAR(32) NOT NULL AFTER `link`;
-ALTER TABLE `ReplaceDBpost` ADD `orders` INT NOT NULL AFTER `active`;
+ALTER TABLE `".MAIN_DB_PREFIX."post` ADD `link` VARCHAR(64) NOT NULL AFTER `thumbnail`;
+ALTER TABLE `".MAIN_DB_PREFIX."post` ADD `category` VARCHAR(32) NOT NULL AFTER `link`;
+ALTER TABLE `".MAIN_DB_PREFIX."post` ADD `orders` INT NOT NULL AFTER `active`;
 
 
 
 To update the core to the new permissions system use followin instruktions. 
 
-DROP TABLE `ReplaceDBpermissions`, `ReplaceDBpermission_groups`, `ReplaceDBpermission_group_relation`;
-ALTER TABLE `ReplaceDBusers` ADD `permissions_reload` INT NOT NULL AFTER `recoverytime`; 
-ALTER TABLE `ReplaceDBusers` ADD `permission_group_id` INT NOT NULL AFTER `mobile`; 
-ALTER TABLE `ReplaceDBusers` ADD `permission_list` INT NOT NULL AFTER `permission_group_id`; 
+DROP TABLE `".MAIN_DB_PREFIX."permissions`, `".MAIN_DB_PREFIX."permission_groups`, `".MAIN_DB_PREFIX."permission_group_relation`;
+ALTER TABLE `".MAIN_DB_PREFIX."users` ADD `permissions_reload` INT NOT NULL AFTER `recoverytime`; 
+ALTER TABLE `".MAIN_DB_PREFIX."users` ADD `permission_group_id` INT NOT NULL AFTER `mobile`; 
+ALTER TABLE `".MAIN_DB_PREFIX."users` ADD `permission_list` INT NOT NULL AFTER `permission_group_id`; 
 
 --
--- Table structure for table `ReplaceDBcore_groups`
+-- Table structure for table `".MAIN_DB_PREFIX."core_groups`
 --
 
-CREATE TABLE `ReplaceDBcore_groups` (
+CREATE TABLE `".MAIN_DB_PREFIX."core_groups` (
   `id` int(11) NOT NULL,
   `name` varchar(64) NOT NULL,
   `description` text NOT NULL,
@@ -48,30 +48,30 @@ CREATE TABLE `ReplaceDBcore_groups` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `ReplaceDBcore_groups`
+-- Dumping data for table `".MAIN_DB_PREFIX."core_groups`
 --
 
-INSERT INTO `ReplaceDBcore_groups` (`id`, `name`, `description`, `rules`) VALUES
+INSERT INTO `".MAIN_DB_PREFIX."core_groups` (`id`, `name`, `description`, `rules`) VALUES
 (0, 'Not in a group', 'The user is not in any group', ''),
 (1, 'admin', 'Adminstrators of the site', '');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ReplaceDBcore_rules`
+-- Table structure for table `".MAIN_DB_PREFIX."core_rules`
 --
 
-CREATE TABLE `ReplaceDBcore_rules` (
+CREATE TABLE `".MAIN_DB_PREFIX."core_rules` (
   `id` int(11) NOT NULL,
   `name` varchar(64) NOT NULL,
   `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `ReplaceDBcore_rules`
+-- Dumping data for table `".MAIN_DB_PREFIX."core_rules`
 --
 
-INSERT INTO `ReplaceDBcore_rules` (`id`, `name`, `description`) VALUES
+INSERT INTO `".MAIN_DB_PREFIX."core_rules` (`id`, `name`, `description`) VALUES
 (0, 'allow_any', 'This is a rule for a visitor, the visitor does not have to login '),
 (1, 'Master Control Access', 'Have access to enter and modify options in the master control'),
 (2, 'user_control_panel', 'Gain access to the user controlpanel'),
@@ -82,10 +82,10 @@ INSERT INTO `ReplaceDBcore_rules` (`id`, `name`, `description`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ReplaceDBinstalled_plugins`
+-- Table structure for table `".MAIN_DB_PREFIX."installed_plugins`
 --
 
-CREATE TABLE `ReplaceDBinstalled_plugins` (
+CREATE TABLE `".MAIN_DB_PREFIX."installed_plugins` (
   `id` int(11) NOT NULL,
   `name` varchar(64) NOT NULL,
   `description` text NOT NULL,
@@ -96,10 +96,10 @@ CREATE TABLE `ReplaceDBinstalled_plugins` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ReplaceDBplugs_group`
+-- Table structure for table `".MAIN_DB_PREFIX."plugs_group`
 --
 
-CREATE TABLE `ReplaceDBplugs_group` (
+CREATE TABLE `".MAIN_DB_PREFIX."plugs_group` (
   `id` int(11) NOT NULL,
   `plugin_id` int(11) NOT NULL,
   `name` varchar(64) NOT NULL,
@@ -110,10 +110,10 @@ CREATE TABLE `ReplaceDBplugs_group` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ReplaceDBplugs_permissions`
+-- Table structure for table `".MAIN_DB_PREFIX."plugs_permissions`
 --
 
-CREATE TABLE `ReplaceDBplugs_permissions` (
+CREATE TABLE `".MAIN_DB_PREFIX."plugs_permissions` (
   `plugin_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `permission_list` text NOT NULL
@@ -122,10 +122,10 @@ CREATE TABLE `ReplaceDBplugs_permissions` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ReplaceDBplugs_rule`
+-- Table structure for table `".MAIN_DB_PREFIX."plugs_rule`
 --
 
-CREATE TABLE `ReplaceDBplugs_rule` (
+CREATE TABLE `".MAIN_DB_PREFIX."plugs_rule` (
   `id` int(11) NOT NULL,
   `plugin_id` int(11) NOT NULL,
   `name` varchar(64) NOT NULL,
@@ -137,43 +137,43 @@ CREATE TABLE `ReplaceDBplugs_rule` (
 --
 
 --
--- Indexes for table `ReplaceDBcore_groups`
+-- Indexes for table `".MAIN_DB_PREFIX."core_groups`
 --
-ALTER TABLE `ReplaceDBcore_groups`
+ALTER TABLE `".MAIN_DB_PREFIX."core_groups`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`);
 
 --
--- Indexes for table `ReplaceDBcore_rules`
+-- Indexes for table `".MAIN_DB_PREFIX."core_rules`
 --
-ALTER TABLE `ReplaceDBcore_rules`
+ALTER TABLE `".MAIN_DB_PREFIX."core_rules`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`);
 
 --
--- Indexes for table `ReplaceDBinstalled_plugins`
+-- Indexes for table `".MAIN_DB_PREFIX."installed_plugins`
 --
-ALTER TABLE `ReplaceDBinstalled_plugins`
+ALTER TABLE `".MAIN_DB_PREFIX."installed_plugins`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`);
 
 --
--- Indexes for table `ReplaceDBplugs_group`
+-- Indexes for table `".MAIN_DB_PREFIX."plugs_group`
 --
-ALTER TABLE `ReplaceDBplugs_group`
+ALTER TABLE `".MAIN_DB_PREFIX."plugs_group`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`);
 
 --
--- Indexes for table `ReplaceDBplugs_permissions`
+-- Indexes for table `".MAIN_DB_PREFIX."plugs_permissions`
 --
-ALTER TABLE `ReplaceDBplugs_permissions`
+ALTER TABLE `".MAIN_DB_PREFIX."plugs_permissions`
   ADD PRIMARY KEY (`plugin_id`,`user_id`);
 
 --
--- Indexes for table `ReplaceDBplugs_rule`
+-- Indexes for table `".MAIN_DB_PREFIX."plugs_rule`
 --
-ALTER TABLE `ReplaceDBplugs_rule`
+ALTER TABLE `".MAIN_DB_PREFIX."plugs_rule`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`);
 
@@ -182,29 +182,29 @@ ALTER TABLE `ReplaceDBplugs_rule`
 --
 
 --
--- AUTO_INCREMENT for table `ReplaceDBcore_groups`
+-- AUTO_INCREMENT for table `".MAIN_DB_PREFIX."core_groups`
 --
-ALTER TABLE `ReplaceDBcore_groups`
+ALTER TABLE `".MAIN_DB_PREFIX."core_groups`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT for table `ReplaceDBcore_rules`
+-- AUTO_INCREMENT for table `".MAIN_DB_PREFIX."core_rules`
 --
-ALTER TABLE `ReplaceDBcore_rules`
+ALTER TABLE `".MAIN_DB_PREFIX."core_rules`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
--- AUTO_INCREMENT for table `ReplaceDBinstalled_plugins`
+-- AUTO_INCREMENT for table `".MAIN_DB_PREFIX."installed_plugins`
 --
-ALTER TABLE `ReplaceDBinstalled_plugins`
+ALTER TABLE `".MAIN_DB_PREFIX."installed_plugins`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT for table `ReplaceDBplugs_group`
+-- AUTO_INCREMENT for table `".MAIN_DB_PREFIX."plugs_group`
 --
-ALTER TABLE `ReplaceDBplugs_group`
+ALTER TABLE `".MAIN_DB_PREFIX."plugs_group`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `ReplaceDBplugs_rule`
+-- AUTO_INCREMENT for table `".MAIN_DB_PREFIX."plugs_rule`
 --
-ALTER TABLE `ReplaceDBplugs_rule`
+ALTER TABLE `".MAIN_DB_PREFIX."plugs_rule`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

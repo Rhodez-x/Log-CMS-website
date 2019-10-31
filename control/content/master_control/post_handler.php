@@ -18,32 +18,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         try {
             if ($post_handel == "mv_up") {
                 $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                $stmt = $conn->prepare("SELECT @target_order := (SELECT orders FROM ReplaceDBpost WHERE id = ?);
-                                        SELECT @target_order_2 := (SELECT orders FROM ReplaceDBpost WHERE orders > @target_order ORDER BY orders LIMIT 1);
-                                        SELECT @target_order_2_id := (SELECT id FROM ReplaceDBpost WHERE orders > @target_order ORDER BY orders LIMIT 1);
-                                        UPDATE ReplaceDBpost SET orders = @target_order_2 WHERE id = ?;
-                                        UPDATE ReplaceDBpost SET orders = @target_order WHERE id = @target_order_2_id;");
+                $stmt = $conn->prepare("SELECT @target_order := (SELECT orders FROM ".MAIN_DB_PREFIX."post WHERE id = ?);
+                                        SELECT @target_order_2 := (SELECT orders FROM ".MAIN_DB_PREFIX."post WHERE orders > @target_order ORDER BY orders LIMIT 1);
+                                        SELECT @target_order_2_id := (SELECT id FROM ".MAIN_DB_PREFIX."post WHERE orders > @target_order ORDER BY orders LIMIT 1);
+                                        UPDATE ".MAIN_DB_PREFIX."post SET orders = @target_order_2 WHERE id = ?;
+                                        UPDATE ".MAIN_DB_PREFIX."post SET orders = @target_order WHERE id = @target_order_2_id;");
                 $stmt->execute(array($post_post_id, $post_post_id));
                 $stmt = null;
                 $conn = null;
             }
             else if ($post_handel == "mv_dw") {
                 $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                $stmt = $conn->prepare("SELECT @target_order := (SELECT orders FROM ReplaceDBpost WHERE id = ?);
-                                        SELECT @target_order_2 := (SELECT orders FROM ReplaceDBpost WHERE orders < @target_order ORDER BY orders DESC LIMIT 1);
-                                        SELECT @target_order_2_id := (SELECT id FROM ReplaceDBpost WHERE orders < @target_order ORDER BY orders DESC LIMIT 1);
-                                        UPDATE ReplaceDBpost SET orders = @target_order_2 WHERE id = ?;
-                                        UPDATE ReplaceDBpost SET orders = @target_order WHERE id = @target_order_2_id;");
+                $stmt = $conn->prepare("SELECT @target_order := (SELECT orders FROM ".MAIN_DB_PREFIX."post WHERE id = ?);
+                                        SELECT @target_order_2 := (SELECT orders FROM ".MAIN_DB_PREFIX."post WHERE orders < @target_order ORDER BY orders DESC LIMIT 1);
+                                        SELECT @target_order_2_id := (SELECT id FROM ".MAIN_DB_PREFIX."post WHERE orders < @target_order ORDER BY orders DESC LIMIT 1);
+                                        UPDATE ".MAIN_DB_PREFIX."post SET orders = @target_order_2 WHERE id = ?;
+                                        UPDATE ".MAIN_DB_PREFIX."post SET orders = @target_order WHERE id = @target_order_2_id;");
                 $stmt->execute(array($post_post_id, $post_post_id));
                 $stmt = null;
                 $conn = null;
             }
             else if ($post_handel == "rm") {
                 $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                $stmt = $conn->prepare("DELETE FROM ReplaceDBpost WHERE id = ?;");
+                $stmt = $conn->prepare("DELETE FROM ".MAIN_DB_PREFIX."post WHERE id = ?;");
                 $stmt->execute(array($post_post_id));
 
-                $stmt2 = $conn->prepare("SELECT * FROM ReplaceDBimages WHERE attached_group = 'post' AND attached_id = ?;");
+                $stmt2 = $conn->prepare("SELECT * FROM ".MAIN_DB_PREFIX."images WHERE attached_group = 'post' AND attached_id = ?;");
                 $stmt2->execute(array($post_post_id));
                     // set the resulting array to associative
                 if ($stmt2->rowCount() > 0) {
@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     }
                 } 
 
-                $stmt3 = $conn->prepare("DELETE FROM ReplaceDBimages WHERE attached_group = 'post' AND attached_id = ?;");
+                $stmt3 = $conn->prepare("DELETE FROM ".MAIN_DB_PREFIX."images WHERE attached_group = 'post' AND attached_id = ?;");
                 $stmt3->execute(array($post_post_id));
             }
 

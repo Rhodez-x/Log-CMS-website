@@ -21,10 +21,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
                 // if the user exist and the password is right
-                $stmt = $conn->prepare("UPDATE ReplaceDBusers SET password = ? WHERE username_clean = ? AND mail = ? AND recoverycode = ?;");
+                $stmt = $conn->prepare("UPDATE ".MAIN_DB_PREFIX."users SET password = ? WHERE username_clean = ? AND mail = ? AND recoverycode = ?;");
                 $stmt->execute(array($check_password_new, $check_username_clean, $_SESSION["recover_mail"], $_SESSION["recover_input_code"]));
                 if ($stmt->rowCount() == 1) {
-                    $stmt_set = $conn->prepare("UPDATE ReplaceDBusers SET recoverycode = '', recoverytime = '' WHERE username_clean = ? AND mail = ? AND recoverycode = ?;");
+                    $stmt_set = $conn->prepare("UPDATE ".MAIN_DB_PREFIX."users SET recoverycode = '', recoverytime = '' WHERE username_clean = ? AND mail = ? AND recoverycode = ?;");
                     $stmt_set->execute(array($check_username_clean, $_SESSION["recover_mail"], $_SESSION["recover_input_code"]));
                     $stmt_set = null;
 

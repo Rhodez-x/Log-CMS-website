@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     	$post_user_id = clean_input_text($_POST["user_id"]);  
 
         $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-        $stmt = $conn->prepare("UPDATE ReplaceDBusers SET permission_list = ? WHERE id = ? ;");
+        $stmt = $conn->prepare("UPDATE ".MAIN_DB_PREFIX."users SET permission_list = ? WHERE id = ? ;");
         $stmt->execute(array($new_permissions, $post_user_id));
         $stmt = null;
         $conn = null;

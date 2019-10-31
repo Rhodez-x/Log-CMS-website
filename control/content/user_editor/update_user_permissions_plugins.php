@@ -14,11 +14,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
         if ($post_first_time == "1") {
-            $stmt = $conn->prepare("INSERT INTO ReplaceDBplugs_permissions (plugin_id, user_id, permission_list) VALUES (?, ?, ?);");
+            $stmt = $conn->prepare("INSERT INTO ".MAIN_DB_PREFIX."plugs_permissions (plugin_id, user_id, permission_list) VALUES (?, ?, ?);");
             $stmt->execute(array($post_plugin_id, $post_user_id, $new_permissions)); 
         }
         else {
-            $stmt = $conn->prepare("UPDATE ReplaceDBplugs_permissions SET permission_list = ? WHERE plugin_id = ? AND user_id = ?;");
+            $stmt = $conn->prepare("UPDATE ".MAIN_DB_PREFIX."plugs_permissions SET permission_list = ? WHERE plugin_id = ? AND user_id = ?;");
             $stmt->execute(array($new_permissions, $post_plugin_id, $post_user_id)); 
         }
         $stmt = null;
