@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     }
                 }
 
-                $new_page_name_link = urlencode($edited_link);
+                $new_page_name_link = htmlspecialchars(str_replace(" ", "_",$edited_link));
                 $stmt = $conn->prepare("UPDATE ".MAIN_DB_PREFIX."text SET description  = ?,  text = ? WHERE parent_id = ? AND language = ?;
                                         UPDATE ".MAIN_DB_PREFIX."navi_name SET name  = ? WHERE parent_id = ?;
                                         UPDATE ".MAIN_DB_PREFIX."navi SET link = ?, place = ? WHERE id = ?;");
