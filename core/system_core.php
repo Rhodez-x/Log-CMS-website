@@ -17,7 +17,7 @@ define(DATE_WITHOUT_TIME, date('Y-m-d'));
 
 
 function get_db_connection($host, $dbname, $user, $pass) {
-    $conn = new PDO('mysql: host='.$host.';dbname='.$dbname.';charset=utf8', $user, $pass);
+    $conn = new PDO('mysql:host=mysql;dbname=MaincoreDBdev5;charset=utf8', 'my_sql_user', 'my_sql_password');
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     return $conn;
 }
