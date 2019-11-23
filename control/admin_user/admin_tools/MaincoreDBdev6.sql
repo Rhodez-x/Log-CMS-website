@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jul 03, 2019 at 08:53 PM
--- Server version: 10.1.38-MariaDB-0+deb9u1
--- PHP Version: 7.0.33-0+deb9u3
+-- Generation Time: Nov 23, 2019 at 05:03 PM
+-- Server version: 10.1.41-MariaDB-0+deb9u1
+-- PHP Version: 7.0.33-0+deb9u6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -23,10 +23,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `".MAIN_DB_PREFIX."admin_info`
+-- Table structure for table `ReplaceDBadmin_info`
 --
 
-CREATE TABLE `".MAIN_DB_PREFIX."admin_info` (
+CREATE TABLE `ReplaceDBadmin_info` (
   `id` int(11) NOT NULL,
   `titel` varchar(64) NOT NULL DEFAULT '',
   `description` text NOT NULL,
@@ -36,10 +36,10 @@ CREATE TABLE `".MAIN_DB_PREFIX."admin_info` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `".MAIN_DB_PREFIX."core_groups`
+-- Table structure for table `ReplaceDBcore_groups`
 --
 
-CREATE TABLE `".MAIN_DB_PREFIX."core_groups` (
+CREATE TABLE `ReplaceDBcore_groups` (
   `id` int(11) NOT NULL,
   `name` varchar(64) NOT NULL DEFAULT '',
   `description` text NOT NULL,
@@ -47,30 +47,30 @@ CREATE TABLE `".MAIN_DB_PREFIX."core_groups` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `".MAIN_DB_PREFIX."core_groups`
+-- Dumping data for table `ReplaceDBcore_groups`
 --
 
-INSERT INTO `".MAIN_DB_PREFIX."core_groups` (`id`, `name`, `description`, `rules`) VALUES
+INSERT INTO `ReplaceDBcore_groups` (`id`, `name`, `description`, `rules`) VALUES
 (0, 'Not in a group', 'The user is not in any group', ''),
 (1, 'admin', 'Adminstrators of the site', '');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `".MAIN_DB_PREFIX."core_rules`
+-- Table structure for table `ReplaceDBcore_rules`
 --
 
-CREATE TABLE `".MAIN_DB_PREFIX."core_rules` (
+CREATE TABLE `ReplaceDBcore_rules` (
   `id` int(11) NOT NULL,
   `name` varchar(64) NOT NULL DEFAULT '',
   `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `".MAIN_DB_PREFIX."core_rules`
+-- Dumping data for table `ReplaceDBcore_rules`
 --
 
-INSERT INTO `".MAIN_DB_PREFIX."core_rules` (`id`, `name`, `description`) VALUES
+INSERT INTO `ReplaceDBcore_rules` (`id`, `name`, `description`) VALUES
 (0, 'allow_any', 'This is a rule for a visitor, the visitor does not have to login '),
 (1, 'Master Control Access', 'Have access to enter and modify options in the master control'),
 (2, 'user_control_panel', 'Gain access to the user controlpanel'),
@@ -81,10 +81,10 @@ INSERT INTO `".MAIN_DB_PREFIX."core_rules` (`id`, `name`, `description`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `".MAIN_DB_PREFIX."country`
+-- Table structure for table `ReplaceDBcountry`
 --
 
-CREATE TABLE `".MAIN_DB_PREFIX."country` (
+CREATE TABLE `ReplaceDBcountry` (
   `countryID` int(8) NOT NULL,
   `name` varchar(16) NOT NULL DEFAULT '',
   `code` varchar(4) NOT NULL DEFAULT '',
@@ -92,19 +92,19 @@ CREATE TABLE `".MAIN_DB_PREFIX."country` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `".MAIN_DB_PREFIX."country`
+-- Dumping data for table `ReplaceDBcountry`
 --
 
-INSERT INTO `".MAIN_DB_PREFIX."country` (`countryID`, `name`, `code`, `active`) VALUES
+INSERT INTO `ReplaceDBcountry` (`countryID`, `name`, `code`, `active`) VALUES
 (1, 'denmark', 'DK', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `".MAIN_DB_PREFIX."images`
+-- Table structure for table `ReplaceDBimages`
 --
 
-CREATE TABLE `".MAIN_DB_PREFIX."images` (
+CREATE TABLE `ReplaceDBimages` (
   `id` int(11) NOT NULL,
   `img_text` text NOT NULL,
   `user_id` int(11) NOT NULL DEFAULT '0',
@@ -117,19 +117,19 @@ CREATE TABLE `".MAIN_DB_PREFIX."images` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `".MAIN_DB_PREFIX."images`
+-- Dumping data for table `ReplaceDBimages`
 --
 
-INSERT INTO `".MAIN_DB_PREFIX."images` (`id`, `img_text`, `user_id`, `dir`, `uploaded`, `is_profile_img`, `show_order`, `attached_group`, `attached_id`) VALUES
+INSERT INTO `ReplaceDBimages` (`id`, `img_text`, `user_id`, `dir`, `uploaded`, `is_profile_img`, `show_order`, `attached_group`, `attached_id`) VALUES
 (1, '', 0, '', '0000-00-00 00:00:00', 0, 0, '', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `".MAIN_DB_PREFIX."installed_plugins`
+-- Table structure for table `ReplaceDBinstalled_plugins`
 --
 
-CREATE TABLE `".MAIN_DB_PREFIX."installed_plugins` (
+CREATE TABLE `ReplaceDBinstalled_plugins` (
   `id` int(11) NOT NULL,
   `name` varchar(64) NOT NULL DEFAULT '',
   `description` text NOT NULL,
@@ -140,10 +140,10 @@ CREATE TABLE `".MAIN_DB_PREFIX."installed_plugins` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `".MAIN_DB_PREFIX."navi`
+-- Table structure for table `ReplaceDBnavi`
 --
 
-CREATE TABLE `".MAIN_DB_PREFIX."navi` (
+CREATE TABLE `ReplaceDBnavi` (
   `id` int(11) NOT NULL,
   `link` varchar(40) NOT NULL DEFAULT '',
   `required` int(11) NOT NULL DEFAULT '0',
@@ -153,24 +153,24 @@ CREATE TABLE `".MAIN_DB_PREFIX."navi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `".MAIN_DB_PREFIX."navi`
+-- Dumping data for table `ReplaceDBnavi`
 --
 
-INSERT INTO `".MAIN_DB_PREFIX."navi` (`id`, `link`, `required`, `navi_order`, `permission`, `place`) VALUES
+INSERT INTO `ReplaceDBnavi` (`id`, `link`, `required`, `navi_order`, `permission`, `place`) VALUES
 (1, 'index', 1, 1, 0, 'standart'),
 (3, 'kontakt', 0, 6, 0, 'standart'),
 (4, 'control/index', 1, 1, 2, 'controlpanel'),
 (5, 'control/user_control', 1, 2, 2, 'controlpanel'),
 (6, 'control/master_control', 1, 3, 1, 'controlpanel'),
-(13, 'NewPage', 0, 5, 0, 'standart');
+(13, 'NewPage', 0, 5, 1, 'standart');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `".MAIN_DB_PREFIX."navi_name`
+-- Table structure for table `ReplaceDBnavi_name`
 --
 
-CREATE TABLE `".MAIN_DB_PREFIX."navi_name` (
+CREATE TABLE `ReplaceDBnavi_name` (
   `id` int(11) NOT NULL,
   `name` varchar(32) NOT NULL DEFAULT '',
   `language` varchar(8) NOT NULL DEFAULT '',
@@ -178,10 +178,10 @@ CREATE TABLE `".MAIN_DB_PREFIX."navi_name` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `".MAIN_DB_PREFIX."navi_name`
+-- Dumping data for table `ReplaceDBnavi_name`
 --
 
-INSERT INTO `".MAIN_DB_PREFIX."navi_name` (`id`, `name`, `language`, `parent_id`) VALUES
+INSERT INTO `ReplaceDBnavi_name` (`id`, `name`, `language`, `parent_id`) VALUES
 (1, 'Forside', 'DK', 1),
 (3, 'Kontakt', 'DK', 3),
 (4, 'Min side', 'DK', 4),
@@ -192,10 +192,10 @@ INSERT INTO `".MAIN_DB_PREFIX."navi_name` (`id`, `name`, `language`, `parent_id`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `".MAIN_DB_PREFIX."plugs_group`
+-- Table structure for table `ReplaceDBplugs_group`
 --
 
-CREATE TABLE `".MAIN_DB_PREFIX."plugs_group` (
+CREATE TABLE `ReplaceDBplugs_group` (
   `id` int(11) NOT NULL,
   `plugin_id` int(11) NOT NULL DEFAULT '0',
   `name` varchar(64) NOT NULL DEFAULT '',
@@ -206,10 +206,10 @@ CREATE TABLE `".MAIN_DB_PREFIX."plugs_group` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `".MAIN_DB_PREFIX."plugs_permissions`
+-- Table structure for table `ReplaceDBplugs_permissions`
 --
 
-CREATE TABLE `".MAIN_DB_PREFIX."plugs_permissions` (
+CREATE TABLE `ReplaceDBplugs_permissions` (
   `plugin_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL DEFAULT '0',
   `permission_list` text NOT NULL
@@ -218,10 +218,10 @@ CREATE TABLE `".MAIN_DB_PREFIX."plugs_permissions` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `".MAIN_DB_PREFIX."plugs_rule`
+-- Table structure for table `ReplaceDBplugs_rule`
 --
 
-CREATE TABLE `".MAIN_DB_PREFIX."plugs_rule` (
+CREATE TABLE `ReplaceDBplugs_rule` (
   `id` int(11) NOT NULL,
   `plugin_id` int(11) NOT NULL DEFAULT '0',
   `name` varchar(64) NOT NULL DEFAULT '',
@@ -231,10 +231,10 @@ CREATE TABLE `".MAIN_DB_PREFIX."plugs_rule` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `".MAIN_DB_PREFIX."post`
+-- Table structure for table `ReplaceDBpost`
 --
 
-CREATE TABLE `".MAIN_DB_PREFIX."post` (
+CREATE TABLE `ReplaceDBpost` (
   `id` int(11) NOT NULL,
   `name` varchar(256) NOT NULL DEFAULT '',
   `description` text NOT NULL,
@@ -251,10 +251,10 @@ CREATE TABLE `".MAIN_DB_PREFIX."post` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `".MAIN_DB_PREFIX."text`
+-- Table structure for table `ReplaceDBtext`
 --
 
-CREATE TABLE `".MAIN_DB_PREFIX."text` (
+CREATE TABLE `ReplaceDBtext` (
   `id` int(11) NOT NULL,
   `description` text NOT NULL,
   `text` longtext NOT NULL,
@@ -266,10 +266,10 @@ CREATE TABLE `".MAIN_DB_PREFIX."text` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `".MAIN_DB_PREFIX."text`
+-- Dumping data for table `ReplaceDBtext`
 --
 
-INSERT INTO `".MAIN_DB_PREFIX."text` (`id`, `description`, `text`, `language`, `content_group`, `parent_id`, `required`, `bgimg`) VALUES
+INSERT INTO `ReplaceDBtext` (`id`, `description`, `text`, `language`, `content_group`, `parent_id`, `required`, `bgimg`) VALUES
 (2, '', '<p>Standart forside</p>\n\n<p>&nbsp;</p>\n\n<p>Dette er version rt5.0.0a0</p>\n', 'DK', 'page', 1, 1, ''),
 (3, '', '<p>Kontakt:</p>\r\n\r\n<p>mail: kontakt@guld-berg.dk</p>\r\n', 'DK', 'page', 3, 0, ''),
 (11, '', 'NewPage', 'DK', 'page', 13, 0, '');
@@ -277,10 +277,10 @@ INSERT INTO `".MAIN_DB_PREFIX."text` (`id`, `description`, `text`, `language`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `".MAIN_DB_PREFIX."users`
+-- Table structure for table `ReplaceDBusers`
 --
 
-CREATE TABLE `".MAIN_DB_PREFIX."users` (
+CREATE TABLE `ReplaceDBusers` (
   `id` int(11) NOT NULL,
   `username` varchar(40) NOT NULL DEFAULT '',
   `username_clean` varchar(40) NOT NULL DEFAULT '',
@@ -296,19 +296,19 @@ CREATE TABLE `".MAIN_DB_PREFIX."users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `".MAIN_DB_PREFIX."users`
+-- Dumping data for table `ReplaceDBusers`
 --
 
-INSERT INTO `".MAIN_DB_PREFIX."users` (`id`, `username`, `username_clean`, `mail`, `mobile`, `permission_group_id`, `permission_list`, `password`, `active`, `recoverycode`, `recoverytime`, `permissions_reload`) VALUES
+INSERT INTO `ReplaceDBusers` (`id`, `username`, `username_clean`, `mail`, `mobile`, `permission_group_id`, `permission_list`, `password`, `active`, `recoverycode`, `recoverytime`, `permissions_reload`) VALUES
 (2, 'Sandsized_admin', 'sandsized_admin', 'contact@sandsized.com', '', 0, 'a:1:{i:0;i:1;}', 'eccbbb9d8d23af67ae68c9ef2919a356884365473ee6dbfa0778a7b798902173', 1, '', '', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `".MAIN_DB_PREFIX."user_info`
+-- Table structure for table `ReplaceDBuser_info`
 --
 
-CREATE TABLE `".MAIN_DB_PREFIX."user_info` (
+CREATE TABLE `ReplaceDBuser_info` (
   `id` int(11) NOT NULL,
   `firstname` varchar(64) NOT NULL DEFAULT '',
   `lastname` varchar(64) NOT NULL DEFAULT '',
@@ -318,10 +318,10 @@ CREATE TABLE `".MAIN_DB_PREFIX."user_info` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `".MAIN_DB_PREFIX."user_info`
+-- Dumping data for table `ReplaceDBuser_info`
 --
 
-INSERT INTO `".MAIN_DB_PREFIX."user_info` (`id`, `firstname`, `lastname`, `profile_text`, `profile_img`, `hidden`) VALUES
+INSERT INTO `ReplaceDBuser_info` (`id`, `firstname`, `lastname`, `profile_text`, `profile_img`, `hidden`) VALUES
 (2, '', '', '', '/design/default-profile.png', 0);
 
 --
@@ -329,105 +329,105 @@ INSERT INTO `".MAIN_DB_PREFIX."user_info` (`id`, `firstname`, `lastname`, `profi
 --
 
 --
--- Indexes for table `".MAIN_DB_PREFIX."admin_info`
+-- Indexes for table `ReplaceDBadmin_info`
 --
-ALTER TABLE `".MAIN_DB_PREFIX."admin_info`
+ALTER TABLE `ReplaceDBadmin_info`
   ADD UNIQUE KEY `id` (`id`);
 
 --
--- Indexes for table `".MAIN_DB_PREFIX."core_groups`
+-- Indexes for table `ReplaceDBcore_groups`
 --
-ALTER TABLE `".MAIN_DB_PREFIX."core_groups`
+ALTER TABLE `ReplaceDBcore_groups`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`);
 
 --
--- Indexes for table `".MAIN_DB_PREFIX."core_rules`
+-- Indexes for table `ReplaceDBcore_rules`
 --
-ALTER TABLE `".MAIN_DB_PREFIX."core_rules`
+ALTER TABLE `ReplaceDBcore_rules`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`);
 
 --
--- Indexes for table `".MAIN_DB_PREFIX."country`
+-- Indexes for table `ReplaceDBcountry`
 --
-ALTER TABLE `".MAIN_DB_PREFIX."country`
+ALTER TABLE `ReplaceDBcountry`
   ADD PRIMARY KEY (`countryID`),
   ADD UNIQUE KEY `countryID` (`countryID`);
 
 --
--- Indexes for table `".MAIN_DB_PREFIX."images`
+-- Indexes for table `ReplaceDBimages`
 --
-ALTER TABLE `".MAIN_DB_PREFIX."images`
+ALTER TABLE `ReplaceDBimages`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`);
 
 --
--- Indexes for table `".MAIN_DB_PREFIX."installed_plugins`
+-- Indexes for table `ReplaceDBinstalled_plugins`
 --
-ALTER TABLE `".MAIN_DB_PREFIX."installed_plugins`
+ALTER TABLE `ReplaceDBinstalled_plugins`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`);
 
 --
--- Indexes for table `".MAIN_DB_PREFIX."navi`
+-- Indexes for table `ReplaceDBnavi`
 --
-ALTER TABLE `".MAIN_DB_PREFIX."navi`
+ALTER TABLE `ReplaceDBnavi`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`),
   ADD UNIQUE KEY `link` (`link`);
 
 --
--- Indexes for table `".MAIN_DB_PREFIX."navi_name`
+-- Indexes for table `ReplaceDBnavi_name`
 --
-ALTER TABLE `".MAIN_DB_PREFIX."navi_name`
+ALTER TABLE `ReplaceDBnavi_name`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`);
 
 --
--- Indexes for table `".MAIN_DB_PREFIX."plugs_group`
+-- Indexes for table `ReplaceDBplugs_group`
 --
-ALTER TABLE `".MAIN_DB_PREFIX."plugs_group`
+ALTER TABLE `ReplaceDBplugs_group`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`);
 
 --
--- Indexes for table `".MAIN_DB_PREFIX."plugs_permissions`
+-- Indexes for table `ReplaceDBplugs_permissions`
 --
-ALTER TABLE `".MAIN_DB_PREFIX."plugs_permissions`
+ALTER TABLE `ReplaceDBplugs_permissions`
   ADD PRIMARY KEY (`plugin_id`,`user_id`);
 
 --
--- Indexes for table `".MAIN_DB_PREFIX."plugs_rule`
+-- Indexes for table `ReplaceDBplugs_rule`
 --
-ALTER TABLE `".MAIN_DB_PREFIX."plugs_rule`
+ALTER TABLE `ReplaceDBplugs_rule`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`);
 
 --
--- Indexes for table `".MAIN_DB_PREFIX."post`
+-- Indexes for table `ReplaceDBpost`
 --
-ALTER TABLE `".MAIN_DB_PREFIX."post`
+ALTER TABLE `ReplaceDBpost`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `".MAIN_DB_PREFIX."text`
+-- Indexes for table `ReplaceDBtext`
 --
-ALTER TABLE `".MAIN_DB_PREFIX."text`
+ALTER TABLE `ReplaceDBtext`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `page_name` (`id`);
 
 --
--- Indexes for table `".MAIN_DB_PREFIX."users`
+-- Indexes for table `ReplaceDBusers`
 --
-ALTER TABLE `".MAIN_DB_PREFIX."users`
+ALTER TABLE `ReplaceDBusers`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`);
 
 --
--- Indexes for table `".MAIN_DB_PREFIX."user_info`
+-- Indexes for table `ReplaceDBuser_info`
 --
-ALTER TABLE `".MAIN_DB_PREFIX."user_info`
+ALTER TABLE `ReplaceDBuser_info`
   ADD UNIQUE KEY `id` (`id`);
 
 --
@@ -435,64 +435,64 @@ ALTER TABLE `".MAIN_DB_PREFIX."user_info`
 --
 
 --
--- AUTO_INCREMENT for table `".MAIN_DB_PREFIX."core_groups`
+-- AUTO_INCREMENT for table `ReplaceDBcore_groups`
 --
-ALTER TABLE `".MAIN_DB_PREFIX."core_groups`
+ALTER TABLE `ReplaceDBcore_groups`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT for table `".MAIN_DB_PREFIX."core_rules`
+-- AUTO_INCREMENT for table `ReplaceDBcore_rules`
 --
-ALTER TABLE `".MAIN_DB_PREFIX."core_rules`
+ALTER TABLE `ReplaceDBcore_rules`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
--- AUTO_INCREMENT for table `".MAIN_DB_PREFIX."country`
+-- AUTO_INCREMENT for table `ReplaceDBcountry`
 --
-ALTER TABLE `".MAIN_DB_PREFIX."country`
+ALTER TABLE `ReplaceDBcountry`
   MODIFY `countryID` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT for table `".MAIN_DB_PREFIX."images`
+-- AUTO_INCREMENT for table `ReplaceDBimages`
 --
-ALTER TABLE `".MAIN_DB_PREFIX."images`
+ALTER TABLE `ReplaceDBimages`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT for table `".MAIN_DB_PREFIX."installed_plugins`
+-- AUTO_INCREMENT for table `ReplaceDBinstalled_plugins`
 --
-ALTER TABLE `".MAIN_DB_PREFIX."installed_plugins`
+ALTER TABLE `ReplaceDBinstalled_plugins`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `".MAIN_DB_PREFIX."navi`
+-- AUTO_INCREMENT for table `ReplaceDBnavi`
 --
-ALTER TABLE `".MAIN_DB_PREFIX."navi`
+ALTER TABLE `ReplaceDBnavi`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+--
+-- AUTO_INCREMENT for table `ReplaceDBnavi_name`
+--
+ALTER TABLE `ReplaceDBnavi_name`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+--
+-- AUTO_INCREMENT for table `ReplaceDBplugs_group`
+--
+ALTER TABLE `ReplaceDBplugs_group`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `ReplaceDBplugs_rule`
+--
+ALTER TABLE `ReplaceDBplugs_rule`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `ReplaceDBpost`
+--
+ALTER TABLE `ReplaceDBpost`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `ReplaceDBtext`
+--
+ALTER TABLE `ReplaceDBtext`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
--- AUTO_INCREMENT for table `".MAIN_DB_PREFIX."navi_name`
+-- AUTO_INCREMENT for table `ReplaceDBusers`
 --
-ALTER TABLE `".MAIN_DB_PREFIX."navi_name`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
---
--- AUTO_INCREMENT for table `".MAIN_DB_PREFIX."plugs_group`
---
-ALTER TABLE `".MAIN_DB_PREFIX."plugs_group`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `".MAIN_DB_PREFIX."plugs_rule`
---
-ALTER TABLE `".MAIN_DB_PREFIX."plugs_rule`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `".MAIN_DB_PREFIX."post`
---
-ALTER TABLE `".MAIN_DB_PREFIX."post`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `".MAIN_DB_PREFIX."text`
---
-ALTER TABLE `".MAIN_DB_PREFIX."text`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
---
--- AUTO_INCREMENT for table `".MAIN_DB_PREFIX."users`
---
-ALTER TABLE `".MAIN_DB_PREFIX."users`
+ALTER TABLE `ReplaceDBusers`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
