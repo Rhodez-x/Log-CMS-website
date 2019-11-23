@@ -2,7 +2,6 @@
         <div class="row">
             <div class="col-sm-12">
                 <?php
-                    define("wow", "".MAIN_DB_PREFIX."");
                     $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
                     $stmt = $conn->prepare("SELECT ".MAIN_DB_PREFIX."navi_name.name, ".MAIN_DB_PREFIX."text.text, ".MAIN_DB_PREFIX."navi.permission
                             FROM ".MAIN_DB_PREFIX."navi_name 
