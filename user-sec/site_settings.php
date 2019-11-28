@@ -1,7 +1,9 @@
 <?php
-/* Sandsized CMS - By Guld-berg.dk software technologies
+/** Sandsized CMS - By Guld-berg.dk software technologies
 *  Developed by Jørn Guldberg
 *  Copyright (C) Jørn Guldberg - Guld-berg.dk All Rights Reserved. 
+*  Version 6.1.0: Release of major, not compatiple with earlier realises. 
+*  Full release-notes se the git repository
 */
 
 /*
@@ -9,9 +11,9 @@
 */
 
 
-define('MAIN_DB_HOST', 'localhost'); // host
-define('MAIN_DB_USER', 'webedit_sql'); // user
-define('MAIN_DB_PASS', 'webmysql'); // pw
+define('MAIN_DB_HOST', 'mysql'); // host
+define('MAIN_DB_USER', 'my_sql_user'); // user
+define('MAIN_DB_PASS', 'my_sql_password'); // pw
 define('MAIN_DB_DATABASE_NAME', 'MaincoreDBdev5'); // Database name
 define('MAIN_DB_PREFIX', 'ReplaceDB');
 
