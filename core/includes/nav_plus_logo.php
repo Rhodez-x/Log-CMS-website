@@ -2,7 +2,7 @@
 /** Sandsized CMS - By Guld-berg.dk software technologies
 *  Developed by Jørn Guldberg
 *  Copyright (C) Jørn Guldberg - Guld-berg.dk All Rights Reserved. 
-*  Version 6.0.0: Release of major, not compatiple with earlier realises. 
+*  Version 6.1.1: Release of major, not compatiple with earlier realises. 
 *  Full release-notes se the git repository
 */
 function loggetind() {
@@ -123,12 +123,12 @@ echo '<div class="modal fade" id="myModal" role="dialog" style="z-index: 9999;">
                         echo loggetind();
                     }
                     // Her kommer der en besked om at man er logget ud.
-                    if($_SESSION["loggetud"] == 1) {
+                    if($_SESSION["log_out"] == 1) {
                         echo '<div class="alert alert-success">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                         <strong>Du er nu logget ud</strong>
                         </div>';
-                        $_SESSION["loggetud"] = 0;
+                        $_SESSION["log_out"] = 0;
                     }
                     ?>
                 

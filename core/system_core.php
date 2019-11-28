@@ -2,7 +2,7 @@
 /** Sandsized CMS - By Guld-berg.dk software technologies
 *  Developed by Jørn Guldberg
 *  Copyright (C) Jørn Guldberg - Guld-berg.dk All Rights Reserved. 
-*  Version 6.0.0: Release of major, not compatiple with earlier realises. 
+*  Version 6.1.1: Release of major, not compatiple with earlier realises. 
 *  Full release-notes se the git repository
 */
 
@@ -12,12 +12,22 @@ include $_SERVER['DOCUMENT_ROOT']."/user-sec/site_settings.php";
 
 // Her indstilles tidindstillingerne på siden
 date_default_timezone_set("Europe/Copenhagen");
-define(DATE_AND_TIME, date('Y-m-d H:i:s'));
-define(DATE_WITHOUT_TIME, date('Y-m-d'));
+define('DATE_AND_TIME', date('Y-m-d H:i:s'));
+define('DATE_WITHOUT_TIME', date('Y-m-d'));
+
+if (!isset($_SESSION["initialization"])) 
+{
+    $_SESSION['session_language'] = 'DK';
+    $_SESSION["log_out"] = 0;
+}
+else
+{
+    $_SESSION["initialization"] == 1;
+}
 
 
 function get_db_connection($host, $dbname, $user, $pass) {
-    $conn = new PDO('mysql:host=mysql;dbname=MaincoreDBdev5;charset=utf8', 'my_sql_user', 'my_sql_password');
+    $conn = new PDO('mysql:host='.$host.';dbname='.$dbname.';charset=utf8', $user, $pass);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     return $conn;
 }
@@ -54,7 +64,8 @@ function password_crypt($password_crypt, $username_check) {
 }
 
 function check_permission($rule_id) {
-    if (($rule_id == 0) || in_array(1, LOGIN_PERMISSIONS) || in_array($rule_id, LOGIN_PERMISSIONS)) {
+    if (($rule_id == 0) || in_array(1, LOGIN_PERMISSIONS) || in_array($rule_id, LOGIN_PERMISSIONS)) 
+    {
         return true;
     }
     else {
@@ -144,10 +155,13 @@ if (isset($_SESSION['login_user'])) {
         $stmt = $conn->prepare("SELECT * FROM ".MAIN_DB_PREFIX."users WHERE username_clean = ?;");
         $stmt->execute(array($login_tjek));
                 // set the resulting array to associative
-        if (($stmt->rowCount() == 1) && ($_SESSION['LOGIN_LAST_ACTIVITY'] > time())) {
+        if (($stmt->rowCount() == 1) && ($_SESSION['LOGIN_LAST_ACTIVITY'] > time())) 
+        {
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-            foreach($stmt->fetchAll() as $row) {
-                if ($row['active'] == 1) {
+            foreach($stmt->fetchAll() as $row) 
+            {
+                if ($row['active'] == 1) 
+                {
                     define('LOGIN_ID', $row['id']);
                     define('LOGIN_SESSION', $row['username']);
                     define('LOGIN_SESSIONCLEAN', $row['username_clean']);
@@ -169,6 +183,10 @@ if (isset($_SESSION['login_user'])) {
     }
     $stmt = null;
     $conn = null;   
+}
+else
+{
+    define('LOGIN_PERMISSIONS', array());
 }
 
 if ($page_permission != 0 && !isset($_SESSION['login_user'])) {
