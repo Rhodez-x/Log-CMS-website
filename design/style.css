@@ -1,6 +1,6 @@
   body {
       color: black;
-      background: #5B5B5B;
+      background: url("/design/cyber-3400789_1920.jpg");
   }
 
   hr {
@@ -8,7 +8,7 @@
   }
 
   footer {
-    background-color: #bbb1a9;
+    background-color: #F0F0F0;
   }
   
   .GLOBALdesign {
@@ -16,7 +16,7 @@
     padding:20px;
     padding-top:2px;
     border-radius: 0px 0px 0px 0px;
-    background: #bbb1a9;
+    background: #F0F0F0;
       
   }
   .navbar {
@@ -32,17 +32,17 @@
 
 
 .navbar-inner {
-    background:transparent;
+    background:#F0F0F0;
 
 }
 
 .navbar-brand {
-    color: white !important;
+    color: black !important;
 
 }
 
 .navi-link {
-    color: white !important;  
+    color: black !important;  
 }
 
 .navbar-toggle {
@@ -50,7 +50,7 @@
 }
 
 .dropdown-menu {
-  background-color:black;
+  background-color:#F0F0F0 !important;
 }
 
 .drop_menu_link:hover {

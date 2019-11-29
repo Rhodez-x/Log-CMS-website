@@ -24,7 +24,7 @@ define('DEFAULT_PROFILE_IMG', '/design/default-profile.png'); // Default lang
 define('DEFAULT_LANG', 'DK'); // Default lang
 define('GLOBAL_META_LOCAL', 'da-DK'); 
 define('GLOBAL_CONTACT_EMAIL', "kontakt@guld-berg.dk");
-define('GLOBAL_FIRM_NAME', "DM874 - Log Service");
+define('GLOBAL_FIRM_NAME', "LogOps™");
 define('GLOBAL_FIRM_DESCRIPTION', "Upload your own code to analyse your logs");
 define('GLOBAL_BACKUP_FILE_NAME', "Sandsized_CMS");
 

@@ -8,7 +8,7 @@ else {
 }
 
 if (count($req_array) == 1) {
-    $get_page_name = rawurlencode((str_replace(".php", "",$req_array[0])));
+    //$get_page_name = rawurlencode((str_replace(".php", "",$req_array[0])));
     $get_req_string = count($req_array);
 }
 else if (count($req_array) > 1) {
@@ -47,7 +47,7 @@ try {
     }
     else {
         $web_page_name = "Siden ikke fundet";
-        $date_from_db_page_text = "<h2>Error 404</h2> Siden er ikke fundet";
+        $date_from_db_page_text = "<h2>Error 404</h2> Siden er ikke fundet" . $get_page_name . "bob";
         //header('Location: /');
     }
 }
