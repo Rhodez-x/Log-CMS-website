@@ -18,7 +18,17 @@
             <h1>Get notified when alarm is raised, and handle them in our interface. </h1>
         </div>
     </div>
-    Billede af <a href="https://pixabay.com/da/users/TheDigitalArtist-202249/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=3400789">Pete Linforth</a> fra <a href="https://pixabay.com/da/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=3400789">Pixabay</a>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1><span class="glyphicon glyphicon-transfer"></span></h1>
+                <h1>Buy a subscibtion rigth away</h1>
+                <h2>Download our agent, uploade your code, and you are ready.</h2>
+            </div>
+            Billede af <a href="https://pixabay.com/da/users/TheDigitalArtist-202249/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=3400789">Pete Linforth</a> fra <a href="https://pixabay.com/da/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=3400789">Pixabay</a>
+        </div>
+    </div>
 </div>
 
 <?php

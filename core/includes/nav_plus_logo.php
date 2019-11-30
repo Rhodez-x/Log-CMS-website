@@ -12,9 +12,9 @@ function loggetind() {
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
         <li style="color: white;"></li>
-        <li><a class="navi-link drop_menu_link" href="/control/index">Kontrolpanel</a></li>
+        <li><a class="navi-link drop_menu_link" href="/control/index">User dashboard</a></li>
           '.get_special_menu_point().'
-        <li><a class="navi-link drop_menu_link" href="/logout">Log ud</a></li>
+        <li><a class="navi-link drop_menu_link" href="/logout">Log out</a></li>
         </ul>
       </li>';
     return $navnbar;
