@@ -1,7 +1,16 @@
+<div class="container-fluid text-center">
+    <h1 style="padding-top: 5%; color: white;">LogOps™</h1>
+    <h2 style="padding-bottom: 5%; color: white;">A Cloud and Security hybrid system</h2>
+</div>
+
 <div class="container-fluid GLOBALdesign">
   <div class="row">
-    <div class="col-md-12">
-      <div class="container">
+    <div class="col-md-1"></div>
+    <div class="col-md-5">
+      <h1>Not customer yet?</h1>
+      Don't worry, contact us, and we will help you.
+    </div>
+    <div class="col-md-5">
       <h1>Login </h1>
         <form role="form">
           <div class="form-group">
@@ -16,7 +25,7 @@
           <span class="text-danger" id="loginfeedback"></span>
         </form>
         <a href="/user-recovery">Glemt password?</a>
-      </div>
     </div>
+    <div class="col-md-1"></div>
   </div>
 </div>

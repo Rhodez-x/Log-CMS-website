@@ -8,31 +8,22 @@
             <table class='table table-striped'>
     <thead>
       <tr>
-        <th>Firstname</th>
-        <th>Lastname</th>
-        <th>Email</th>
-        <th>Show log</th>
+        <th>id</th>
+        <th>Time</th>
+        <th>Log type</th>
+        <th>Tags</th>
+        <th>Agent</th>
+        <th></th>
       </tr>
     </thead>
-    <tbody>
+    <tbody id='log_dashboard_logs'>
       <tr>
-        <td>John</td>
-        <td>Doe</td>
-        <td>john@example.com</td>
-        <td><button type='button' class='btn btn-info btn-sm' data-toggle='modal' data-target='#myModal'>Open Log</button></td>
-      </tr>
-      <tr>
-        <td>Mary</td>
-        <td>Moe</td>
-        <td>mary@example.com</td>
-                <td><button type='button' class='btn btn-info btn-sm' data-toggle='modal' data-target='#myModal'>Open Log</button></td>
-      </tr>
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-                <td><button type='button' class='btn btn-info btn-sm' data-toggle='modal' data-target='#myModal'>Open Log</button></td>
-      </tr>
+        <td>Loading</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
     </tbody>
   </table>
 <Hr \>
@@ -50,31 +41,6 @@
     </div>
   </form>
 
-  </div> 
-
-
-
-<!-- Modal -->
-<div id='myModal' class='modal fade' role='dialog' style='margin-top:50px;'>
-  <div class='modal-dialog'>
-
-    <!-- Modal content-->
-    <div class='modal-content'>
-      <div class='modal-header'>
-        <button type='button' class='close' data-dismiss='modal'>&times;</button>
-        <h4 class='modal-title'>Log information</h4>
-      </div>
-      <div class='modal-body'>
-        <p>Get and display the information about the log</p>
-      </div>
-      <div class='modal-footer'>
-        <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-";
+  </div>";
 	}
 ?>

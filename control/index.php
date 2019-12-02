@@ -11,7 +11,7 @@ $web_page_name = "Min side"; // Sidens navn, dette navn afgører hvilken fane i 
 $sidenssti = "/control/content/index"; // Dette er stien til hvor filerne ligger
 $overmodule = "/overmodule.php"; // Dette er overmoduleet, det jeg kalder for behandlingsfiler
 $content = "/content.php"; // Her er filnavnet på contentet af den pågældene side. 
-//$sidenspecialescript = "/forsidescript.php";
+$sidenspecialescript = "/script.php";
 // Her hentes skarbelonen til hele siden, og siden bliver printet til skærmen. 
 require_once $_SERVER['DOCUMENT_ROOT']. "/core/unite_includes.php"; //
 ?>
