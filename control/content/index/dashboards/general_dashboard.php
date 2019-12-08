@@ -1,37 +1,37 @@
 <?php
-	function get_dashboard() 
-	{
-		return "<div class='container-fluid'>
-				<div class='row'>
-					<div class='col-md-6'>
-						<div class='well'><a href='/control/index?select=alarm'> <div class='alert alert-danger'>
-    <h3>Alarms</h3>
-  </div></a>
-  <table class='table table-striped'>
-    <thead>
-      <tr>
-        <th>alarm id</th>
-        <th>time</th>
-        <th>name</th>
-        <th>agent id</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody id='alarm_dashboard_alarms'>
-      <tr>
-        <td>Loading</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-					</div>
-					<div class='col-md-6'> 
-					<div class='well'>
-					<div class='alert alert-warning'>
+    function get_dashboard() 
+    {
+        return "<div class='container-fluid'>
+                <div class='row'>
+                    <div class='col-md-6'>
+                        <div class='well'><a href='/control/index?select=alarm'> <div class='alert alert-danger'>
+                                <h3>Alarms</h3>
+                              </div></a>
+                              <table class='table table-striped'>
+                                <thead>
+                                  <tr>
+                                    <th>alarm id</th>
+                                    <th>time</th>
+                                    <th>name</th>
+                                    <th>agent id</th>
+                                    <th></th>
+                                  </tr>
+                                </thead>
+                                <tbody id='alarm_dashboard_alarms'>
+                                  <tr>
+                                    <td>Loading</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                    </div>
+                    <div class='col-md-6'> 
+                    <div class='well'>
+                    <div class='alert alert-warning'>
     <h3>Agent status:</h3>
   </div>
       <table class='table table-striped'>
@@ -60,11 +60,11 @@
       </tr>
     </tbody>
   </table>
-					</div>
-				</div></div>
-				<div class='row'>
-					<div class='col-md-6'><div class='well'>
-					  <div class='alert alert-success'>
+                    </div>
+                </div></div>
+                <div class='row'>
+                    <div class='col-md-6'><div class='well'>
+                      <div class='alert alert-success'>
     <h3>Subscription:</h3>   
       </div>
           <table class='table table-striped'>
@@ -94,10 +94,10 @@
     </tbody>
   </table>
   </div>
-					</div>
-					<div class='col-md-6'>
-					<div class='well'>
-					  <div class='alert alert-success'>
+                    </div>
+                    <div class='col-md-6'>
+                    <div class='well'>
+                      <div class='alert alert-success'>
     <h3>Code management:</h3>
   </div>
             <table class='table table-striped'>
@@ -128,29 +128,29 @@
   </table>
 
 
-						</div>
-					</div>
-				</div>
-				<div class='row'>
-					<div class='col-md-6'><div class='well'>
-					  <div class='alert alert-info'>
+                        </div>
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='col-md-6'><div class='well'>
+                      <div class='alert alert-info'>
     <h3>Storage status:</h3>   
       </div>
       <h3>3% of 100%</h3>
   </div>
-					</div>
-					<div class='col-md-6'>
-					<div class='well'>
-					  <div class='alert alert-info'>
+                    </div>
+                    <div class='col-md-6'>
+                    <div class='well'>
+                      <div class='alert alert-info'>
     <h3>Customer support:</h3>
     Placeholer contact information.<br>
     <br>
     7-19 telephone <br>
     24/7 mail system <br> 
   </div>
-						</div>
-					</div>
-				</div>
-				</div>";
-	}
+                        </div>
+                    </div>
+                </div>
+                </div>";
+    }
 ?>

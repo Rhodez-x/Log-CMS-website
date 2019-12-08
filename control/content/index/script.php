@@ -18,8 +18,8 @@
     }
     else if ($_GET["select"] == "code") 
     {
-        include $_SERVER['DOCUMENT_ROOT']."control/content/index/dashboards/code_dashboard.php";
-        $dashboard_script = "<h1>Code management</h1>";
+        include $_SERVER['DOCUMENT_ROOT']."control/content/index/dashboards/code_dashboard_script.php";
+        $dashboard_script = "<script>$(function(){get_content_code_dashboard();});</script>";
     }   
     else if ($_GET["select"] == "subscription") 
     {
