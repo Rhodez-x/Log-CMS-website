@@ -8,12 +8,12 @@
             <table class='table table-striped'>
     <thead>
       <tr>
-        <th>Code id</th>
-        <th>Time</th>
+        <th>Name</th>
+        <th>Type</th>
         <th>View/edit code</th>
         <th>delete</th>
-        <th>x</th>
-        <th>x</th>
+        <th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody id='code_dashboard_logs'>
@@ -22,14 +22,6 @@
         <td></td>
         <td></td>
         <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>Create new code</td>
-        <td></td>
-        <td></td>
-        <td><button type='button' class='btn btn-info btn-sm' data-toggle='modal' data-target='#code_edit_modal'>Create code</button></td>
         <td></td>
         <td></td>
       </tr>
@@ -46,12 +38,13 @@
       <div class='modal-header'>
         <button type='button' class='close' data-dismiss='modal'>&times;</button>
         <h4 class='modal-title'>Code edit</h4>
+              <div class='form-group'>
+		  <label for='code_name_input'>Name:</label>
+		  <input type='text' class='form-control' id='code_name_input'>
+		</div>
       </div>
-      <div style='height: 500px;' class='modal-body' id='code_ecit_body'>
-  <div id='editor'>function foo(items) {
-    var x = 'All this is syntax highlighted';
-    return x;
-	}
+      <div style='height: 500px;' class='modal-body' id='code_edit_body'>
+  <div id='editor'>
   </div>
     
 <script src='/plugins/ace/src-noconflict/ace.js' type='text/javascript' charset='utf-8'></script>
@@ -62,7 +55,7 @@
 </script>
       </div>
       <div class='modal-footer'>
-        <button type='button' class='btn btn-success' data-dismiss='modal'>Save</button>
+        <button id='save_code_btn' onclick='save_code()' type='button' class='btn btn-success' data-dismiss='modal'>Save</button>
         <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
       </div>
     </div>

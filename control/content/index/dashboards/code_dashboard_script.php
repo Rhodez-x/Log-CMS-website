@@ -1,7 +1,51 @@
 <script>
-function set_log_modal_info(content) 
+function view_code(code_id) 
 {
-    $("#log_modal_info").html(content);
+    $.ajax({
+        type: "POST",
+        url: "https://joliecloud-dev.mitlogin.dk/retrieveCode",
+        // The key needs to match your method's input parameter (case-sensitive).
+        data: '{"offset": 0, "limit": 20, "authorization": "valid_token" }',
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(data){
+            for (var i = data.count - 1; i >= 0; i--) {
+                if (data.parsers[i]._id.$oid == code_id) 
+                {
+                    $("#code_name_input").val(data.parsers[i].name);
+                    editor.setValue(data.parsers[i].code);
+                }
+            }
+        },
+        failure: function(errMsg) 
+        {
+            alert(errMsg);
+        }
+    });
+}
+
+function save_code() 
+{
+    var code_to_save = editor.getValue();
+    var code_name = $("#code_name_input").val();
+
+    var string_buliding = '{ "parser":{ "name": "'+ code_name+'", "code": "' + code_to_save + '", "type": "jolie" }, "authorization":"valid_token" }';
+
+    $.ajax({
+        type: "POST",
+        url: "https://joliecloud-dev.mitlogin.dk/submitCode",
+        // The key needs to match your method's input parameter (case-sensitive).
+        data: string_buliding,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(data){
+            alert(data.success);
+        },
+        failure: function(errMsg) 
+        {
+            alert(errMsg);
+        }
+    });
 }
 
 
@@ -19,14 +63,15 @@ function get_content_code_dashboard()
             for (var i = data.count - 1; i >= 0; i--) {
             content += "<tr>  \
             <td>"+ data.parsers[i].name+ "</td> \
-            <td>"+data.parsers[i].code+"</td> \
-            <td>"+data.parsers[i].type+"</td><td>";
-
-            content += "</td><td></td> \
+            <td>"+data.parsers[i].type+"</td> \
+            <td><button type='button' onclick='view_code(\""+data.parsers[i]._id.$oid+"\")' class='btn btn-warning btn-sm' data-toggle='modal' data-target='#code_edit_modal'>View/edit code</button></td> \
+            <td><button type='button' class='btn btn-danger btn-sm'>Delete</button></td> \
+            <td></td> \
             <td></td> \
             </tr>";
+            //"+data.parsers[i].code+"
             }
-            $("#code_dashboard_logs").html(content);
+            $("#code_dashboard_logs").html(content + "<tr><td>Create new</td><td></td><td><button type='button' class='btn btn-success btn-sm' data-toggle='modal' data-target='#code_edit_modal'>Create code</button></td><td></td><td></td><td></td></tr>");
         },
         failure: function(errMsg) 
         {
