@@ -10,7 +10,7 @@ function get_content_code_dashboard()
     var content = "";
     $.ajax({
         type: "POST",
-        url: "https://joliecloud.mitlogin.dk/retrieveCode",
+        url: "https://joliecloud-dev.mitlogin.dk/retrieveCode",
         // The key needs to match your method's input parameter (case-sensitive).
         data: '{"offset": 0, "limit": 20, "authorization": "valid_token" }',
         contentType: "application/json; charset=utf-8",
