@@ -39,7 +39,7 @@ function save_code()
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function(data){
-            alert(data.success);
+            alert("Code has been submitted and saved");
         },
         failure: function(errMsg) 
         {
