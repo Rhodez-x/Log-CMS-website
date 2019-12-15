@@ -36,7 +36,8 @@
         // Default dashboard (General info)
         require_once $_SERVER['DOCUMENT_ROOT']."control/content/index/dashboards/alarm_dashboard_script.php";
         require_once $_SERVER['DOCUMENT_ROOT']."control/content/index/dashboards/log_dashboard_script.php";
-        $dashboard_script .= "<script>$(function(){get_content_alarm_dashboard();get_content_log_dashboard();});</script>";
+        require_once $_SERVER['DOCUMENT_ROOT']."control/content/index/dashboards/code_dashboard_script.php";
+        $dashboard_script .= "<script>$(function(){get_content_alarm_dashboard();get_content_log_dashboard();get_content_code_dashboard();});</script>";
     }
     
     echo $dashboard_script; 

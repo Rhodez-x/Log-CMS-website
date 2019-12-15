@@ -3,18 +3,18 @@ function get_content_alarm_dashboard()
 {
     var content; 
 
-    $.post("/control/content/index/dashboards/test_data/get_alarms",
+    $.get("https://logalarm-dev.mitlogin.dk/alarms",
     {
         method: "get",
-        },
-        function(data,status){
-        for (var i = data.results - 1; i >= 0; i--) {
+    },
+    function(data,status){
+        for (var i = data.num_results - 1; i >= 0; i--) {
             content += "<tr>  \
-            <td>"+ data.alarms[i].id+ "</td> \
-            <td>"+data.alarms[i].timestamp+"</td> \
-            <td>"+data.alarms[i].alarm_name+"</td> \
-            <td>"+data.alarms[i].agent_id+"</td> \
-            <td><a href='/control/index?select=investegate&id="+data.alarms[i].id+"'> <span class='glyphicon glyphicon-search'></span></a></td> \
+            <td>"+ data.content[i].customer_id+ "</td> \
+            <td>"+data.content[i].timestamp+"</td> \
+            <td>"+data.content[i].name+"</td> \
+            <td>"+data.content[i].severity+"</td> \
+            <td><a href='/control/index?select=investegate&id="+data.content[i].customer_id+"'> <span class='glyphicon glyphicon-search'></span></a></td> \
             </tr>";
         }
         $("#alarm_dashboard_alarms").html(content);

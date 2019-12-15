@@ -12,6 +12,7 @@ function get_content_log_dashboard()
         type: "POST",
         url: "https://logstore-dev.mitlogin.dk/gateway",
         // The key needs to match your method's input parameter (case-sensitive).
+        // “path”: “?customer_id=id”
         data: '{"method": "get", "request": {"path": ""}}',
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -24,7 +25,7 @@ function get_content_log_dashboard()
 
             for (var j = 0; data.content[i].tags[j] != undefined; j++) 
             {
-                content += data.content[i].tags[j]+ ", ";
+                content += data.content[i].tags[j];
             }
 
             content += "</td><td>"+data.content[i].agent_id+"</td> \

@@ -2,7 +2,7 @@
 	function get_dashboard() 
 	{
 		return "<div class='well'>
-					  <div class='alert alert-info'>
+					  <div class='alert alert-success'>
     <h3>Code managentment:</h3>   
       </div>
             <table class='table table-striped'>

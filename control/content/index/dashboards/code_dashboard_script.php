@@ -24,6 +24,34 @@ function view_code(code_id)
     });
 }
 
+
+function delete_code(code_name) 
+{
+
+    var string_buliding = '{ \
+            "authorization":"valid_token", \
+            "name":"'+code_name+'" \
+        }';
+
+    $.ajax({
+        type: "POST",
+        url: "https://joliecloud-dev.mitlogin.dk/deleteCode",
+        // The key needs to match your method's input parameter (case-sensitive).
+        data: string_buliding,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(data){
+            alert("Code has been deleted on the server");
+            location.reload();
+        },
+        failure: function(errMsg) 
+        {
+            alert(errMsg);
+        }
+    });
+}
+
+
 function save_code() 
 {
     var code_to_save = editor.getValue();
@@ -40,6 +68,7 @@ function save_code()
         dataType: "json",
         success: function(data){
             alert("Code has been submitted and saved");
+            location.reload(); 
         },
         failure: function(errMsg) 
         {
@@ -65,7 +94,7 @@ function get_content_code_dashboard()
             <td>"+ data.parsers[i].name+ "</td> \
             <td>"+data.parsers[i].type+"</td> \
             <td><button type='button' onclick='view_code(\""+data.parsers[i]._id.$oid+"\")' class='btn btn-warning btn-sm' data-toggle='modal' data-target='#code_edit_modal'>View/edit code</button></td> \
-            <td><button type='button' class='btn btn-danger btn-sm'>Delete</button></td> \
+            <td><button type='button' onclick='delete_code(\""+data.parsers[i].name+"\")' class='btn btn-danger btn-sm'>Delete</button></td> \
             <td></td> \
             <td></td> \
             </tr>";
