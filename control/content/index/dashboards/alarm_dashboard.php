@@ -13,7 +13,7 @@
         <th>alarm id</th>
         <th>time</th>
         <th>name</th>
-        <th>agent id</th>
+        <th>Severity</th>
         <th>investegate</th>
       </tr>
     </thead>

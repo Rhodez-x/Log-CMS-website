@@ -24,34 +24,62 @@ function set_log_modal_info(id)
 }
 
 
-function get_content_log_dashboard()
+function get_alarm_information(alarm_id)
 {
     var content = "";
+    $.ajax({
+        type: "GET",
+        url: "https://logalarm-dev.mitlogin.dk/alarms/" + alarm_id,
+        // The key needs to match your method's input parameter (case-sensitive).
+        // “path”: “?customer_id=id”
+        data: '',
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(data){
+            content = "<b>Name:</b> " + data.name + "<br><b>timestamp:</b> " +data.timestamp;
+            
+
+            for (var j = 0; data.log_ids[j] != undefined; j++) 
+            {
+                get_log_information(data.log_ids[j]);
+            }
+            
+            $("#alarm_information_div").html(content);
+        },
+        failure: function(errMsg) 
+        {
+            alert(errMsg);
+        }
+    });
+}
+
+function get_log_information(id)
+{
+    var content = "";
+    var string_builder = '{"method": "get", "request": {"path": "/'+id+'"}}';
     $.ajax({
         type: "POST",
         url: "https://logstore-dev.mitlogin.dk/gateway",
         // The key needs to match your method's input parameter (case-sensitive).
         // “path”: “?customer_id=id”
-        data: '{"method": "get", "request": {"path": ""}}',
+        data: string_builder,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function(data){
-            for (var i = data.results - 1; i >= 0; i--) {
             content += "<tr>  \
-            <td>"+ data.content[i].log_id+ "</td> \
-            <td>"+data.content[i].timestamp+"</td> \
-            <td>"+data.content[i].log_type+"</td><td>";
+            <td>"+ data.log_id+ "</td> \
+            <td>"+data.timestamp+"</td> \
+            <td>"+data.log_type+"</td><td>";
 
-            for (var j = 0; data.content[i].tags[j] != undefined; j++) 
+            for (var j = 0; data.tags[j] != undefined; j++) 
             {
-                content += data.content[i].tags[j] + ", ";
+                content += data.tags[j] + ", ";
             }
 
-            content += "</td><td>"+data.content[i].agent_id+"</td> \
-            <td><button onclick='set_log_modal_info(\""+ data.content[i].log_id+"\")' type='button' class='btn btn-info btn-sm' data-toggle='modal' data-target='#log_info_modal'>Open Log</button></td> \
+            content += "</td><td>"+data.agent_id+"</td> \
+            <td><button onclick='set_log_modal_info(\""+ data.log_id+"\")' type='button' class='btn btn-info btn-sm' data-toggle='modal' data-target='#log_info_modal'>Open Log</button></td> \
             </tr>";
-            }
-            $("#log_dashboard_logs").html(content);
+            $("#log_dashboard_logs").append(content);
         },
         failure: function(errMsg) 
         {

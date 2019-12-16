@@ -2,6 +2,12 @@
 	function get_dashboard() 
 	{
 		return "<div class='well'>
+            <h2>Alarm information:</h2>
+            <div id='alarm_information_div'>
+            </div>
+            </div>
+
+    <div class='well'>
 					  <div class='alert alert-warning'>
     <h3>Relevant logs:</h3>   
       </div>
@@ -17,13 +23,6 @@
       </tr>
     </thead>
     <tbody id='log_dashboard_logs'>
-      <tr>
-        <td>Loading</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
     </tbody>
   </table>
 <Hr \>

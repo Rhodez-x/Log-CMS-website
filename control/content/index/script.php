@@ -13,8 +13,8 @@
     }
     else if ($_GET["select"] == "investegate") 
     {
-        require_once $_SERVER['DOCUMENT_ROOT']."control/content/index/dashboards/log_dashboard_script.php";
-        $dashboard_script = "<script>$(function(){get_content_log_dashboard();});</script>";
+        require_once $_SERVER['DOCUMENT_ROOT']."control/content/index/dashboards/investegate_dashboard_script.php";
+        $dashboard_script = "<script>$(function(){get_alarm_information(".$_GET['id'].");});</script>";
     }
     else if ($_GET["select"] == "code") 
     {
