@@ -14,7 +14,7 @@ function get_content_alarm_dashboard()
             <td>"+data.content[i].timestamp+"</td> \
             <td>"+data.content[i].name+"</td> \
             <td>"+data.content[i].severity+"</td> \
-            <td><a href='/control/index?select=investegate&id="+data.content[i].id+"'> <span class='glyphicon glyphicon-search'></span></a></td> \
+            <td><a href='/control/index?select=investigate&id="+data.content[i].id+"'> <span class='glyphicon glyphicon-search'></span></a></td> \
             </tr>";
         }
         $("#alarm_dashboard_alarms").html(content);

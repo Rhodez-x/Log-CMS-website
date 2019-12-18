@@ -154,6 +154,7 @@
 
     <div id="Companies"> 
         <h2>Company list:</h2>
+        <div id="company_list"></div>
         <?php 
             try {
                 /* Setup values for the loop

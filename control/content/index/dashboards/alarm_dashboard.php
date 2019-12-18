@@ -14,7 +14,7 @@
         <th>time</th>
         <th>name</th>
         <th>Severity</th>
-        <th>investegate</th>
+        <th>Investigate</th>
       </tr>
     </thead>
     <tbody id='alarm_dashboard_alarms'>

@@ -13,10 +13,10 @@
     	include $_SERVER['DOCUMENT_ROOT']."control/content/index/dashboards/log_dashboard.php";
     	$dashboard_content = "<h1>Log management</h1>";
     }
-    else if ($_GET["select"] == "investegate") 
+    else if ($_GET["select"] == "investigate") 
     {
-    	include $_SERVER['DOCUMENT_ROOT']."control/content/index/dashboards/investegate_dashboard.php";
-    	$dashboard_content = "<h1>Investegate - Alarm id: " . clean_input_text($_GET["id"]) ."</h1>";
+    	include $_SERVER['DOCUMENT_ROOT']."control/content/index/dashboards/investigate_dashboard.php";
+    	$dashboard_content = "<h1>Investigate - Alarm id: " . clean_input_text($_GET["id"]) ."</h1>";
     }
     else if ($_GET["select"] == "code") 
     {

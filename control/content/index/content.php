@@ -4,7 +4,7 @@
       <ul class="nav nav-pills nav-stacked">
         <li><h3>Services</h3></li>
         <li><a href="/control/index">General info</a></li>
-        <li><a href="/control/index?select=alarm">Arlarm management</a></li>
+        <li><a href="/control/index?select=alarm">Alarm management</a></li>
         <li><a href="/control/index?select=log">Log management</a></li>
         <li><a href="/control/index?select=code">Code management</a></li>
         <li><a href="/control/index?select=subscription">Subscription</a></li>

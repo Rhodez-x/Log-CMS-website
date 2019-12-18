@@ -21,24 +21,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $result = curl_exec($ch);
             $json_result = json_decode($result, true);
             
-            if ($json_result["key"] != "") 
+            if ($json_result["response"] != "true") 
             {
-                $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                $stmt = $conn->prepare("INSERT INTO ".MAIN_DB_PREFIX."company (company_name, company_key)
-                                    VALUES(?, ?);"); // 10 for a regular user, 1 for that the user is immediately active
-                $stmt->execute(array($POST_company_name, $json_result["key"]));
-
-            $_SESSION["uploade_feedback"] = '<div class="row">
+                
+                $_SESSION["uploade_feedback"] = '<div class="row">
                     <div class="col-sm-12 alert alert-success">
-                    <strong>SUCCESS</strong> Company is created with name: '.$POST_company_name.' <br>and key: '.$json_result["key"].'
+                    <strong>SUCCESS</strong> Company is created
                     </div>
                     </div>';
             }
             else 
             {
-                throw new Exception("Error Processing Request", 1);
-                
+                $_SESSION["uploade_feedback"] = '<div class="row">
+                    <div class="col-sm-8 alert alert-danger">
+                    <strong>ERROR</strong> Error
+                    </div>
+                    <div class="col-sm-4"></div>
+                    </div>';
             }
+            header('Location: /control/master_control');
         }
         catch(PDOException $e) {
             $_SESSION["uploade_feedback"] = '<div class="row">
