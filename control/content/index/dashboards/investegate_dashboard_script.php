@@ -4,7 +4,7 @@ function set_log_modal_info(id)
     var string_builder = '{"method": "get", "request": {"path": "/'+id+'"}}';
     $.ajax({
         type: "POST",
-        url: "https://logstore-dev.mitlogin.dk/gateway",
+        url: <?php echo '"'.SERIVCE_ALARMSERVICE_URL.'/gateway"'; ?>,
         // The key needs to match your method's input parameter (case-sensitive).
         // “path”: “?customer_id=id”
         data: string_builder,
@@ -29,7 +29,7 @@ function get_alarm_information(alarm_id)
     var content = "";
     $.ajax({
         type: "GET",
-        url: "https://logalarm-dev.mitlogin.dk/alarms/" + alarm_id,
+        url: <?php echo '"'.SERIVCE_ALARMSERVICE_URL.'/alarms/"'; ?> + alarm_id,
         // The key needs to match your method's input parameter (case-sensitive).
         // “path”: “?customer_id=id”
         data: '',
@@ -59,7 +59,7 @@ function get_log_information(id)
     var string_builder = '{"method": "get", "request": {"path": "/'+id+'"}}';
     $.ajax({
         type: "POST",
-        url: "https://logstore-dev.mitlogin.dk/gateway",
+        url: <?php echo '"'.SERIVCE_LOGSTORE_URL.'/gateway"'; ?>,
         // The key needs to match your method's input parameter (case-sensitive).
         // “path”: “?customer_id=id”
         data: string_builder,

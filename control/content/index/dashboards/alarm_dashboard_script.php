@@ -3,7 +3,7 @@ function get_content_alarm_dashboard()
 {
     var content; 
 
-    $.get("https://logalarm-dev.mitlogin.dk/alarms",
+    $.get(<?php echo '"'.SERIVCE_ALARMSERVICE_URL.'/alarms"' ?>,
     {
         method: "get",
     },

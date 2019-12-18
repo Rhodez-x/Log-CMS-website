@@ -29,6 +29,13 @@ define('GLOBAL_FIRM_DESCRIPTION', "Upload your own code to analyse your logs");
 define('GLOBAL_BACKUP_FILE_NAME', "Sandsized_CMS");
 
 define('GLOBAL_FIRM_IMAGE_META', "Sandsized CMS");
-define('GLOBAL_URL', "https://guld-berg.dk");
+define('SERVER_AUTH_KEY', "V%ojaT0pX}w12db3@*M+_cq}xB8s4+");
+
+define('GLOBAL_URL', getenv("GLOBAL_URL"));
+define('SERIVCE_LOGSTORE_URL', getenv("LOGSTORE_URL"));
+define('SERIVCE_ALARMSERVICE_URL', getenv("ALARMSERVICE_URL"));
+define('SERIVCE_JOLIECLOUD_URL', getenv("JOLIECLOUD_URL"));
+define('SERIVCE_AUTHSERVICE_URL', getenv("AUTHSERVICE_URL"));
+
 
 ?>

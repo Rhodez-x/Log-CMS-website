@@ -21,7 +21,7 @@ function loggetind() {
 }
 
 function loginBoks() {
-echo '<div class="modal fade" id="myModal" role="dialog" style="z-index: 9999;">
+/*echo '<div class="modal fade" id="myModal" role="dialog" style="z-index: 9999;">
     <div class="modal-dialog">
       <!-- Modal content-->
       <div class="modal-content">
@@ -48,7 +48,7 @@ echo '<div class="modal fade" id="myModal" role="dialog" style="z-index: 9999;">
       </div>
       
     </div>
-  </div>';
+  </div>';*/
 }
 ?>
 
@@ -79,6 +79,9 @@ echo '<div class="modal fade" id="myModal" role="dialog" style="z-index: 9999;">
                             if ($stmt->rowCount() > 0) {
                                 foreach($stmt->fetchAll() as $row) 
                                 {  
+                                    if(isset($_SESSION['login_user']) && $row['name'] == "Login") { 
+                                        continue;
+                                    }   
                                     if(check_permission($row['permission'])) 
                                     {
                                         // Check if we have to make a dropdown menu for the menu
@@ -136,9 +139,4 @@ echo '<div class="modal fade" id="myModal" role="dialog" style="z-index: 9999;">
         </div>
         </div>
     </nav>
-    <?php
-        if(!isset($_SESSION['login_user'])) { 
-            loginBoks();
-        }   
-    ?>
 </div>

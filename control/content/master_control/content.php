@@ -15,11 +15,13 @@
     <nav class="col-sm-2" id="myScrollspy">
       <ul class="nav nav-pills nav-stacked">
         <li><h3>Oversigt</h3></li>
-        <li><a href="/control/master_control#user">Tilføj bruger</a></li>
-        <li><a href="/control/master_control#members">Medlemsoversigt</a></li>
-        <li><a href="/control/master_control#sider">Tilføj/fjern sider</a></li>
+        <li><a href="/control/master_control#user">Add user</a></li>
+        <li><a href="/control/master_control#members">User overview</a></li>
+        <li><a href="/control/master_control#company">Add Company</a></li>
+        <li><a href="/control/master_control#Companies">Company overview</a></li>
+        <li><a href="/control/master_control#pages">Add/remove pages</a></li>
         <li><a href="/control/master_control#backup">Backup database</a></li>
-        <li><a href="/control/master_control#plugs">Plugin liste</a></li>
+        <li><a href="/control/master_control#plugs">Plugin list</a></li>
       </ul>
     </nav>
     <div class="col-sm-10">
@@ -82,7 +84,7 @@
         <hr>
     </div> 
     <div id="members">         
-        <h2>Medlemsoversigt</h2>
+        <h2>User overview</h2>
         <?php 
             try {
                 /* Setup values for the loop
@@ -136,8 +138,70 @@
         ?>
         <hr />
       </div>
-      <div id="sider">         
-        <h2>Tilføj/fjern sider</h2>
+
+    <div id="company"> 
+        <h2>Add company:</h2>
+        <form class="form-inline" name="createCompanyForm" action="/control/content/master_control/create_company" onsubmit="return validateForm()" method="post">
+        <div class="form-group">
+        <label for="company_name">Company name:</label>
+        <input type="text" class="form-control" name="company_name" id="company_name">
+        <span id="errUser"></span>
+        </div>
+        <button type="submit" class="btn btn-default">Create Company</button>
+        </form>
+        <hr>
+    </div> 
+
+    <div id="Companies"> 
+        <h2>Company list:</h2>
+        <?php 
+            try {
+                /* Setup values for the loop
+                *  Deffrent options for deffrend kind of user state
+                */
+                $page_company_list_text = '<h3>Companies</h3>';
+                $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
+                $stmt = $conn->prepare("SELECT * FROM ".MAIN_DB_PREFIX."company ORDER BY company_name;");
+                $stmt->execute();
+                if ($stmt->rowCount() > 0) {
+                    foreach($stmt->fetchAll() as $row) {
+                        $data_company_id = $row['id'];
+                        $data_company_name = $row['company_name'];
+                        $data_company_key = $row['company_key'];
+
+                        
+                        $page_company_list_text = $page_company_list_text . '<form class="form-inline" onsubmit="return confirmDelete()" action="/control/content/master_control/company_handler" method="post">
+                        <div class="form-group">
+                        <label for="company_name">'.$edit_page_lang.'</label>
+                            <input type="text" class="form-control" name="company_name" id="company_name" readonly value="'.$data_company_name.'">
+                          </div>
+                          <div class="form-group">
+                          <label for="company_key">'.$edit_page_lang.'</label>
+                            <input type="text" class="form-control" name="company_key" id="company_key" readonly size="29" value="'.$data_company_key.'">
+                          </div>
+                          <input type="hidden" class="form-control" name="id" id="id" value="'.$data_company_id.'">
+                          <a href="/control/user_editor?user_id='.$row['id'].'" class="btn btn-default" role="button" disabled>Edit Company</a>
+                          <button type="submit" class="btn btn-danger" name="handel" value="delete" disabled>Delete</button>
+                          </form>';
+                    }
+                }
+                else {
+                    $page_company_list_text = "Ingen elementer er fundet";
+                }
+            }
+            catch(PDOException $e) {
+                $page_company_list_text = "Der er sket en fejl.";
+            }
+            $stmt = null;
+            $conn = null;
+            
+            echo $page_company_list_text;
+        ?>
+        <hr>
+    </div> 
+
+      <div id="pages">         
+        <h2>Add/remove pages</h2>
         <?php 
             try {
                 $page_edit_text = '';

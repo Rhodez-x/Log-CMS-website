@@ -3,7 +3,7 @@ function view_code(code_id)
 {
     $.ajax({
         type: "POST",
-        url: "https://joliecloud-dev.mitlogin.dk/retrieveCode",
+        url: <?php echo '"'.SERIVCE_JOLIECLOUD_URL. '/retrieveCode"'; ?>,
         // The key needs to match your method's input parameter (case-sensitive).
         data: '{"offset": 0, "limit": 20, "authorization": "valid_token" }',
         contentType: "application/json; charset=utf-8",
@@ -35,7 +35,7 @@ function delete_code(code_name)
 
     $.ajax({
         type: "POST",
-        url: "https://joliecloud-dev.mitlogin.dk/deleteCode",
+        url: <?php echo '"'.SERIVCE_JOLIECLOUD_URL. '/deleteCode"'; ?>,
         // The key needs to match your method's input parameter (case-sensitive).
         data: string_buliding,
         contentType: "application/json; charset=utf-8",
@@ -61,7 +61,7 @@ function save_code()
 
     $.ajax({
         type: "POST",
-        url: "https://joliecloud-dev.mitlogin.dk/submitCode",
+        url: <?php echo '"'.SERIVCE_JOLIECLOUD_URL. '/submitCode"'; ?>,
         // The key needs to match your method's input parameter (case-sensitive).
         data: string_buliding,
         contentType: "application/json; charset=utf-8",
@@ -83,7 +83,7 @@ function get_content_code_dashboard()
     var content = "";
     $.ajax({
         type: "POST",
-        url: "https://joliecloud-dev.mitlogin.dk/retrieveCode",
+        url: <?php echo '"'.SERIVCE_JOLIECLOUD_URL. '/retrieveCode"'; ?>,
         // The key needs to match your method's input parameter (case-sensitive).
         data: '{"offset": 0, "limit": 20, "authorization": "valid_token" }',
         contentType: "application/json; charset=utf-8",
