@@ -49,9 +49,4 @@
             }
         });
     }
-$(function()
-{
-    get_company_list();
-});
-
 </script>

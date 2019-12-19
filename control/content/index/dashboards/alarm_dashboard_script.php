@@ -5,7 +5,7 @@ function get_content_alarm_dashboard()
 
     $.get(<?php echo '"'.SERIVCE_ALARMSERVICE_URL.'/alarms"' ?>,
     {
-        method: "get",
+        
     },
     function(data,status){
         for (var i = data.num_results - 1; i >= 0; i--) {

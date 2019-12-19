@@ -34,6 +34,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $_SESSION['login_user'] = $row['username'];
                             $_SESSION['LOGIN_LAST_ACTIVITY'] = (time() + 900); // Set a timer for the user, if the user is inactive, the user is logout
                             
+                            if ($row['company_key'] != "") 
+                            {
+
+                                $data = array("method" => "gettoken", "licensekey" => null, "company_key" => $row['company_key']);
+                                $auth_res = call_authentication_service($data);
+                                $_SESSION["LOGIN_TOKEN"] = $auth_res["token"]; 
+                            }
+
                             // for safty reason we reset rocoverycode and recoverytime, so that no hanging code can be used. 
                             $stmt_set = $conn->prepare("UPDATE ".MAIN_DB_PREFIX."users SET recoverycode = '', recoverytime = '' WHERE id = ?;");
                             $stmt_set->execute(array($row['id']));

@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $result = curl_exec($ch);
             $json_result = json_decode($result, true);
             
-            if ($json_result["response"] != "true") 
+            if ($json_result["response"] == "true") 
             {
                 
                 $_SESSION["uploade_feedback"] = '<div class="row">

@@ -32,6 +32,22 @@ function get_db_connection($host, $dbname, $user, $pass) {
     return $conn;
 }
 
+function call_authentication_service($data)
+{
+    $data_string = json_encode($data);
+    $ch = curl_init(SERIVCE_AUTHSERVICE_URL);                          
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                      
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                            
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+        'Content-Type: application/json',
+        'Content-Length: ' . strlen($data_string)) 
+    );
+    $result = curl_exec($ch);
+    $json_result = json_decode($result, true);
+    return $json_result;
+}
+
 function clean_input_text($data) {
    $data = trim($data);
    $data = stripslashes($data);

@@ -157,33 +157,19 @@
         <div id="company_list"></div>
         <?php 
             $data = array("method" => "getcompanies", "serverkey" => SERVER_AUTH_KEY);                                                                    
-            $data_string = json_encode($data);
-            $ch = curl_init(SERIVCE_AUTHSERVICE_URL);                          
-            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                      
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                            
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
-                'Content-Type: application/json',
-                'Content-Length: ' . strlen($data_string)) 
-            );
-            $result = curl_exec($ch);
-            var_dump($result);
-            $json_result = json_decode($result, true);
-            var_dump($json_result); 
+            $json_result = call_authentication_service($data);
+            //var_dump($json_result); 
 
             try {
                 /* Setup values for the loop
                 *  Deffrent options for deffrend kind of user state
                 */
                 $page_company_list_text = '<h3>Companies</h3>';
-                $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                $stmt = $conn->prepare("SELECT * FROM ".MAIN_DB_PREFIX."company ORDER BY company_name;");
-                $stmt->execute();
-                if ($stmt->rowCount() > 0) {
-                    foreach($stmt->fetchAll() as $row) {
-                        $data_company_id = $row['id'];
-                        $data_company_name = $row['company_name'];
-                        $data_company_key = $row['company_key'];
+                if (count($json_result["listofcompanies"]) > 0) {
+                    foreach($json_result["listofcompanies"] as $row) {
+                        $data_company_id = $row['CompanyPublic'];
+                        $data_company_name = $row['CompanyName'];
+                        $data_company_key = $row['CompanyKey'];
 
                         
                         $page_company_list_text = $page_company_list_text . '<form class="form-inline" onsubmit="return confirmDelete()" action="/control/content/master_control/company_handler" method="post">
