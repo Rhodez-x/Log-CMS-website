@@ -2,8 +2,8 @@
 $page_permission = 0; // all has access  
 require_once $_SERVER['DOCUMENT_ROOT']."/core/system_core.php";
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
+if ($_SERVER['REQUEST_METHOD'] == 'POST') 
+{
         $POST_company_key = clean_input_text($_POST["company_key"]);
         $POST_username = clean_input_text($_POST["username"]);
         $POST_password = clean_input_text($_POST["password"]);
@@ -37,8 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 
                 $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
                 $stmt = $conn->prepare("INSERT INTO ".MAIN_DB_PREFIX."users (username, username_clean, permission_list, password, active, company_key)
-                                        VALUES(?, ?, 'a:1:{i:0;i:2;i:7;}', ?, 1, ?);"); //  1 for that the user is immediately active
-                $stmt->execute(array($POST_username, $POST_username_clean, $POST_password, SERVER_AUTH_KEY));
+                                        VALUES(?, ?, 'a:2:{i:0;i:2;i:1;i:7;}', ?, 1, ?);"); //  1 for that the user is immediately active
+                $stmt->execute(array($POST_username, $POST_username_clean, $POST_password, $POST_company_key));
 
                 $stmt2 = $conn->prepare("INSERT INTO ".MAIN_DB_PREFIX."user_info (id, profile_img, hidden)
                                         VALUES(?, ?, 0);"); 
@@ -77,14 +77,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="col-sm-4"></div>
                 </div>';        
         }
-        header('Location: /control/master_control');
-    }
-    else
-    {
-
-    }
-
-} else {
-    header('Location: /');
+        header('Location: /login');
+} 
+else 
+{
+    header('Location: /bla');
 }
 ?>

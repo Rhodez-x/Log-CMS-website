@@ -28,7 +28,7 @@ $(document).ready(function(){
             else if (feedback == "empty") {
                 $("#loginfeedback").html("<strong>Begge felter skal udfyldes!</strong>");
             }
-            else if (deactive == "deactive") {
+            else if (feedback == "deactive") {
                 $("#loginfeedback").html("<strong>Din bruger er deaktiveret, kontakt en adminstrator af siden</strong>");
             }
             else {

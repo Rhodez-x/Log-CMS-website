@@ -1,4 +1,5 @@
 <?php
+    $page_permission = 7; // all has access
     require_once $_SERVER['DOCUMENT_ROOT']."control/content/functions.php";
 
     $dashboard_content = "";

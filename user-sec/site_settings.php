@@ -11,7 +11,7 @@
 */
 
 
-define('MAIN_DB_HOST', 'mysql'); // host
+define('MAIN_DB_HOST', getenv("MYSQL_ADDR")); // host
 define('MAIN_DB_USER', 'my_sql_user'); // user
 define('MAIN_DB_PASS', 'my_sql_password'); // pw
 define('MAIN_DB_DATABASE_NAME', 'MaincoreDBdev5'); // Database name

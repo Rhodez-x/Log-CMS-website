@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Her tjekkes det om oplysningerne findes i systemet.
             try {
                 $conn = get_db_connection(MAIN_DB_HOST, MAIN_DB_DATABASE_NAME, MAIN_DB_USER, MAIN_DB_PASS);
-                $stmt = $conn->prepare("SELECT id, username, active FROM ".MAIN_DB_PREFIX."users WHERE username_clean = ? AND password = ? ");
+                $stmt = $conn->prepare("SELECT id, username, active, company_key FROM ".MAIN_DB_PREFIX."users WHERE username_clean = ? AND password = ? ");
                 $stmt->execute(array($tjekBrugernavn, $tjekPassword));
                         // set the resulting array to associative
                 $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             if ($row['company_key'] != "") 
                             {
 
-                                $data = array("method" => "gettoken", "licensekey" => null, "company_key" => $row['company_key']);
+                                $data = array("method" => "gettoken", "licensekey" => "NULL", "companykey" => $row['company_key']);
                                 $auth_res = call_authentication_service($data);
                                 $_SESSION["LOGIN_TOKEN"] = $auth_res["token"]; 
                             }
